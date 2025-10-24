@@ -1,0 +1,7 @@
+<svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="480" height="320" rx="32" fill="#031023"/>
+  <rect x="64" y="84" width="352" height="180" rx="20" fill="#051C38" stroke="#00FFFF" stroke-width="3"/>
+  <path d="M92 116L240 200L388 116" stroke="#64FFF9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="240" cy="200" r="12" fill="#00FFFF"/>
+  <text x="50%" y="55%" text-anchor="middle" fill="#9EAED1" font-size="28" font-family="'Inter', sans-serif">MailCom</text>
+</svg>
