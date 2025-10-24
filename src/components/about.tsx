@@ -19,6 +19,7 @@ import {
   SiR,
   SiTailwindcss,
   SiTypescript,
+  SiGithub,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
@@ -38,7 +39,7 @@ const skills = [
   { label: "C++", icon: SiCplusplus },
   { label: "C#", icon: SiDotnet },
   { label: "R", icon: SiR },
-  { label: "Python", icon: SiPython },
+  { label: "Github", icon: SiGithub },
 ];
 
 const education = [
