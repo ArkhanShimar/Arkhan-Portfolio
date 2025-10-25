@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
 import { Projects } from "@/components/projects";
+import { Activities } from "@/components/activities";
 import { Contact } from "@/components/contact";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <About />
         <Projects />
+        <Activities />
         <Suspense fallback={null}>
           <Contact />
         </Suspense>

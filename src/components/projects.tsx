@@ -273,18 +273,36 @@ export function Projects() {
               >
                 <div className="relative h-52 overflow-hidden border-b border-white/5 bg-slate-900">
                   {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={`${project.title} screenshot`}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} screenshot`}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        onError={(e) => {
+                          // If image fails to load, show the fallback UI
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const fallback = target.parentElement?.querySelector('.fallback-content');
+                          if (fallback) {
+                            (fallback as HTMLElement).style.display = 'flex';
+                          }
+                        }}
+                      />
+                      <div className="fallback-content hidden absolute inset-0 flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-950">
+                        <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">
+                          Preview Pending
+                        </span>
+                        <span className="text-sm text-slate-400">Visual coming soon</span>
+                      </div>
+                    </div>
                   ) : (
-                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-900 to-slate-950">
-                      <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-cyan-200/80">
-                        Preview Coming Soon
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-950">
+                      <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">
+                        Preview Pending
                       </span>
+                      <span className="text-sm text-slate-400">Visual coming soon</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
