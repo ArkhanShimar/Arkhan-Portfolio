@@ -59,7 +59,7 @@ const education = [
   {
     title: "G.C.E Ordinary Level",
     subtitle: "Baduriya National School, Mawanella",
-    year: "2019",
+    year: "2020",
     description: "Secured 8A and 1C grades highlighting strong academic foundation.",
   },
 ];
