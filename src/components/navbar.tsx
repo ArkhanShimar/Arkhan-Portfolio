@@ -22,6 +22,23 @@ export function Navbar() {
   const [active, setActive] = useState<string>("home");
   const [open, setOpen] = useState(false);
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    setOpen(false);
+    
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 80; // Height of your header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
@@ -81,6 +98,7 @@ export function Navbar() {
               <li key={section.id} className="relative">
                 <Link
                   href={`#${section.id}`}
+                  onClick={(e) => scrollToSection(e, section.id)}
                   className="transition-colors hover:text-cyan-200"
                 >
                   {section.label}
@@ -121,7 +139,7 @@ export function Navbar() {
                     <Link
                       href={`#${section.id}`}
                       className="flex items-center justify-between rounded-xl border border-transparent px-4 py-3 transition hover:border-cyan-400/50 hover:bg-white/5"
-                      onClick={() => setOpen(false)}
+                      onClick={(e) => scrollToSection(e, section.id)}
                     >
                       <span>{section.label}</span>
                       {active === section.id ? (
@@ -132,6 +150,32 @@ export function Navbar() {
                     </Link>
                   </li>
                 ))}
+                <li className="pt-2">
+                  <a
+                    href="/Arkhan_Shimar.pdf"
+                    download
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-center font-medium text-cyan-200 transition-all hover:border-cyan-400/50 hover:bg-cyan-400/20 hover:text-white"
+                    onClick={() => setOpen(false)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="size-4 transition-transform group-hover:translate-y-0.5"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download CV
+                  </a>
+                </li>
               </ul>
             </div>
           </motion.div>
