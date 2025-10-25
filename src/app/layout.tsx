@@ -3,6 +3,7 @@ import { Fira_Code, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { InitialLoader } from "@/components/initial-loader";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <ThemeProvider>
+          <ScrollToTop />
           <InitialLoader>{children}</InitialLoader>
         </ThemeProvider>
       </body>

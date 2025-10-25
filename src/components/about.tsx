@@ -112,6 +112,68 @@ export function About() {
             </div>
           </motion.div>
         </div>
+        
+        {/* Professional Skills Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-cyan-500/10 backdrop-blur"
+        >
+          <div className="space-y-1">
+            <h3 className="text-sm uppercase tracking-[0.3em] text-cyan-300">Professional Skills</h3>
+            <p className="text-sm text-slate-400">Core competencies that drive my development approach</p>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-4">
+              {[
+                { skill: 'Problem Solving', level: 90 },
+                { skill: 'Critical Thinking', level: 88 },
+                { skill: 'Decision Making', level: 85 },
+                { skill: 'Adaptability', level: 90 },
+              ].map((item) => (
+                <div key={item.skill} className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-200">{item.skill}</span>
+                    <span className="text-xs text-cyan-300">{item.level}%</span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                    <div 
+                      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600"
+                      style={{ width: `${item.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="space-y-4">
+              {[
+                { skill: 'Team Collaboration', level: 92 },
+                { skill: 'Time Management', level: 90 },
+                { skill: 'Leadership', level: 85 },
+                { skill: 'Communication', level: 88 },
+              ].map((item) => (
+                <div key={item.skill} className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-200">{item.skill}</span>
+                    <span className="text-xs text-cyan-300">{item.level}%</span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                    <div 
+                      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600"
+                      style={{ width: `${item.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Languages Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

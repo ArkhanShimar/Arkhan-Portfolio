@@ -58,7 +58,7 @@ export const projects: Project[] = [
   description:
     "Java console application implementing OOP concepts to automate pet supply transactions with separate user levels for Cashier and Manager. Supports adding, viewing, and searching supplies, and managing cashier accounts.",
   tech: ["Java", "OOP", "Text File Storage"],
-  github: "https://github.com/ArkhanShimar/ThePawsShop",
+  github: "https://github.com/ArkhanShimar/The-PawShop",
   demo: "",
   image: "/images/thepawshop.png",
   },
