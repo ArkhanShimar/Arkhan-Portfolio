@@ -244,6 +244,110 @@ export function Projects() {
             ) : null}
           </div>
         </div>
+
+        {/* All Projects Grid */}
+        <motion.div 
+          className="mt-32"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="mx-auto max-w-6xl px-6">
+            <SectionHeading
+              eyebrow="Projects"
+              title="All Projects"
+              description="A comprehensive showcase of my development work, from web applications to mobile solutions."
+            />
+          </div>
+          
+          <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-8 px-6 sm:grid-cols-2">
+            {projects.map((project, index) => (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-slate-900/50 to-slate-900/80 shadow-2xl shadow-cyan-500/5 transition-all duration-300 hover:border-cyan-400/20 hover:shadow-cyan-400/10"
+              >
+                <div className="relative h-52 overflow-hidden border-b border-white/5 bg-slate-900">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-900 to-slate-950">
+                      <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-cyan-200/80">
+                        Preview Coming Soon
+                      </span>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                </div>
+                
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="mb-3 text-xl font-semibold text-white">{project.title}</h3>
+                  <p className="mb-4 flex-1 text-sm leading-relaxed text-slate-400">{project.description}</p>
+                  
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    {project.tech.map((tech, i) => (
+                      <span 
+                        key={i} 
+                        className="rounded-full border border-cyan-900/50 bg-cyan-900/30 px-3 py-1 text-xs font-medium tracking-wide text-cyan-300/90"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-auto flex gap-3">
+                    {project.github && (
+                      <Link
+                        href={project.github}
+                        target="_blank"
+                        className="group/btn flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-center text-sm font-medium text-white/90 transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-100 hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.3)]"
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          <svg className="size-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.82-.26.82-.577 0-.285-.011-1.04-.017-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.604-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.604-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.627-5.373-12-12-12z"/>
+                          </svg>
+                          <span>Code</span>
+                        </span>
+                      </Link>
+                    )}
+                    {project.demo ? (
+                      <Link
+                        href={project.demo}
+                        target="_blank"
+                        className="group/btn flex-1 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2.5 text-center text-sm font-medium text-cyan-100 transition-all duration-300 hover:border-cyan-300/60 hover:bg-cyan-400/20 hover:text-white hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.5)]"
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          <span>Live Demo</span>
+                        </span>
+                      </Link>
+                    ) : (
+                      <span className="flex-1 rounded-xl border border-white/5 bg-white/5 px-4 py-2.5 text-center text-sm font-medium text-slate-500">
+                        Demo Coming Soon
+                      </span>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="absolute -inset-8 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.1),transparent_70%)]" />
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

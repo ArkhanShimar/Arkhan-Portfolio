@@ -45,16 +45,16 @@ const skills = [
 const education = [
   {
     title: "BSc (Hons) Software Engineering",
-    subtitle: "Cardiff Metropolitan University / ICBT Kandy Campus",
-    year: "2023 – Present",
+    subtitle: "ICBT Kandy Campus | Awarding University: Cardiff Metropolitan University",
+    year: "2024 – Present",
     description:
       "Reading software engineering with focus on full-stack web and mobile development, collaborative projects, and industry-focused coursework.",
   },
   {
     title: "G.C.E Advanced Level – Physical Science",
     subtitle: "Baduriya National School, Mawanella",
-    year: "2022",
-    description: "Achieved 2S results in the Physical Science stream with emphasis on mathematics and physics.",
+    year: "2023",
+    description: "Achieved good results in the Physical Science stream with emphasis on mathematics and physics.",
   },
   {
     title: "G.C.E Ordinary Level",
