@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/section-heading";
 import { projects } from "@/data/projects";
@@ -12,8 +14,36 @@ const AUTO_ROTATE_MS = 7000;
 
 export function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [swipeOffset, setSwipeOffset] = useState(0);
   const items = useMemo(() => projects.map((project, index) => ({ project, index })), []);
   const total = items.length;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Handle swipe events
+  const handlers = useSwipeable({
+    onSwiping: (eventData) => {
+      // Calculate swipe offset for smooth dragging effect
+      setSwipeOffset(eventData.deltaX * 0.5); // Dampen the effect for better UX
+    },
+    onSwipedLeft: () => {
+      moveNext();
+      setSwipeOffset(0);
+    },
+    onSwipedRight: () => {
+      movePrev();
+      setSwipeOffset(0);
+    },
+    onSwiped: () => {
+      // Reset offset after swipe ends
+      setSwipeOffset(0);
+    },
+    trackMouse: false, // Only track touch events
+    trackTouch: true, // Enable touch tracking
+    preventScrollOnSwipe: true, // Prevent page scroll while swiping
+    delta: 10, // Minimum distance to trigger swipe
+    swipeDuration: 300, // Animation duration for smooth transitions
+    touchEventOptions: { passive: true }, // Better performance
+  });
 
   const moveNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % total);
@@ -30,7 +60,7 @@ export function Projects() {
   }, [moveNext, total]);
 
   return (
-    <section id="projects" className="relative border-t border-white/5 py-20 sm:py-28">
+    <section id="projects" className="relative border-t border-white/5 py-20 sm:py-28 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
       <div className="mx-auto w-full max-w-6xl px-6">
         <SectionHeading
@@ -39,7 +69,24 @@ export function Projects() {
           description="A selection of projects where I delivered end-to-end solutions, from responsive interfaces to reliable backends."
         />
         <div className="mt-16">
-          <div className="relative flex flex-col items-center">
+          <div 
+            className="relative flex flex-col items-center touch-none"
+            ref={(node) => {
+              // Set the ref from react-swipeable
+              const { ref } = handlers;
+              if (typeof ref === 'function') {
+                ref(node);
+              } else if (ref) {
+                (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+              }
+              
+              // Set our container ref
+              (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            }}
+            {...Object.fromEntries(
+              Object.entries(handlers).filter(([key]) => key !== 'ref')
+            )}
+          >
             <div className="relative flex h-[520px] w-full items-center justify-center overflow-visible sm:h-[500px]">
               {items.map(({ project, index }) => {
                 const rawOffset = index - activeIndex;
@@ -50,7 +97,7 @@ export function Projects() {
                 const depth = Math.abs(offset);
                 const isVisible = depth <= STACK_DEPTH;
                 const scale = isVisible ? 1 - depth * 0.12 : 0.94;
-                const translateX = offset * CARD_GAP;
+                const translateX = (offset * CARD_GAP) + (offset === 0 ? swipeOffset : 0);
                 const translateY = depth * 18;
                 const rotateY = offset * -5;
                 const zIndex = total - depth;
@@ -81,12 +128,38 @@ export function Projects() {
                         animate={{ opacity: [0.25, 0.5, 0.25], scale: [1, 1.05, 1] }}
                         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                       />
-                      <div className="relative flex h-full w-full flex-col items-center justify-center gap-3">
-                        <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">
-                          Preview Pending
-                        </span>
-                        <span className="text-sm text-slate-400">Visual coming soon</span>
-                      </div>
+                      {project.image ? (
+                        <div className="relative h-full w-full">
+                          <Image
+                            src={project.image}
+                            alt={`${project.title} screenshot`}
+                            fill
+                            className="object-cover"
+                            onError={(e) => {
+                              // If image fails to load, show the fallback UI
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              const fallback = target.parentElement?.querySelector('.fallback-content');
+                              if (fallback) {
+                                (fallback as HTMLElement).style.display = 'flex';
+                              }
+                            }}
+                          />
+                          <div className="fallback-content hidden absolute inset-0 flex-col items-center justify-center gap-3 bg-slate-900">
+                            <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">
+                              Preview Pending
+                            </span>
+                            <span className="text-sm text-slate-400">Visual coming soon</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative flex h-full w-full flex-col items-center justify-center gap-3">
+                          <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">
+                            Preview Pending
+                          </span>
+                          <span className="text-sm text-slate-400">Visual coming soon</span>
+                        </div>
+                      )}
                     </div>
                     <div className="flex flex-1 flex-col gap-5 p-8">
                       <div className="space-y-2">

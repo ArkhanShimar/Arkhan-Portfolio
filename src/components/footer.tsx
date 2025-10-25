@@ -29,11 +29,11 @@ export function Footer() {
         <Link
           href="#home"
           aria-label="Back to top"
-          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-200 shadow-lg shadow-cyan-500/10 transition hover:translate-y-[-4px] hover:border-cyan-300/60 hover:text-cyan-100"
+          className="group relative inline-flex items-center justify-center sm:justify-start gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-slate-200 shadow-lg shadow-cyan-500/10 transition hover:translate-y-[-4px] hover:border-cyan-300/60 hover:text-cyan-100"
         >
           <span className="absolute inset-0 -z-10 translate-y-full bg-gradient-to-r from-cyan-500/40 via-blue-500/30 to-transparent opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100" />
           <ArrowUp className="size-4 transition group-hover:-translate-y-1 group-hover:rotate-3" />
-          <span className="text-xs font-semibold uppercase tracking-[0.3em]">Top</span>
+          <span className="hidden sm:inline text-xs font-semibold uppercase tracking-[0.3em]">Top</span>
         </Link>
       </div>
     </footer>

@@ -208,11 +208,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
-            className="absolute -bottom-6 left-1/2 flex -translate-x-1/2 gap-4 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-slate-200 shadow-2xl shadow-cyan-500/10 backdrop-blur-lg"
+            className="absolute -bottom-6 left-1/2 flex -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs sm:text-sm font-medium text-slate-200 shadow-2xl shadow-cyan-500/10 backdrop-blur-lg"
           >
             <span className="flex items-center gap-2">
               <span className="inline-block size-2 rounded-full bg-cyan-400" />
-              Available for internships
+              <span className="text-xs sm:text-sm">Available for internships</span>
             </span>
           </motion.div>
         </motion.div>
