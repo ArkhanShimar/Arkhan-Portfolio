@@ -10,7 +10,7 @@ import { projects } from "@/data/projects";
 
 const CARD_GAP = 220;
 const STACK_DEPTH = 3;
-const AUTO_ROTATE_MS = 7000;
+const AUTO_ROTATE_MS = 3000; // Reduced from 7000ms for faster auto-scrolling
 
 export function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
