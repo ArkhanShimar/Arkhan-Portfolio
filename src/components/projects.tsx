@@ -22,27 +22,35 @@ export function Projects() {
   // Handle swipe events
   const handlers = useSwipeable({
     onSwiping: (eventData) => {
-      // Calculate swipe offset for smooth dragging effect
-      setSwipeOffset(eventData.deltaX * 0.5); // Dampen the effect for better UX
+      // Only update offset for horizontal swipes
+      if (Math.abs(eventData.deltaX) > 10 && Math.abs(eventData.deltaX) > Math.abs(eventData.deltaY) * 2) {
+        eventData.event.preventDefault();
+        setSwipeOffset(eventData.deltaX * 0.5);
+      }
     },
-    onSwipedLeft: () => {
-      moveNext();
-      setSwipeOffset(0);
+    onSwipedLeft: (eventData) => {
+      // Only trigger on horizontal swipes with significant movement
+      if (Math.abs(eventData.deltaX) > 50 && Math.abs(eventData.deltaX) > Math.abs(eventData.deltaY) * 2) {
+        moveNext();
+        setSwipeOffset(0);
+      }
     },
-    onSwipedRight: () => {
-      movePrev();
-      setSwipeOffset(0);
+    onSwipedRight: (eventData) => {
+      // Only trigger on horizontal swipes with significant movement
+      if (Math.abs(eventData.deltaX) > 50 && Math.abs(eventData.deltaX) > Math.abs(eventData.deltaY) * 2) {
+        movePrev();
+        setSwipeOffset(0);
+      }
     },
     onSwiped: () => {
-      // Reset offset after swipe ends
       setSwipeOffset(0);
     },
-    trackMouse: false, // Only track touch events
-    trackTouch: true, // Enable touch tracking
-    preventScrollOnSwipe: true, // Prevent page scroll while swiping
+    trackMouse: false,
+    trackTouch: true,
+    preventScrollOnSwipe: false, // Allow scroll on touch devices
     delta: 10, // Minimum distance to trigger swipe
-    swipeDuration: 300, // Animation duration for smooth transitions
-    touchEventOptions: { passive: true }, // Better performance
+    swipeDuration: 300,
+    touchEventOptions: { passive: false } // Need to be able to preventDefault
   });
 
   const moveNext = useCallback(() => {
