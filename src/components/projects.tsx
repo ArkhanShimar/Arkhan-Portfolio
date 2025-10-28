@@ -78,7 +78,11 @@ export function Projects() {
         />
         <div className="mt-16">
           <div 
-            className="relative flex flex-col items-center touch-none"
+            className="relative flex flex-col items-center"
+            style={{
+              touchAction: 'pan-y', // Allow vertical scrolling by default
+              WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
+            }}
             ref={(node) => {
               // Set the ref from react-swipeable
               const { ref } = handlers;
@@ -91,11 +95,49 @@ export function Projects() {
               // Set our container ref
               (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
             }}
+            onTouchStart={(e) => {
+              // Only handle horizontal swipes, let vertical scrolls pass through
+              const touch = e.touches[0];
+              const startX = touch.clientX;
+              const startY = touch.clientY;
+              
+              const handleTouchMove = (moveEvent: TouchEvent) => {
+                const touch = moveEvent.touches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+                
+                // If the movement is more vertical than horizontal, allow scrolling
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                  return;
+                }
+                
+                // If it's a horizontal swipe, prevent default to stop scrolling
+                if (Math.abs(deltaX) > 10) {
+                  moveEvent.preventDefault();
+                }
+              };
+              
+              const handleTouchEnd = () => {
+                document.removeEventListener('touchmove', handleTouchMove);
+                document.removeEventListener('touchend', handleTouchEnd);
+              };
+              
+              document.addEventListener('touchmove', handleTouchMove, { passive: false });
+              document.addEventListener('touchend', handleTouchEnd, { passive: true });
+            }}
             {...Object.fromEntries(
               Object.entries(handlers).filter(([key]) => key !== 'ref')
             )}
           >
-            <div className="relative flex h-[520px] w-full items-center justify-center overflow-visible sm:h-[500px]">
+            <div 
+              className="relative flex h-[520px] w-full items-center justify-center overflow-visible sm:h-[500px]"
+              style={{
+                touchAction: 'pan-y',
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehaviorY: 'contain',
+                scrollSnapType: 'y mandatory'
+              }}
+            >
               {items.map(({ project, index }) => {
                 const rawOffset = index - activeIndex;
                 let offset = rawOffset;
