@@ -82,30 +82,32 @@ export function Activities() {
           description="My journey beyond academics, contributing to community and professional growth"
         />
         
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {activities.map((activity, index) => (
-            <motion.div
-              key={activity.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur transition-all hover:border-cyan-400/30 hover:shadow-2xl hover:shadow-cyan-500/10"
-            >
-              <div className="relative z-10">
-                <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ${activity.color} shadow-lg`}>
-                  {activity.icon}
+        <div className="mt-16">
+          <div className="flex snap-x snap-mandatory gap-8 overflow-x-auto pb-6 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3">
+            {activities.map((activity, index) => (
+              <motion.div
+                key={activity.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="group relative w-[85vw] shrink-0 snap-center overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur transition-all hover:border-cyan-400/30 hover:shadow-2xl hover:shadow-cyan-500/10 md:w-auto"
+              >
+                <div className="relative z-10">
+                  <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ${activity.color} shadow-lg`}>
+                    {activity.icon}
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm font-medium text-cyan-300">{activity.period}</span>
+                    <h3 className="text-xl font-semibold text-white">{activity.title}</h3>
+                    <span className="text-sm font-medium text-cyan-200">{activity.role}</span>
+                  </div>
+                  <p className="mt-4 text-slate-400">{activity.description}</p>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm font-medium text-cyan-300">{activity.period}</span>
-                  <h3 className="text-xl font-semibold text-white">{activity.title}</h3>
-                  <span className="text-sm font-medium text-cyan-200">{activity.role}</span>
-                </div>
-                <p className="mt-4 text-slate-400">{activity.description}</p>
-              </div>
-              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cyan-500/10 transition-all duration-700 group-hover:scale-150" />
-            </motion.div>
-          ))}
+                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cyan-500/10 transition-all duration-700 group-hover:scale-150" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
