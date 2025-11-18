@@ -14,7 +14,7 @@ import { Particles } from "./Particles";
 const roles = [
   "Software Engineering Undergraduate",
   "Full-Stack Web Developer",
-  "Android App Builder",
+  "Tech Enthusiast",
 ];
 
 export function Hero() {
@@ -96,7 +96,7 @@ export function Hero() {
             <span className="animate-pulse">_</span>
           </div>
           <p className="mx-auto max-w-xl text-base text-[var(--muted)] sm:text-lg">
-            {siteConfig.tagline} I enjoy crafting reliable, human-centered software that scales from mobile apps to web platforms.
+            {siteConfig.tagline} I turn concepts into solutions that are clear, and scalable. Specialized in MERN stack for modern applications.
           </p>
           <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
             <Link
@@ -185,15 +185,15 @@ export function Hero() {
               repeatType: "mirror",
               ease: "easeInOut",
             }}
-            className="relative mx-auto h-72 w-72 max-w-full rounded-[36px] border border-cyan-400/40 bg-gradient-to-br from-cyan-500/25 via-transparent to-transparent p-4 shadow-[0_25px_60px_-25px_rgba(34,211,238,0.35)] backdrop-blur sm:h-80 sm:w-80"
+            className="relative mx-auto h-72 w-72 max-w-full rounded-full border border-cyan-400/40 bg-gradient-to-br from-cyan-500/25 via-transparent to-transparent p-2 shadow-[0_25px_60px_-25px_rgba(34,211,238,0.35)] backdrop-blur sm:h-80 sm:w-80"
           >
             <motion.span
               aria-hidden
-              className="absolute -inset-6 rounded-[46px] border border-cyan-400/20"
+              className="absolute -inset-4 rounded-full border-2 border-cyan-400/30"
               animate={{ opacity: [0.25, 0.55, 0.25], rotate: [0, 10, 0] }}
               transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
             />
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[28px] border border-white/10 bg-[#020617]/80">
+            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-white/20 bg-[#020617]/80">
               <Image
                 src="/profile.png"
                 alt="Portrait of Arkhan Shimar"
@@ -201,6 +201,9 @@ export function Hero() {
                 priority
                 sizes="(min-width: 1024px) 20rem, 16rem"
                 className="object-contain"
+                style={{
+                  objectPosition: 'center 10%',
+                }}
               />
             </div>
           </motion.div>

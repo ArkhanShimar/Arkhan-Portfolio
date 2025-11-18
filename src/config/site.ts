@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Arkhan Shimar",
   role: "Software Engineering Undergraduate",
-  tagline: "Building thoughtful digital experiences for the web and Android.",
+  tagline: "Developer focused on building smart, reliable software.",
   location: "Mawanella, Sri Lanka",
   resumeUrl: "/Arkhan_Shimar.pdf",
   email: "arkhansimar1@gmail.com",

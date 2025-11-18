@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { InitialLoader } from "@/components/initial-loader";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { FloatingActionButton } from "@/components/floating-action-button";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,7 +55,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <ThemeProvider>
           <ScrollToTop />
-          <InitialLoader>{children}</InitialLoader>
+          <InitialLoader>
+            {children}
+            <FloatingActionButton />
+          </InitialLoader>
         </ThemeProvider>
       </body>
     </html>
