@@ -23,15 +23,23 @@ function getEnvConfig(): EnvConfig {
   };
 }
 
+class PayloadError extends Error {}
+
 function validatePayload(payload: Payload) {
   if (!payload.name || !payload.email || !payload.message) {
-    throw new Error("Please provide your name, email, and message.");
+    throw new PayloadError("Please provide your name, email, and message.");
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const payload = (await request.json()) as Payload;
+    let payload: Payload;
+    try {
+      payload = (await request.json()) as Payload;
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON payload." }, { status: 400 });
+    }
+
     validatePayload(payload);
 
     const env = getEnvConfig();
@@ -58,15 +66,23 @@ export async function POST(request: Request) {
       },
     });
 
+    const from = env.SMTP_USER;
+    if (!from) {
+      return NextResponse.json(
+        { error: "Contact service is not configured yet. Please try again later." },
+        { status: 503 }
+      );
+    }
+
     await transporter.sendMail({
-      from: env.SMTP_USER,
+      from,
       to: env.CONTACT_INBOX,
       replyTo: payload.email,
       subject: `Portfolio inquiry from ${payload.name}`,
       text: payload.message,
       html: `
         <div style="font-family:Inter,Arial,sans-serif;padding:24px;background:#0f172a;color:#e2e8f0;">
-          <h2 style="color:#00ffff;margin-bottom:16px;">New portfolio inquiry</h2>
+          <h2 style="color:#22c55e;margin-bottom:16px;">New portfolio inquiry</h2>
           <p><strong>Name:</strong> ${payload.name}</p>
           <p><strong>Email:</strong> ${payload.email}</p>
           <p style="white-space:pre-wrap;margin-top:16px;">${payload.message}</p>
@@ -76,8 +92,16 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof PayloadError) {
       return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    if (error instanceof Error) {
+      console.error("Contact API failed to send email", { message: error.message });
+      return NextResponse.json(
+        { error: "Message delivery failed. Please try again later or email directly." },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json(

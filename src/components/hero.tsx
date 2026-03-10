@@ -139,7 +139,7 @@ export function Hero() {
                   </div>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white">arkhan.sh <span className="text-slate-500 font-normal ml-2 text-[10px]">active_now</span></span>
+                      <span className="text-xs font-bold text-white">Arkhan.Shimar <span className="text-slate-500 font-normal ml-2 text-[10px]">active_now</span></span>
                     </div>
                     <div className="p-3 rounded-lg bg-green-500/5 border border-green-500/10 text-[11px] text-slate-300 leading-relaxed">
                       Computer Science undergraduate building full-stack systems and Android apps. 

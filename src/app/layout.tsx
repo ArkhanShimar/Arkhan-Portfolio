@@ -26,6 +26,13 @@ export const metadata: Metadata = {
   title,
   description,
   metadataBase: new URL(url),
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+    ],
+    shortcut: ["/logo.png"],
+    apple: ["/logo.png"],
+  },
   openGraph: {
     title,
     description,
