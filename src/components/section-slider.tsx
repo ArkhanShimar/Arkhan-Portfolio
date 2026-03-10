@@ -46,8 +46,6 @@ export function SectionSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const measureRef = useRef<HTMLDivElement | null>(null);
-  const [contentHeight, setContentHeight] = useState<number>(0);
   const transitionTimeoutRef = useRef<number | null>(null);
   const transitioningRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
@@ -132,21 +130,6 @@ export function SectionSlider() {
   }, [idToIndex, navigateToIndex]);
 
   useEffect(() => {
-    const el = measureRef.current;
-    if (!el) return;
-
-    const update = () => {
-      const next = Math.max(0, el.scrollHeight);
-      setContentHeight(next);
-    };
-
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [active.id]);
-
-  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (transitioningRef.current) return;
       if (event.key === "ArrowDown" || event.key === "PageDown") {
@@ -165,9 +148,9 @@ export function SectionSlider() {
   const edgeArmRef = useRef<{
     downArmed: boolean;
     upArmed: boolean;
-    lastEdge: "top" | "bottom" | null;
-    lastWheelTime: number;
-  }>({ downArmed: false, upArmed: false, lastEdge: null, lastWheelTime: 0 });
+  }>({ downArmed: false, upArmed: false });
+  const wheelIdleRef = useRef(true);
+  const wheelIdleTimerRef = useRef<number | null>(null);
 
   const swipeHandlers = useSwipeable({
     onSwipeStart: () => {
@@ -177,14 +160,8 @@ export function SectionSlider() {
         return;
       }
 
-      const measuredHeight = measureRef.current?.scrollHeight ?? 0;
-      if (measuredHeight <= 0) {
-        swipeEdgeRef.current = null;
-        return;
-      }
-
       const edge = 2;
-      const maxScrollTop = Math.max(0, measuredHeight - el.clientHeight);
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
       const canScroll = maxScrollTop > 2;
       swipeEdgeRef.current = {
         atTop: el.scrollTop <= edge,
@@ -214,6 +191,7 @@ export function SectionSlider() {
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
+    const edgeArm = edgeArmRef.current;
 
     const onWheel = (event: WheelEvent) => {
       if (transitioningRef.current) {
@@ -224,35 +202,36 @@ export function SectionSlider() {
       const delta = event.deltaY;
       if (Math.abs(delta) < 6) return;
 
-      const measuredHeight = measureRef.current?.scrollHeight ?? 0;
-      if (measuredHeight <= 0) return;
+      const wasIdle = wheelIdleRef.current;
+      wheelIdleRef.current = false;
+      if (wheelIdleTimerRef.current) window.clearTimeout(wheelIdleTimerRef.current);
+      wheelIdleTimerRef.current = window.setTimeout(() => {
+        wheelIdleRef.current = true;
+        wheelIdleTimerRef.current = null;
+      }, 220);
 
       const edge = 2;
-      const maxScrollTop = Math.max(0, measuredHeight - el.clientHeight);
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
       const canScroll = maxScrollTop > 2;
       const atTop = el.scrollTop <= edge;
       const atBottom = !canScroll || el.scrollTop >= maxScrollTop - edge;
       const currentIndex = activeIndexRef.current;
       const navDelta = 18;
-      const now = Date.now();
 
       if (!atBottom) edgeArmRef.current.downArmed = false;
       if (!atTop) edgeArmRef.current.upArmed = false;
+      if (delta < 0) edgeArmRef.current.downArmed = false;
+      if (delta > 0) edgeArmRef.current.upArmed = false;
 
       if (delta > navDelta && atBottom) {
         if (!edgeArmRef.current.downArmed) {
           edgeArmRef.current.downArmed = true;
-          edgeArmRef.current.lastEdge = "bottom";
-          edgeArmRef.current.lastWheelTime = now;
           return;
         }
 
-        const gap = now - edgeArmRef.current.lastWheelTime;
-        edgeArmRef.current.lastWheelTime = now;
-        if (edgeArmRef.current.lastEdge !== "bottom" || gap < 220) return;
+        if (!wasIdle) return;
 
         edgeArmRef.current.downArmed = false;
-        edgeArmRef.current.lastEdge = null;
         event.preventDefault();
         navigateToIndex(currentIndex + 1);
         return;
@@ -261,17 +240,12 @@ export function SectionSlider() {
       if (delta < -navDelta && atTop) {
         if (!edgeArmRef.current.upArmed) {
           edgeArmRef.current.upArmed = true;
-          edgeArmRef.current.lastEdge = "top";
-          edgeArmRef.current.lastWheelTime = now;
           return;
         }
 
-        const gap = now - edgeArmRef.current.lastWheelTime;
-        edgeArmRef.current.lastWheelTime = now;
-        if (edgeArmRef.current.lastEdge !== "top" || gap < 220) return;
+        if (!wasIdle) return;
 
         edgeArmRef.current.upArmed = false;
-        edgeArmRef.current.lastEdge = null;
         event.preventDefault();
         navigateToIndex(currentIndex - 1);
         return;
@@ -279,7 +253,16 @@ export function SectionSlider() {
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      if (wheelIdleTimerRef.current) {
+        window.clearTimeout(wheelIdleTimerRef.current);
+        wheelIdleTimerRef.current = null;
+      }
+      wheelIdleRef.current = true;
+      edgeArm.downArmed = false;
+      edgeArm.upArmed = false;
+    };
   }, [navigateToIndex, active.id]);
 
   return (
@@ -292,7 +275,7 @@ export function SectionSlider() {
           data-section-slider-scroll="true"
           className="h-full w-full overflow-y-auto overscroll-contain"
         >
-          <div className="relative w-full" style={{ height: contentHeight > 0 ? contentHeight : "100%" }}>
+          <div className="relative min-h-full">
             <AnimatePresence
               initial={false}
               custom={direction}
@@ -315,12 +298,10 @@ export function SectionSlider() {
                 animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
                 exit={{ opacity: 0.0, filter: "blur(30px)", scale: 1.01, y: -10 }}
                 transition={transition}
-                className="absolute inset-0 will-change-transform"
+                className="relative will-change-transform"
               >
                 <div id={active.id} className="relative">
-                  <div ref={measureRef} className="relative">
-                    {active.element}
-                  </div>
+                  <div className="relative">{active.element}</div>
 
                   {blendId === active.id && (
                     <div className="pointer-events-none absolute inset-0">
