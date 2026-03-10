@@ -96,7 +96,7 @@ export function Projects() {
             href="https://github.com/ArkhanShimar" 
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 glass rounded-full font-mono text-[11px] text-white hover:bg-green-500 hover:text-black transition-all flex items-center gap-3 uppercase tracking-[0.2em] font-bold"
+            className="px-8 py-3 glass rounded-full font-mono text-[11px] text-white hover:!bg-green-500 hover:!text-black hover:!border-green-500/30 transition-all flex items-center gap-3 uppercase tracking-[0.2em] font-bold"
           >
             <Github size={16} />
             Explore_Repositories

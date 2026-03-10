@@ -173,7 +173,7 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="flex-1 py-4 bg-white text-black text-[11px] font-bold font-mono tracking-[0.3em] rounded-xl hover:bg-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+                      className="flex-1 py-4 bg-white/10 border border-white/10 text-white text-[11px] font-bold font-mono tracking-[0.3em] rounded-xl hover:border-green-500/30 hover:bg-green-500/10 hover:text-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
                     >
                       {status === "loading" ? "SENDING..." : "CONTACT_ME"}
                       <Send size={14} />

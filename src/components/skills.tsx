@@ -14,10 +14,13 @@ import {
   SiDocker,
   SiFigma,
   SiPhp,
+  SiCplusplus,
+  SiHtml5,
   SiMysql,
   SiCloudinary,
   SiGit,
 } from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
 import { VscVscode } from "react-icons/vsc";
 import { FaJava } from "react-icons/fa";
 
@@ -28,6 +31,9 @@ const technicalSkills = [
   { name: "Node.js / Express", level: 80, icon: SiNodedotjs, color: "text-green-500" },
   { name: "Java (Android)", level: 85, icon: FaJava, color: "text-green-500" },
   { name: "PHP / .NET", level: 75, icon: SiPhp, color: "text-green-500" },
+  { name: "C#", level: 70, icon: TbBrandCSharp, color: "text-green-500" },
+  { name: "C++", level: 65, icon: SiCplusplus, color: "text-green-500" },
+  { name: "HTML / CSS", level: 90, icon: SiHtml5, color: "text-green-500" },
 ];
 
 const professionalSkills = [
@@ -36,6 +42,7 @@ const professionalSkills = [
   { name: "Communication", value: 85 },
   { name: "Leadership", value: 80 },
   { name: "Time Management", value: 85 },
+  { name: "Adaptability", value: 88 },
 ];
 
 const tools = [
@@ -67,7 +74,7 @@ export function Skills() {
               title="Expertise in modern web."
             />
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               {technicalSkills.map((skill, i) => (
                 <motion.div
                   key={skill.name}
@@ -122,7 +129,7 @@ export function Skills() {
           </div>
 
           {/* Right: Professional Skills */}
-          <div className="space-y-12">
+          <div className="space-y-12 lg:max-w-xl lg:ml-auto">
             <div className="p-10 rounded-3xl glass relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
                 <SiReact size={240} className="text-green-500" />
