@@ -14,7 +14,7 @@ export function GridBackground() {
           y: [0, -20, 0]
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] z-[2] size-[600px] bg-green-500/10 rounded-full blur-[120px]" 
+        className="hidden sm:block absolute top-[-10%] left-[-10%] z-[2] size-[600px] bg-green-500/10 rounded-full blur-[120px]" 
       />
       <motion.div 
         animate={{ 
@@ -24,7 +24,7 @@ export function GridBackground() {
           y: [0, 30, 0]
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[-10%] right-[-10%] z-[1] size-[500px] bg-green-600/5 rounded-full blur-[120px]" 
+        className="hidden sm:block absolute bottom-[-10%] right-[-10%] z-[1] size-[500px] bg-green-600/5 rounded-full blur-[120px]" 
       />
 
       {/* Primary Grid */}

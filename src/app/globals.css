@@ -83,8 +83,16 @@ h3 { font-size: 1.75rem; }
 /* Glassmorphism utility - Cursor Style */
 .glass {
   background: rgba(10, 10, 10, 0.4);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 640px) {
+  .glass {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
 }
 
 /* Section Separator */

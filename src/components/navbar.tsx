@@ -99,7 +99,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
   return (
     <header 
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-black/60 backdrop-blur-2xl py-2 shadow-2xl" : "bg-transparent py-4"
+        scrolled ? "bg-black/60 backdrop-blur-md sm:backdrop-blur-2xl py-2 shadow-lg sm:shadow-2xl" : "bg-transparent py-4"
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between px-6">

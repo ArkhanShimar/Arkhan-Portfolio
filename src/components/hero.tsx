@@ -216,7 +216,7 @@ export function Hero() {
             </div>
 
             {/* Decorative background glow for code box */}
-            <div className="absolute -z-10 -bottom-10 -right-10 w-96 h-96 bg-green-500/10 rounded-full blur-[120px]" />
+            <div className="hidden sm:block absolute -z-10 -bottom-10 -right-10 w-96 h-96 bg-green-500/10 rounded-full blur-[120px]" />
           </motion.div>
         </div>
       </div>
@@ -225,7 +225,7 @@ export function Hero() {
       <motion.div 
         animate={{ y: [0, 5, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-slate-600"
+        className="hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2 text-slate-600"
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-green-500/50 to-transparent" />
       </motion.div>

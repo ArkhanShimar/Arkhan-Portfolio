@@ -50,10 +50,20 @@ export function SectionSlider() {
   const transitioningRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
   const [blendId, setBlendId] = useState<string | null>(null);
+  const [enableBlend, setEnableBlend] = useState(false);
 
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
+    const apply = () => setEnableBlend(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   const setHash = useCallback((id: string) => {
     if (typeof window === "undefined") return;
@@ -79,7 +89,7 @@ export function SectionSlider() {
       const nextId = sections[clamped].id;
       setHash(nextId);
       announceActiveSection(nextId);
-      setBlendId(nextId);
+      setBlendId(enableBlend ? nextId : null);
 
       if (transitionTimeoutRef.current) window.clearTimeout(transitionTimeoutRef.current);
       transitionTimeoutRef.current = window.setTimeout(() => {
@@ -88,7 +98,7 @@ export function SectionSlider() {
         transitionTimeoutRef.current = null;
       }, 1250);
     },
-    [announceActiveSection, sections, setHash]
+    [announceActiveSection, enableBlend, sections, setHash]
   );
 
   const navigateToId = useCallback(
@@ -279,7 +289,7 @@ export function SectionSlider() {
             <AnimatePresence
               initial={false}
               custom={direction}
-              mode="popLayout"
+              mode="wait"
               onExitComplete={() => {
                 if (transitionTimeoutRef.current) {
                   window.clearTimeout(transitionTimeoutRef.current);
@@ -294,9 +304,9 @@ export function SectionSlider() {
               <motion.div
                 key={active.id}
                 custom={direction}
-                initial={{ opacity: 0.0, filter: "blur(26px)", scale: 0.985, y: 12 }}
-                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
-                exit={{ opacity: 0.0, filter: "blur(30px)", scale: 1.01, y: -10 }}
+                initial={{ opacity: 0.0, scale: 0.995, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0.0, scale: 1.005, y: -12 }}
                 transition={transition}
                 className="relative will-change-transform"
               >
@@ -304,10 +314,10 @@ export function SectionSlider() {
                   <div className="relative">{active.element}</div>
 
                   {blendId === active.id && (
-                    <div className="pointer-events-none absolute inset-0">
+                    <div className="pointer-events-none absolute inset-0 hidden sm:block">
                     <motion.div
-                      initial={{ x: -160, opacity: 0.0, filter: "blur(18px)" }}
-                      animate={{ x: [-160, 0, 0], opacity: [0.0, 0.85, 0.0], filter: ["blur(18px)", "blur(0px)", "blur(12px)"] }}
+                      initial={{ x: -160, opacity: 0.0 }}
+                      animate={{ x: [-160, 0, 0], opacity: [0.0, 0.85, 0.0] }}
                       transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
                       style={{ clipPath: "inset(0 50% 0 0)" }}
                       className="absolute inset-0"
@@ -316,8 +326,8 @@ export function SectionSlider() {
                     </motion.div>
 
                     <motion.div
-                      initial={{ x: 160, opacity: 0.0, filter: "blur(18px)" }}
-                      animate={{ x: [160, 0, 0], opacity: [0.0, 0.85, 0.0], filter: ["blur(18px)", "blur(0px)", "blur(12px)"] }}
+                      initial={{ x: 160, opacity: 0.0 }}
+                      animate={{ x: [160, 0, 0], opacity: [0.0, 0.85, 0.0] }}
                       transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
                       style={{ clipPath: "inset(0 0 0 50%)" }}
                       className="absolute inset-0"
