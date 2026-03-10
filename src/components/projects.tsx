@@ -8,7 +8,7 @@ import { ExternalLink, Github, Code } from "lucide-react";
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <SectionHeading
           eyebrow="Development"

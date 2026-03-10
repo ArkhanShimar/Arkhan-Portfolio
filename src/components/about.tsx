@@ -46,7 +46,7 @@ const certifications = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-start">

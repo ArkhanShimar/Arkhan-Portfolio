@@ -5,21 +5,37 @@ import { ArrowUp, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function FloatingActionButton() {
-  const [isVisible, setIsVisible] = useState(false);
   const [footerInView, setFooterInView] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    if (typeof window === "undefined") return "home";
+    return window.location.hash.replace("#", "") || "home";
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 400 && !footerInView);
+    const readHash = () => {
+      const hash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "home";
+      return hash || "home";
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const onHashChange = () => setActiveSection(readHash());
+    const onSectionChange = (event: Event) => {
+      const custom = event as CustomEvent<{ id?: string }>;
+      const id = custom.detail?.id;
+      if (id) setActiveSection(id);
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    window.addEventListener("section-slider:navigate", onSectionChange as EventListener);
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("section-slider:navigate", onSectionChange as EventListener);
+    };
   }, [footerInView]);
 
-  useEffect(() => {
-    const footer = document.getElementById("footer");
-    if (!footer) return;
+  const shouldShow = activeSection !== "home" && !footerInView;
 
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setFooterInView(entry.isIntersecting);
@@ -27,18 +43,47 @@ export function FloatingActionButton() {
       { root: null, threshold: 0.15 }
     );
 
-    observer.observe(footer);
-    return () => observer.disconnect();
+    const observeFooters = () => {
+      const footers = Array.from(document.querySelectorAll<HTMLElement>('[data-footer="true"]'));
+      if (!footers.length) return false;
+      footers.forEach((el) => observer.observe(el));
+      return true;
+    };
+
+    if (observeFooters()) {
+      return () => observer.disconnect();
+    }
+
+    const mo = new MutationObserver(() => {
+      if (observeFooters()) mo.disconnect();
+    });
+
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+
+    return () => {
+      mo.disconnect();
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+    if (sliderScroll) {
+      sliderScroll.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    if (window.location.hash !== "#home") {
+      window.location.hash = "#home";
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col gap-4">
       <AnimatePresence>
-        {isVisible && !footerInView && (
+        {shouldShow && (
           <>
             <motion.button
               initial={{ opacity: 0, scale: 0.8, y: 20 }}

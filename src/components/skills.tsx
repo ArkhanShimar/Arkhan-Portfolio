@@ -63,7 +63,7 @@ const databaseSkills = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16">
           

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { Navbar } from "@/components/navbar";
@@ -17,7 +17,7 @@ type SectionDef = {
   element: React.ReactNode;
 };
 
-const transition = { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const };
+const transition = { duration: 0.95, ease: [0.22, 1, 0.36, 1] as const };
 
 const sectionsStatic: SectionDef[] = [
   { id: "home", element: <Hero /> },
@@ -25,27 +25,33 @@ const sectionsStatic: SectionDef[] = [
   { id: "skills", element: <Skills /> },
   { id: "projects", element: <Projects /> },
   { id: "blog", element: <Blog /> },
-  { id: "contact", element: <Contact /> },
-  { id: "footer", element: <Footer /> },
+  {
+    id: "contact",
+    element: (
+      <>
+        <Contact />
+        <Footer />
+      </>
+    ),
+  },
 ];
 
 const idToIndexStatic = new Map<string, number>(sectionsStatic.map((s, i) => [s.id, i]));
+const sectionChangeEventName = "section-slider:navigate";
 
 export function SectionSlider() {
   const sections = useMemo(() => sectionsStatic, []);
   const idToIndex = useMemo(() => idToIndexStatic, []);
 
-  const [activeIndex, setActiveIndex] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    const initial = window.location.hash.replace("#", "");
-    const idx = idToIndexStatic.get(initial);
-    return idx ?? 0;
-  });
+  const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const measureRef = useRef<HTMLDivElement | null>(null);
+  const [contentHeight, setContentHeight] = useState<number>(0);
   const transitionTimeoutRef = useRef<number | null>(null);
   const transitioningRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
+  const [blendId, setBlendId] = useState<string | null>(null);
 
   useEffect(() => {
     activeIndexRef.current = activeIndex;
@@ -58,6 +64,11 @@ export function SectionSlider() {
     window.history.pushState(null, "", next);
   }, []);
 
+  const announceActiveSection = useCallback((id: string) => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new CustomEvent(sectionChangeEventName, { detail: { id } }));
+  }, []);
+
   const navigateToIndex = useCallback(
     (nextIndex: number) => {
       if (transitioningRef.current) return;
@@ -67,15 +78,19 @@ export function SectionSlider() {
       setDirection(clamped > activeIndexRef.current ? 1 : -1);
       transitioningRef.current = true;
       setActiveIndex(clamped);
-      setHash(sections[clamped].id);
+      const nextId = sections[clamped].id;
+      setHash(nextId);
+      announceActiveSection(nextId);
+      setBlendId(nextId);
 
       if (transitionTimeoutRef.current) window.clearTimeout(transitionTimeoutRef.current);
       transitionTimeoutRef.current = window.setTimeout(() => {
         transitioningRef.current = false;
+        setBlendId(null);
         transitionTimeoutRef.current = null;
-      }, 900);
+      }, 1250);
     },
-    [sections, setHash]
+    [announceActiveSection, sections, setHash]
   );
 
   const navigateToId = useCallback(
@@ -86,6 +101,22 @@ export function SectionSlider() {
     },
     [idToIndex, navigateToIndex]
   );
+
+  const active = sections[activeIndex];
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash !== "#home") {
+      window.history.replaceState(null, "", "#home");
+    }
+    announceActiveSection("home");
+  }, [announceActiveSection]);
+
+  useLayoutEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.scrollTop = 0;
+  }, [active.id]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -101,49 +132,19 @@ export function SectionSlider() {
   }, [idToIndex, navigateToIndex]);
 
   useEffect(() => {
-    const onWheel = (event: WheelEvent) => {
-      const el = scrollContainerRef.current;
-      if (!el) return;
-      if (transitioningRef.current) {
-        event.preventDefault();
-        return;
-      }
+    const el = measureRef.current;
+    if (!el) return;
 
-      const delta = event.deltaY;
-      if (Math.abs(delta) < 8) return;
-
-      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
-      const canScroll = maxScrollTop > 2;
-      const atTop = el.scrollTop <= 1;
-      const atBottom = el.scrollTop >= maxScrollTop - 1;
-
-      const currentIndex = activeIndexRef.current;
-
-      if (!canScroll) {
-        event.preventDefault();
-        navigateToIndex(currentIndex + (delta > 0 ? 1 : -1));
-        return;
-      }
-
-      if (delta > 0 && atBottom) {
-        event.preventDefault();
-        navigateToIndex(currentIndex + 1);
-        return;
-      }
-
-      if (delta < 0 && atTop) {
-        event.preventDefault();
-        navigateToIndex(currentIndex - 1);
-        return;
-      }
-
-      event.preventDefault();
-      el.scrollTop = Math.max(0, Math.min(maxScrollTop, el.scrollTop + delta));
+    const update = () => {
+      const next = Math.max(0, el.scrollHeight);
+      setContentHeight(next);
     };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, [navigateToIndex, sections.length]);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [active.id]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -167,8 +168,6 @@ export function SectionSlider() {
     trackMouse: false,
     preventScrollOnSwipe: true,
   });
-
-  const active = sections[activeIndex];
 
   useEffect(() => {
     const el = scrollContainerRef.current;
@@ -211,8 +210,12 @@ export function SectionSlider() {
       <Navbar activeId={active.id} onNavigate={navigateToId} />
 
       <div className="relative h-full w-full" {...swipeHandlers}>
-        <div ref={scrollContainerRef} className="h-full w-full overflow-y-auto overscroll-contain">
-          <div className="relative min-h-full">
+        <div
+          ref={scrollContainerRef}
+          data-section-slider-scroll="true"
+          className="h-full w-full overflow-y-auto overscroll-contain"
+        >
+          <div className="relative w-full" style={{ height: contentHeight > 0 ? contentHeight : "100%" }}>
             <AnimatePresence
               initial={false}
               custom={direction}
@@ -223,6 +226,7 @@ export function SectionSlider() {
                   transitionTimeoutRef.current = null;
                 }
                 transitioningRef.current = false;
+                setBlendId(null);
                 const el = scrollContainerRef.current;
                 if (el) el.scrollTop = 0;
               }}
@@ -230,13 +234,55 @@ export function SectionSlider() {
               <motion.div
                 key={active.id}
                 custom={direction}
-                initial={{ x: direction > 0 ? "35%" : "-35%", opacity: 0.0, filter: "blur(10px)" }}
-                animate={{ x: "0%", opacity: 1, filter: "blur(0px)" }}
-                exit={{ x: direction > 0 ? "-35%" : "35%", opacity: 0.0, filter: "blur(10px)" }}
+                initial={{ opacity: 0.0, filter: "blur(26px)", scale: 0.985, y: 12 }}
+                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
+                exit={{ opacity: 0.0, filter: "blur(30px)", scale: 1.01, y: -10 }}
                 transition={transition}
-                className="absolute inset-0"
+                className="absolute inset-0 will-change-transform"
               >
-                {active.element}
+                <div id={active.id} className="relative">
+                  <div ref={measureRef} className="relative">
+                    {active.element}
+                  </div>
+
+                  {blendId === active.id && (
+                    <div className="pointer-events-none absolute inset-0">
+                    <motion.div
+                      initial={{ x: -160, opacity: 0.0, filter: "blur(18px)" }}
+                      animate={{ x: [-160, 0, 0], opacity: [0.0, 0.85, 0.0], filter: ["blur(18px)", "blur(0px)", "blur(12px)"] }}
+                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ clipPath: "inset(0 50% 0 0)" }}
+                      className="absolute inset-0"
+                    >
+                      {active.element}
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ x: 160, opacity: 0.0, filter: "blur(18px)" }}
+                      animate={{ x: [160, 0, 0], opacity: [0.0, 0.85, 0.0], filter: ["blur(18px)", "blur(0px)", "blur(12px)"] }}
+                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ clipPath: "inset(0 0 0 50%)" }}
+                      className="absolute inset-0"
+                    >
+                      {active.element}
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0.0 }}
+                      animate={{ opacity: [0.0, 0.75, 0.0] }}
+                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-gradient-to-b from-transparent via-green-500/35 to-transparent blur-[1px]"
+                    />
+
+                    <motion.div
+                      initial={{ opacity: 0.0 }}
+                      animate={{ opacity: [0.0, 0.35, 0.0] }}
+                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.08),transparent_55%)]"
+                    />
+                  </div>
+                  )}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

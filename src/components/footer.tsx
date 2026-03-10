@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowUp, Download, Heart, Terminal } from "lucide-react";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 
@@ -6,7 +5,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="footer" className="relative bg-[#000000] border-t border-white/5 py-10">
+    <footer data-footer="true" className="relative bg-[#000000] border-t border-white/5 py-10">
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
@@ -30,13 +29,13 @@ export function Footer() {
               { id: "projects", label: "Projects" },
               { id: "contact", label: "Contact" },
             ].map((item) => (
-              <Link
+              <a
                 key={item.id}
                 href={`#${item.id}`}
                 className="text-[11px] font-mono text-slate-500 uppercase tracking-widest hover:text-green-500 transition-colors"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -87,13 +86,13 @@ export function Footer() {
                 <Heart size={12} className="text-red-500/40 fill-red-500/20" />
                 <span>Next.js</span>
               </div>
-              <Link
+              <a
                 href="#home"
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-[11px] font-mono text-slate-400 uppercase tracking-widest hover:border-green-500/30 hover:text-green-500 transition-all"
               >
                 <ArrowUp size={14} />
                 Top
-              </Link>
+              </a>
             </div>
           </div>
         </div>

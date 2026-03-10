@@ -46,7 +46,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-stretch">
