@@ -132,9 +132,9 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden lg:block scale-90 origin-right"
+            className="relative hidden lg:block scale-100 origin-right"
           >
-            <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-white/10 max-w-lg mx-auto lg:ml-auto">
+            <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-white/10 max-w-xl mx-auto lg:ml-auto">
               {/* Terminal Header */}
               <div className="bg-white/5 px-4 py-3 border-b border-white/10 flex items-center justify-between">
                 <div className="flex gap-1.5">
@@ -142,71 +142,81 @@ export function Hero() {
                   <div className="size-3 rounded-full bg-[#ffbd2e]" />
                   <div className="size-3 rounded-full bg-[#27c93f]" />
                 </div>
-                <div className="text-[10px] font-mono text-slate-500">GitHub Pull Request</div>
-                <div className="size-3" />
+                <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Engineer_Console // v2.1</div>
+                <div className="flex gap-3">
+                  {[
+                    { icon: Github, href: "https://github.com/ArkhanShimar" },
+                    { icon: Linkedin, href: "https://linkedin.com/in/arkhanshimar" },
+                    { icon: Mail, href: `mailto:${siteConfig.email}` }
+                  ].map((social, i) => (
+                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-green-500 transition-colors">
+                      <social.icon size={12} />
+                    </a>
+                  ))}
+                </div>
               </div>
 
               {/* Terminal Body */}
               <div className="p-6 space-y-6 bg-black/40 font-mono">
                 {/* User Comment */}
-                <div className="flex gap-4 items-start">
-                  <div className="relative size-8 rounded-full overflow-hidden border border-white/10">
+                <div className="flex gap-4 items-start border-b border-white/5 pb-6">
+                  <div className="relative size-10 rounded-xl overflow-hidden border border-white/10">
                     <Image src="/profile.png" alt="User" fill className="object-cover grayscale" />
                   </div>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white">arkhanshimar <span className="text-slate-500 font-normal">2m ago</span></span>
+                      <span className="text-xs font-bold text-white">arkhan.sh <span className="text-slate-500 font-normal ml-2 text-[10px]">active_now</span></span>
                     </div>
-                    <div className="p-3 rounded-lg bg-white/5 border border-white/5 text-[11px] text-slate-300">
-                      @engineer review this implementation?
+                    <div className="p-3 rounded-lg bg-green-500/5 border border-green-500/10 text-[11px] text-slate-300 leading-relaxed">
+                      Optimizing the full-stack architecture for my next-gen portfolio. 
+                      <span className="text-green-500 block mt-1">@system run_diagnostics --deep</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Bot Review */}
                 <div className="flex gap-4 items-start">
-                  <div className="size-8 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500">
-                    <Terminal size={16} />
+                  <div className="size-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500">
+                    <Terminal size={20} />
                   </div>
                   <div className="flex-1 space-y-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-white">engineer</span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] bg-white/5 text-slate-500 border border-white/10 uppercase">bot</span>
-                      <span className="text-[10px] text-slate-500">reviewed 1m ago</span>
+                      <span className="text-xs font-bold text-white">system_core</span>
+                      <span className="px-1.5 py-0.5 rounded text-[9px] bg-green-500 text-black font-bold uppercase">verified</span>
                     </div>
 
                     <div className="space-y-2">
-                      <div className="text-[10px] text-slate-500 truncate">src/core/architecture/performance.ts</div>
-                      <div className="rounded-lg overflow-hidden border border-white/5">
-                        <div className="bg-red-500/10 px-3 py-1.5 flex gap-4 text-[10px]">
-                          <span className="text-red-500/50">3292 -</span>
-                          <span className="text-red-400">{"{ legacyMode().init }"}</span>
+                      <div className="text-[10px] text-slate-500 truncate">src/config/stack.json</div>
+                      <div className="rounded-lg overflow-hidden border border-white/5 bg-black/60">
+                        <div className="bg-red-500/5 px-3 py-1.5 flex gap-4 text-[10px]">
+                          <span className="text-red-500/50">01 -</span>
+                          <span className="text-slate-500 line-through">"status": "learning"</span>
                         </div>
-                        <div className="bg-green-500/10 px-3 py-1.5 flex gap-4 text-[10px]">
-                          <span className="text-green-500/50">3293 +</span>
-                          <span className="text-green-400">{"{ modernStackInitialise() }"}</span>
+                        <div className="bg-green-500/5 px-3 py-1.5 flex gap-4 text-[10px]">
+                          <span className="text-green-500/50">02 +</span>
+                          <span className="text-green-400 font-bold">"status": "ready_to_build"</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-bold text-white">
-                        <CheckCircle2 size={14} className="text-green-500" />
-                        Optimization Identified
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                        <p className="text-[8px] text-slate-500 uppercase">Commits</p>
+                        <p className="text-sm font-bold text-white tracking-tight">482+</p>
                       </div>
-                      <p className="text-[10px] text-slate-400 leading-relaxed">
-                        Transitioning to <span className="text-green-500">modernStackInitialise</span> ensures 
-                        sub-100ms hydration and improved LCP metrics.
-                      </p>
+                      <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                        <p className="text-[8px] text-slate-500 uppercase">Uptime</p>
+                        <p className="text-sm font-bold text-green-500 tracking-tight">99.9%</p>
+                      </div>
                     </div>
 
-                    <div className="flex gap-2">
-                      <div className="px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold text-white flex items-center gap-2">
-                        <Rocket size={12} className="text-green-500" />
-                        Apply Fix
+                    <div className="flex gap-2 pt-2">
+                      <div className="px-4 py-2 rounded-lg bg-green-500 text-black text-[10px] font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                        <Rocket size={14} />
+                        DEPLOY_SYSTEM
                       </div>
-                      <div className="px-3 py-1.5 rounded-md border border-white/10 text-[9px] font-bold text-slate-500">
-                        View Details
+                      <div className="px-4 py-2 rounded-lg border border-white/10 text-[10px] font-bold text-slate-400 hover:text-white transition-colors">
+                        VIEW_LOGS
                       </div>
                     </div>
                   </div>
@@ -215,7 +225,7 @@ export function Hero() {
             </div>
 
             {/* Decorative background glow for code box */}
-            <div className="absolute -z-10 -bottom-10 -right-10 w-64 h-64 bg-green-500/5 rounded-full blur-3xl" />
+            <div className="absolute -z-10 -bottom-10 -right-10 w-80 h-80 bg-green-500/10 rounded-full blur-[100px]" />
           </motion.div>
         </div>
 
