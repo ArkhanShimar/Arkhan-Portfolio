@@ -1,11 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle, Send, MapPin, Globe } from "lucide-react";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 import { siteConfig } from "@/config/site";
+import { SectionHeading } from "./section-heading";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -38,166 +38,170 @@ export function Contact() {
 
       form.reset();
       setStatus("success");
-      setMessage("Thanks for reaching out! I will get back to you shortly.");
+      setMessage("Transmission successful. Awaiting connection...");
     } catch (error) {
       setStatus("error");
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : "An unexpected error occurred. Please try again later."
-      );
+      setMessage("Critical failure. System offline.");
     }
   };
 
   return (
-    <section id="contact" className="relative border-t border-white/5 bg-[rgba(3,7,18,0.3)] py-20 sm:py-28">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-6 text-center lg:flex-row lg:text-left">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="flex-1 space-y-6"
-        >
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Contact</p>
-          <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-            Let&apos;s collaborate on something impactful
-          </h2>
-          <p className="text-base text-[var(--muted)] sm:text-lg">
-            Share a bit about your project or the opportunity you have in mind. I&apos;m currently open to full-time internships focused on building user-centric products.
-          </p>
-          <div className="mt-8 space-y-6">
-            <div className="space-y-4">
-              <div className="group flex flex-col items-center gap-4 rounded-xl border border-white/5 bg-white/5 p-4 text-center transition hover:border-cyan-400/30 sm:flex-row sm:text-left">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-300">
-                  <Mail className="size-5" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-200">Email me at</p>
-                  <Link 
-                    href={`mailto:${siteConfig.email}`} 
-                    className="text-cyan-300 transition hover:text-cyan-200"
-                  >
-                    {siteConfig.email}
-                  </Link>
-                </div>
-              </div>
-              
-              <div className="group flex flex-col items-center gap-4 rounded-xl border border-white/5 bg-white/5 p-4 text-center transition hover:border-emerald-400/30 sm:flex-row sm:text-left">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-300">
-                  <MessageCircle className="size-5" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-200">Chat on WhatsApp</p>
-                  <Link 
-                    href={siteConfig.whatsapp} 
-                    target="_blank"
-                    className="text-emerald-300 transition hover:text-emerald-200"
-                  >
-                    {siteConfig.phone}
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <p className="mb-3 text-sm font-medium text-slate-300">Connect with me</p>
-              <div className="flex flex-wrap justify-center gap-3 sm:justify-start">
-                <Link
-                  href={siteConfig.socials.github}
-                  target="_blank"
-                  className="group inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:border-slate-100/50 hover:bg-slate-100/5"
-                >
-                  <SiGithub className="size-5 transition group-hover:scale-110" />
-                </Link>
-                <Link
-                  href={siteConfig.socials.linkedin}
-                  target="_blank"
-                  className="group inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sky-400 transition hover:border-sky-400/50 hover:bg-sky-400/5"
-                >
-                  <SiLinkedin className="size-5 transition group-hover:scale-110" />
-                </Link>
-                <Link
-                  href={siteConfig.socials.instagram}
-                  target="_blank"
-                  className="group inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-pink-400 transition hover:border-pink-400/50 hover:bg-pink-400/5"
-                >
-                  <SiInstagram className="size-5 transition group-hover:scale-110" />
-                </Link>
-                <Link
-                  href={siteConfig.socials.facebook}
-                  target="_blank"
-                  className="group inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-blue-400 transition hover:border-blue-400/50 hover:bg-blue-400/5"
-                >
-                  <SiFacebook className="size-5 transition group-hover:scale-110" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ delay: 0.1, duration: 0.55, ease: "easeOut" }}
-          className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-cyan-500/10 backdrop-blur"
-        >
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="name" className="text-xs uppercase tracking-[0.3em] text-slate-300">
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                required
-                placeholder="Your name"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/30"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="text-xs uppercase tracking-[0.3em] text-slate-300">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/30"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="text-xs uppercase tracking-[0.3em] text-slate-300">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={5}
-                placeholder="Tell me about your project..."
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/30"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-cyan-400/50 bg-cyan-400/10 px-6 py-3 text-sm font-semibold text-cyan-100 transition hover:-translate-y-1 hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-60"
+    <section id="contact" className="py-24 relative overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-stretch">
+            
+            {/* Left Column: Command Center */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col gap-6"
             >
-              {status === "loading" ? "Sending..." : "Send Message"}
-            </button>
-            {status !== "idle" && message ? (
-              <p
-                className={`text-sm ${status === "error" ? "text-red-400" : "text-cyan-200"}`}
-              >
-                {message}
-              </p>
-            ) : null}
-          </form>
-        </motion.div>
+              <div className="p-8 rounded-3xl glass flex flex-col justify-between h-full relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity">
+                  <Globe size={180} className="text-green-500" />
+                </div>
+
+                <div className="space-y-6 relative z-10">
+                  <SectionHeading
+                    eyebrow="Communications"
+                    title="Get in touch."
+                  />
+                  <p className="text-[11px] text-slate-500 font-mono leading-relaxed uppercase tracking-wider">
+                    Establishing secure uplink for project collaboration and technical inquiries.
+                  </p>
+                </div>
+
+                <div className="space-y-4 relative z-10 mt-12">
+                  {[
+                    { icon: Mail, label: "Encrypted Mail", value: siteConfig.email, href: `mailto:${siteConfig.email}`, color: "text-green-500" },
+                    { icon: MessageCircle, label: "WhatsApp", value: siteConfig.phone, href: siteConfig.whatsapp, color: "text-green-500" },
+                    { icon: Globe, label: "HQ Location", value: "Mawanella, Sri Lanka", color: "text-green-500" },
+                  ].map((item, i) => (
+                    <a 
+                      key={i} 
+                      href={item.href || "#"} 
+                      className="group/item flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5"
+                    >
+                      <div className={`size-8 rounded-lg bg-white/5 flex items-center justify-center ${item.color} border border-white/5 group-hover/item:border-white/10 transition-all`}>
+                        <item.icon size={16} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-[8px] font-mono text-slate-600 uppercase tracking-widest">{item.label}</span>
+                        <span className="text-[10px] font-medium text-slate-300 group-hover/item:text-white transition-colors">{item.value}</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="pt-8 border-t border-white/5 mt-8 relative z-10">
+                  <div className="flex gap-3">
+                    {[
+                      { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
+                      { icon: SiLinkedin, link: "https://linkedin.com/in/arkhanshimar" },
+                      { icon: SiFacebook, link: "#" },
+                      { icon: SiInstagram, link: "#" },
+                    ].map((social, i) => (
+                      <a 
+                        key={i} 
+                        href={social.link} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="size-9 rounded-xl glass flex items-center justify-center text-slate-500 hover:text-green-500 transition-all hover:-translate-y-1 hover:border-green-500/30 shadow-sm"
+                      >
+                        <social.icon size={18} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Column: Transmission Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative flex"
+            >
+              <div className="glass p-10 rounded-3xl relative z-10 w-full flex flex-col justify-center">
+                <div className="mb-8 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
+                    <span className="text-[10px] font-mono text-green-500 uppercase tracking-[0.3em] font-semibold">Initialize Transmission</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Contact Me</h3>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Identity_Identifier</p>
+                      <input
+                        name="name"
+                        required
+                        placeholder="NAME // FIRM"
+                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Return_Address</p>
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="USER@DOMAIN.COM"
+                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Payload_Content</p>
+                    <textarea
+                      name="message"
+                      required
+                      rows={6}
+                      placeholder="ENTER MESSAGE DATA..."
+                      className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800 resize-none"
+                    />
+                  </div>
+
+                  <div className="pt-4 flex items-center gap-6">
+                    <button
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="flex-1 py-4 bg-white text-black text-[10px] font-bold font-mono tracking-[0.3em] rounded-xl hover:bg-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+                    >
+                      {status === "loading" ? "SENDING..." : "CONTACT_ME"}
+                      <Send size={14} />
+                    </button>
+                    
+                    <div className="hidden md:flex flex-col gap-1 text-[8px] font-mono text-slate-700 uppercase font-bold">
+                      <span>Protocol: HTTPS/WSS</span>
+                      <span>Security: TLS 1.3</span>
+                    </div>
+                  </div>
+
+                  {message && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-3 rounded-lg text-center text-[9px] font-mono border ${
+                        status === "success" ? "bg-green-500/5 border-green-500/20 text-green-500" : "bg-red-500/5 border-red-500/20 text-red-400"
+                      }`}
+                    >
+                      {message}
+                    </motion.div>
+                  )}
+                </form>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
       </div>
     </section>
   );

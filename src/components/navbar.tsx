@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,14 +12,16 @@ type Section = {
 
 const sections: Section[] = [
   { id: "home", label: "Home" },
-  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
 
 export function Navbar() {
   const [active, setActive] = useState<string>("home");
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ export function Navbar() {
     
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 80; // Height of your header
+      const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -41,8 +42,10 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+      
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
-      let currentSection = sections[0]?.id ?? "home";
+      let currentSection = "home";
 
       for (const section of sections) {
         const element = document.getElementById(section.id);
@@ -54,132 +57,89 @@ export function Navbar() {
 
         if (scrollPosition >= top && scrollPosition < bottom) {
           currentSection = section.id;
-          break;
         }
       }
 
       setActive(currentSection);
     };
 
-    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const close = () => setOpen(false);
-    window.addEventListener("hashchange", close);
-    return () => window.removeEventListener("hashchange", close);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[rgba(3,7,18,0.75)] backdrop-blur supports-[backdrop-filter]:bg-[rgba(3,7,18,0.55)]">
-      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+    <header 
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled ? "bg-black/60 backdrop-blur-2xl py-2 border-b border-white/5 shadow-2xl" : "bg-transparent py-4"
+      }`}
+    >
+      <nav className="container mx-auto flex items-center justify-between px-6">
         <Link
           href="#home"
-          className="relative inline-flex items-center justify-center"
-          aria-label="Back to home"
+          onClick={(e) => scrollToSection(e, "home")}
+          className="flex items-center gap-2 group"
         >
-          <Image
-            src="/logo.png"
-            alt="Arkhan Shimar logo"
-            width={120}
-            height={32}
-            className="h-8 w-auto object-contain"
-            priority
-          />
+          <div className="size-5 rounded bg-green-500 flex items-center justify-center transition-transform group-hover:scale-110">
+            <div className="size-1.5 bg-black rounded-sm rotate-45" />
+          </div>
+          <span className="text-base font-bold tracking-tighter text-white">
+            ARKHAN<span className="text-green-500">.</span>SH
+          </span>
         </Link>
-        <div className="flex items-center gap-3 md:gap-6">
-          <ul className="hidden items-center gap-6 text-sm font-medium text-slate-300 md:flex">
-            {sections.map((section) => (
-              <li key={section.id} className="relative">
-                <Link
-                  href={`#${section.id}`}
-                  onClick={(e) => scrollToSection(e, section.id)}
-                  className="transition-colors hover:text-cyan-200"
-                >
-                  {section.label}
-                </Link>
-                {active === section.id ? (
-                  <motion.span
-                    className="absolute -bottom-2 left-0 h-0.5 w-full rounded-full bg-cyan-400"
-                    layoutId="active-link"
-                    transition={{ type: "spring", stiffness: 280, damping: 24 }}
-                  />
-                ) : null}
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition-colors hover:border-cyan-300/60 hover:text-cyan-200 md:hidden"
-            onClick={() => setOpen((prev) => !prev)}
-            aria-label="Toggle navigation"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+
+        {/* Desktop Nav - Refined Cursor Style */}
+        <div className="hidden md:flex items-center gap-1 p-1 rounded-full glass border-white/10 bg-white/[0.02]">
+          {sections.map((section) => (
+            <Link
+              key={section.id}
+              href={`#${section.id}`}
+              onClick={(e) => scrollToSection(e, section.id)}
+              className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all rounded-full ${
+                active === section.id 
+                  ? "bg-green-500 text-black shadow-[0_0_15px_rgba(34,197,94,0.3)]" 
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              {section.label}
+            </Link>
+          ))}
         </div>
+
+        {/* Mobile Toggle */}
+        <button 
+          className="md:hidden text-white p-2"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </nav>
+
+      {/* Mobile Nav */}
       <AnimatePresence>
-        {open ? (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden"
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden glass border-b border-white/10 overflow-hidden mt-2 mx-4 rounded-2xl"
           >
-            <div className="mx-4 mb-4 rounded-2xl border border-white/10 bg-slate-950/90 p-4 backdrop-blur">
-              <ul className="space-y-4 text-sm font-medium text-slate-200">
-                {sections.map((section) => (
-                  <li key={section.id}>
-                    <Link
-                      href={`#${section.id}`}
-                      className="flex items-center justify-between rounded-xl border border-transparent px-4 py-3 transition hover:border-cyan-400/50 hover:bg-white/5"
-                      onClick={(e) => scrollToSection(e, section.id)}
-                    >
-                      <span>{section.label}</span>
-                      {active === section.id ? (
-                        <span className="text-xs uppercase tracking-[0.2em] text-cyan-300">
-                          Active
-                        </span>
-                      ) : null}
-                    </Link>
-                  </li>
-                ))}
-                <li className="pt-2">
-                  <a
-                    href="/Arkhan_Shimar.pdf"
-                    download
-                    className="group flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-center font-medium text-cyan-200 transition-all hover:border-cyan-400/50 hover:bg-cyan-400/20 hover:text-white"
-                    onClick={() => setOpen(false)}
+            <ul className="flex flex-col p-6 space-y-4">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <Link
+                    href={`#${section.id}`}
+                    onClick={(e) => scrollToSection(e, section.id)}
+                    className={`text-sm font-medium ${
+                      active === section.id ? "text-green-500" : "text-slate-400"
+                    }`}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="size-4 transition-transform group-hover:translate-y-0.5"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Download CV
-                  </a>
+                    {section.label}
+                  </Link>
                 </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
     </header>
   );

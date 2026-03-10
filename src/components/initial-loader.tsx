@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { Terminal } from "lucide-react";
 
 export function InitialLoader({
   children,
@@ -10,19 +10,31 @@ export function InitialLoader({
   children: React.ReactNode;
 }) {
   const [isReady, setIsReady] = useState(false);
+  const [loadingText, setLoadingText] = useState("Initializing system...");
 
   useEffect(() => {
-    const handleReady = () => setIsReady(true);
+    const texts = [
+      "Initializing system...",
+      "Loading kernel modules...",
+      "Establishing secure connection...",
+      "Mounting assets...",
+      "Compiling shaders...",
+      "READY"
+    ];
+    
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < texts.length - 1) {
+        setLoadingText(texts[i]);
+        i++;
+      } else {
+        setLoadingText(texts[texts.length - 1]);
+        clearInterval(interval);
+        setTimeout(() => setIsReady(true), 500);
+      }
+    }, 400);
 
-    if (document.readyState === "complete") {
-      handleReady();
-      return;
-    }
-
-    window.addEventListener("load", handleReady);
-    return () => {
-      window.removeEventListener("load", handleReady);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -31,38 +43,49 @@ export function InitialLoader({
         {!isReady ? (
           <motion.div
             key="initial-loader"
-            className="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-6 bg-[#030712]"
+            className="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-6 bg-[#000000]"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative"
             >
-              <Image
-                src="/logo.png"
-                alt="Arkhan Shimar logo"
-                width={140}
-                height={140}
-                className="h-20 w-auto object-contain"
-                priority
+              <div className="size-16 rounded-lg bg-green-500 flex items-center justify-center text-black shadow-[0_0_30px_rgba(34,197,94,0.3)]">
+                <Terminal size={32} />
+              </div>
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-4 border border-green-500/20 rounded-full border-t-green-500"
               />
             </motion.div>
-            <motion.div className="h-1 w-28 overflow-hidden rounded-full bg-white/10">
-              <motion.span
-                className="block h-full w-full bg-cyan-400"
-                initial={{ x: "-100%" }}
-                animate={{ x: "100%" }}
-                transition={{ repeat: Infinity, repeatType: "loop", duration: 1.4, ease: "easeInOut" }}
-              />
-            </motion.div>
+            
+            <div className="space-y-2 text-center">
+              <motion.p 
+                key={loadingText}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs font-mono text-green-500 tracking-[0.2em] uppercase"
+              >
+                {loadingText}
+              </motion.p>
+              <div className="h-0.5 w-48 bg-white/5 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-green-500"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                />
+              </div>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
       <div
-        className={`min-h-screen transition-opacity duration-500 ${
+        className={`min-h-screen transition-opacity duration-700 ${
           isReady ? "opacity-100" : "opacity-0"
         }`}
       >

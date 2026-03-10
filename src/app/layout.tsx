@@ -3,7 +3,6 @@ import { Fira_Code, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { InitialLoader } from "@/components/initial-loader";
-import { ScrollToTop } from "@/components/scroll-to-top";
 import { FloatingActionButton } from "@/components/floating-action-button";
 
 const inter = Inter({
@@ -54,7 +53,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <ThemeProvider>
-          <ScrollToTop />
           <InitialLoader>
             {children}
             <FloatingActionButton />

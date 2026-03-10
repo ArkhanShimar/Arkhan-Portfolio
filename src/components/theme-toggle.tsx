@@ -28,7 +28,7 @@ export function ThemeToggle({ size = "md" }: { size?: ToggleSize }) {
       type="button"
       aria-label="Toggle theme"
       whileTap={{ scale: 0.95 }}
-      className={`inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-cyan-300 shadow-sm backdrop-blur transition-colors hover:border-cyan-400/50 hover:text-cyan-200 dark:border-white/10 dark:bg-black/40 ${sizeMap[size]}`}
+      className={`inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-green-500 shadow-sm backdrop-blur transition-colors hover:border-green-500/50 hover:text-green-400 dark:border-white/10 dark:bg-black/40 ${sizeMap[size]}`}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       {mounted ? (
