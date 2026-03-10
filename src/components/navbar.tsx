@@ -19,15 +19,26 @@ const sections: Section[] = [
   { id: "contact", label: "Contact" },
 ];
 
-export function Navbar() {
-  const [active, setActive] = useState<string>("home");
+type NavbarProps = {
+  activeId?: string;
+  onNavigate?: (id: string) => void;
+};
+
+export function Navbar({ activeId, onNavigate }: NavbarProps) {
+  const [activeInternal, setActiveInternal] = useState<string>("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const active = activeId ?? activeInternal;
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     setOpen(false);
-    
+
+    if (onNavigate) {
+      onNavigate(id);
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 80;
@@ -36,12 +47,14 @@ export function Navbar() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
 
   useEffect(() => {
+    if (onNavigate) return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
       
@@ -61,12 +74,12 @@ export function Navbar() {
         }
       }
 
-      setActive(currentSection);
+      setActiveInternal(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [onNavigate]);
 
   return (
     <header 
