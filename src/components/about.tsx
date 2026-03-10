@@ -91,7 +91,7 @@ export function About() {
 
                 <SectionHeading eyebrow="Introduction" title="Mission-driven Engineering." />
 
-                <div className="space-y-6 text-slate-400 font-sans text-base leading-relaxed max-w-xl">
+                <div className="space-y-6 text-slate-400 font-sans text-base leading-relaxed max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
                   <p>
                     Software Engineering undergraduate with practical experience in web, backend, and Android application development.
                     Specializing in building high-performance systems with a clean, minimalist aesthetic.

@@ -102,9 +102,9 @@ export function Skills() {
             </div>
 
             {/* Databases list */}
-            <div className="pt-2">
+            <div className="pt-2 text-center lg:text-left">
               <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4 font-semibold">Databases & Storage</p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 {databaseSkills.map((db, i) => (
                   <div key={i} className="flex items-center gap-2 text-slate-400 hover:text-green-500 transition-colors cursor-default">
                     <db.icon size={16} />
@@ -115,9 +115,9 @@ export function Skills() {
             </div>
 
             {/* Tools list */}
-            <div className="pt-2">
+            <div className="pt-2 text-center lg:text-left">
               <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4 font-semibold">Workflow Tools</p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 {tools.map((tool, i) => (
                   <div key={i} className="flex items-center gap-2 text-slate-400 hover:text-green-500 transition-colors cursor-default">
                     <tool.icon size={16} />

@@ -56,7 +56,7 @@ export function Contact() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col gap-6"
+              className="flex flex-col gap-6 items-center text-center lg:items-stretch lg:text-left"
             >
               <div className="p-8 rounded-3xl glass flex flex-col justify-between h-full relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity">
@@ -68,7 +68,7 @@ export function Contact() {
                     eyebrow="Communications"
                     title="Get in touch."
                   />
-                  <p className="text-xs text-slate-500 font-mono leading-relaxed uppercase tracking-wider">
+                  <p className="text-xs text-slate-500 font-mono leading-relaxed uppercase tracking-wider text-center lg:text-left">
                     Establishing secure uplink for project collaboration and technical inquiries.
                   </p>
                 </div>
@@ -82,21 +82,21 @@ export function Contact() {
                     <a 
                       key={i} 
                       href={item.href || "#"} 
-                      className="group/item flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5"
+                      className="group/item flex items-center justify-center lg:justify-start gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5"
                     >
                       <div className={`size-8 rounded-lg bg-white/5 flex items-center justify-center ${item.color} border border-white/5 group-hover/item:border-white/10 transition-all`}>
                         <item.icon size={18} />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                         <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">{item.label}</span>
-                        <span className="text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors">{item.value}</span>
+                        <span className="text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors break-words">{item.value}</span>
                       </div>
                     </a>
                   ))}
                 </div>
 
                 <div className="pt-8 border-t border-white/5 mt-8 relative z-10">
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 justify-center lg:justify-start">
                     {[
                       { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
                       { icon: SiLinkedin, link: "https://linkedin.com/in/arkhanshimar" },
@@ -126,8 +126,8 @@ export function Contact() {
               className="relative flex"
             >
               <div className="glass p-10 rounded-3xl relative z-10 w-full flex flex-col justify-center">
-                <div className="mb-8 space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="mb-8 space-y-2 text-center lg:text-left">
+                  <div className="flex items-center gap-2 justify-center lg:justify-start">
                     <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
                     <span className="text-[11px] font-mono text-green-500 uppercase tracking-[0.3em] font-semibold">Initialize Transmission</span>
                   </div>
