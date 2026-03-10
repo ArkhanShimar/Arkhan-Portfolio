@@ -38,7 +38,7 @@ export function Blog() {
           description="Sharing experiences and thoughts on software engineering."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-16">
           {articles.map((article, idx) => (
             <motion.div
               key={article.title}
@@ -46,7 +46,7 @@ export function Blog() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="group p-6 glass rounded-2xl hover:border-green-500/20 transition-all"
+              className="group p-4 sm:p-5 glass rounded-2xl hover:border-green-500/20 transition-all"
             >
               <div className="flex gap-2 mb-4">
                 {article.tags.map(tag => (
@@ -56,11 +56,11 @@ export function Blog() {
                 ))}
               </div>
 
-              <h3 className="text-base font-bold text-white mb-3 group-hover:text-green-500 transition-colors">
+              <h3 className="text-sm sm:text-base font-bold text-white mb-3 group-hover:text-green-500 transition-colors">
                 {article.title}
               </h3>
               
-              <p className="text-[12px] text-slate-400 mb-6 line-clamp-2 font-sans leading-relaxed">
+              <p className="text-[12px] text-slate-400 mb-5 line-clamp-2 font-sans leading-relaxed">
                 {article.description}
               </p>
 

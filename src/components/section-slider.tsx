@@ -162,6 +162,12 @@ export function SectionSlider() {
   }, [navigateToIndex]);
 
   const swipeEdgeRef = useRef<{ atTop: boolean; atBottom: boolean } | null>(null);
+  const edgeArmRef = useRef<{
+    downArmed: boolean;
+    upArmed: boolean;
+    lastEdge: "top" | "bottom" | null;
+    lastWheelTime: number;
+  }>({ downArmed: false, upArmed: false, lastEdge: null, lastWheelTime: 0 });
 
   const swipeHandlers = useSwipeable({
     onSwipeStart: () => {
@@ -171,11 +177,18 @@ export function SectionSlider() {
         return;
       }
 
-      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
+      const measuredHeight = measureRef.current?.scrollHeight ?? 0;
+      if (measuredHeight <= 0) {
+        swipeEdgeRef.current = null;
+        return;
+      }
+
+      const edge = 2;
+      const maxScrollTop = Math.max(0, measuredHeight - el.clientHeight);
       const canScroll = maxScrollTop > 2;
       swipeEdgeRef.current = {
-        atTop: el.scrollTop <= 1,
-        atBottom: !canScroll || el.scrollTop >= maxScrollTop - 1,
+        atTop: el.scrollTop <= edge,
+        atBottom: !canScroll || el.scrollTop >= maxScrollTop - edge,
       };
     },
     onSwipedUp: () => {
@@ -211,19 +224,54 @@ export function SectionSlider() {
       const delta = event.deltaY;
       if (Math.abs(delta) < 6) return;
 
-      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
-      const canScroll = maxScrollTop > 2;
-      const atTop = el.scrollTop <= 1;
-      const atBottom = !canScroll || el.scrollTop >= maxScrollTop - 1;
-      const currentIndex = activeIndexRef.current;
+      const measuredHeight = measureRef.current?.scrollHeight ?? 0;
+      if (measuredHeight <= 0) return;
 
-      if (delta > 0 && atBottom) {
+      const edge = 2;
+      const maxScrollTop = Math.max(0, measuredHeight - el.clientHeight);
+      const canScroll = maxScrollTop > 2;
+      const atTop = el.scrollTop <= edge;
+      const atBottom = !canScroll || el.scrollTop >= maxScrollTop - edge;
+      const currentIndex = activeIndexRef.current;
+      const navDelta = 18;
+      const now = Date.now();
+
+      if (!atBottom) edgeArmRef.current.downArmed = false;
+      if (!atTop) edgeArmRef.current.upArmed = false;
+
+      if (delta > navDelta && atBottom) {
+        if (!edgeArmRef.current.downArmed) {
+          edgeArmRef.current.downArmed = true;
+          edgeArmRef.current.lastEdge = "bottom";
+          edgeArmRef.current.lastWheelTime = now;
+          return;
+        }
+
+        const gap = now - edgeArmRef.current.lastWheelTime;
+        edgeArmRef.current.lastWheelTime = now;
+        if (edgeArmRef.current.lastEdge !== "bottom" || gap < 220) return;
+
+        edgeArmRef.current.downArmed = false;
+        edgeArmRef.current.lastEdge = null;
         event.preventDefault();
         navigateToIndex(currentIndex + 1);
         return;
       }
 
-      if (delta < 0 && atTop) {
+      if (delta < -navDelta && atTop) {
+        if (!edgeArmRef.current.upArmed) {
+          edgeArmRef.current.upArmed = true;
+          edgeArmRef.current.lastEdge = "top";
+          edgeArmRef.current.lastWheelTime = now;
+          return;
+        }
+
+        const gap = now - edgeArmRef.current.lastWheelTime;
+        edgeArmRef.current.lastWheelTime = now;
+        if (edgeArmRef.current.lastEdge !== "top" || gap < 220) return;
+
+        edgeArmRef.current.upArmed = false;
+        edgeArmRef.current.lastEdge = null;
         event.preventDefault();
         navigateToIndex(currentIndex - 1);
         return;

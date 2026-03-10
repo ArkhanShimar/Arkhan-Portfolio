@@ -16,7 +16,7 @@ export function Projects() {
           description="A selection of high-performance applications built with modern frameworks."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-16">
           {projects.map((project, idx) => (
             <motion.div
               key={project.title}
@@ -27,7 +27,7 @@ export function Projects() {
               className="group relative glass rounded-2xl overflow-hidden flex flex-col hover:border-green-500/20 transition-all duration-500"
             >
               {/* Image Container */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-36 sm:h-40 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -47,9 +47,9 @@ export function Projects() {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex flex-col flex-grow space-y-4">
+              <div className="p-4 sm:p-5 flex flex-col flex-grow space-y-3">
                 <div className="flex justify-between items-start">
-                  <h3 className="text-base font-bold text-white group-hover:text-green-500 transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-green-500 transition-colors">
                     {project.title}
                   </h3>
                   <div className="flex gap-3">
