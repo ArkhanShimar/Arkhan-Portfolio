@@ -84,7 +84,7 @@ export function Navbar() {
             <div className="size-1.5 bg-black rounded-sm rotate-45" />
           </div>
           <span className="text-base font-bold tracking-tighter text-white">
-            ARKHAN<span className="text-green-500">.</span>SH
+            ARKHAN<span className="text-green-500"> . </span>SHIMAR
           </span>
         </Link>
 

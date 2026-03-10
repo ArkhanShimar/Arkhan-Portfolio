@@ -15,7 +15,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-base font-mono font-bold tracking-tighter text-white">
-                ARKHAN<span className="text-green-500">.</span>SH
+                ARKHAN<span className="text-green-500">.</span>SHIMAR
               </span>
               <span className="text-[11px] font-mono text-slate-500 uppercase tracking-widest">
                 Engineered for excellence
