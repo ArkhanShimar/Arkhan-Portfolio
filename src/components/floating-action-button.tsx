@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowUp, MessageCircle, Download, Terminal, X } from "lucide-react";
+import { ArrowUp, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 export function FloatingActionButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +37,7 @@ export function FloatingActionButton() {
             </motion.button>
 
             <motion.a
-              href="/Arkhan_Shimar_CV.pdf"
+              href="/Arkhan_Shimar.pdf"
               download
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

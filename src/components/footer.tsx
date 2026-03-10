@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowUp, Terminal, Heart } from "lucide-react";
-import { siteConfig } from "@/config/site";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 
 export function Footer() {

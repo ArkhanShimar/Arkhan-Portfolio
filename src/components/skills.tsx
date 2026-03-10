@@ -6,7 +6,6 @@ import {
   SiNextdotjs,
   SiReact,
   SiTypescript,
-  SiTailwindcss,
   SiNodedotjs,
   SiMongodb,
   SiFirebase,
@@ -15,14 +14,9 @@ import {
   SiDocker,
   SiFigma,
   SiPhp,
-  SiCplusplus,
-  SiCsharp,
-  SiJavascript,
-  SiExpress,
   SiMysql,
   SiCloudinary,
   SiGit,
-  SiVisualstudio,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { FaJava } from "react-icons/fa";

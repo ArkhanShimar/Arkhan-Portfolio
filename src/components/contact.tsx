@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, Send, MapPin, Globe } from "lucide-react";
+import { Mail, MessageCircle, Send, Globe } from "lucide-react";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 import { siteConfig } from "@/config/site";
 import { SectionHeading } from "./section-heading";
@@ -39,7 +39,7 @@ export function Contact() {
       form.reset();
       setStatus("success");
       setMessage("Transmission successful. Awaiting connection...");
-    } catch (error) {
+    } catch {
       setStatus("error");
       setMessage("Critical failure. System offline.");
     }

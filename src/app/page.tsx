@@ -19,6 +19,8 @@ export default function Home() {
       <main className="flex flex-col">
         <Hero />
         <div className="separator opacity-50" />
+        <About />
+        <div className="separator opacity-50" />
         <Skills />
         <div className="separator opacity-50" />
         <Projects />
