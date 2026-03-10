@@ -9,7 +9,7 @@ export const siteConfig = {
   whatsapp: "https://wa.me/94761006149?text=Hi%20Arkhan%2C%20I%27d%20love%20to%20connect!",
   socials: {
     github: "https://github.com/ArkhanShimar",
-    linkedin: "https://www.linkedin.com/in/arkhan-shimar",
+    linkedin: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/",
     email: "mailto:arkhansimar1@gmail.com",
     instagram: "https://www.instagram.com/arkhvn__/",
     facebook: "https://www.facebook.com/arkhan.smr.9/"
