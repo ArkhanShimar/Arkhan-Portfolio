@@ -33,33 +33,41 @@ export function FloatingActionButton() {
   const shouldShow = activeSection !== "home" && !footerInView;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setFooterInView(entry.isIntersecting);
-      },
-      { root: null, threshold: 0.15 }
-    );
+    const getRoot = () => document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]') ?? null;
 
-    const observeFooters = () => {
+    let observer: IntersectionObserver | null = null;
+
+    const tryAttach = () => {
+      const root = getRoot();
       const footers = Array.from(document.querySelectorAll<HTMLElement>('[data-footer="true"]'));
       if (!footers.length) return false;
-      footers.forEach((el) => observer.observe(el));
+
+      if (!observer) {
+        observer = new IntersectionObserver(
+          ([entry]) => {
+            setFooterInView(entry.isIntersecting);
+          },
+          { root, threshold: 0.1 }
+        );
+      }
+
+      footers.forEach((el) => observer?.observe(el));
       return true;
     };
 
-    if (observeFooters()) {
-      return () => observer.disconnect();
+    if (tryAttach()) {
+      return () => observer?.disconnect();
     }
 
     const mo = new MutationObserver(() => {
-      if (observeFooters()) mo.disconnect();
+      if (tryAttach()) mo.disconnect();
     });
 
     mo.observe(document.documentElement, { childList: true, subtree: true });
 
     return () => {
       mo.disconnect();
-      observer.disconnect();
+      observer?.disconnect();
     };
   }, []);
 

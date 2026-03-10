@@ -161,12 +161,41 @@ export function SectionSlider() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [navigateToIndex]);
 
+  const swipeEdgeRef = useRef<{ atTop: boolean; atBottom: boolean } | null>(null);
+
   const swipeHandlers = useSwipeable({
-    onSwipedUp: () => navigateToIndex(activeIndexRef.current + 1),
-    onSwipedDown: () => navigateToIndex(activeIndexRef.current - 1),
+    onSwipeStart: () => {
+      const el = scrollContainerRef.current;
+      if (!el) {
+        swipeEdgeRef.current = null;
+        return;
+      }
+
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
+      const canScroll = maxScrollTop > 2;
+      swipeEdgeRef.current = {
+        atTop: el.scrollTop <= 1,
+        atBottom: !canScroll || el.scrollTop >= maxScrollTop - 1,
+      };
+    },
+    onSwipedUp: () => {
+      const edge = swipeEdgeRef.current;
+      swipeEdgeRef.current = null;
+      if (transitioningRef.current) return;
+      if (!edge?.atBottom) return;
+      navigateToIndex(activeIndexRef.current + 1);
+    },
+    onSwipedDown: () => {
+      const edge = swipeEdgeRef.current;
+      swipeEdgeRef.current = null;
+      if (transitioningRef.current) return;
+      if (!edge?.atTop) return;
+      navigateToIndex(activeIndexRef.current - 1);
+    },
     trackTouch: true,
     trackMouse: false,
-    preventScrollOnSwipe: true,
+    preventScrollOnSwipe: false,
+    delta: 60,
   });
 
   useEffect(() => {
