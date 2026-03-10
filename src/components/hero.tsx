@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import { GridBackground } from "./GridBackground";
-import { ArrowRight, Github, Linkedin, Mail, Download, Terminal, Rocket } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Download, Terminal } from "lucide-react";
 import Image from "next/image";
 
 const roles = [
@@ -27,7 +27,7 @@ export function Hero() {
             alt="Background Portrait"
             fill
             priority
-            className="object-contain object-center grayscale brightness-110 contrast-125 scale-125"
+            className="object-contain object-center grayscale brightness-85 contrast-110 scale-95 -translate-x-16"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
         </div>
@@ -106,9 +106,9 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden lg:block scale-105 origin-right"
+            className="relative hidden lg:block scale-100 origin-right"
           >
-            <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-white/10 max-w-2xl mx-auto lg:ml-auto">
+            <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-white/10 max-w-xl mx-auto lg:ml-auto">
               {/* Terminal Header */}
               <div className="bg-white/5 px-4 py-3 border-b border-white/10 flex items-center justify-between">
                 <div className="flex gap-1.5">
@@ -142,7 +142,7 @@ export function Hero() {
                       <span className="text-xs font-bold text-white">arkhan.sh <span className="text-slate-500 font-normal ml-2 text-[10px]">active_now</span></span>
                     </div>
                     <div className="p-3 rounded-lg bg-green-500/5 border border-green-500/10 text-[11px] text-slate-300 leading-relaxed">
-                      Deploying the final build of my full-stack ecosystem. 
+                      Computer Science undergraduate building full-stack systems and Android apps. 
                       <span className="text-green-500 block mt-1 font-bold">@arkhan push_to_production --stable</span>
                     </div>
                   </div>
@@ -180,7 +180,7 @@ export function Hero() {
                       </div>
                       <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
                         <p className="text-[8px] text-slate-500 uppercase">Stack</p>
-                        <p className="text-xs font-bold text-green-500 tracking-tight">NEXT.JS</p>
+                        <p className="text-xs font-bold text-green-500 tracking-tight">MERN</p>
                       </div>
                       <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
                         <p className="text-[8px] text-slate-500 uppercase">Uptime</p>
@@ -188,14 +188,13 @@ export function Hero() {
                       </div>
                     </div>
 
-                    <div className="flex gap-2 pt-2">
-                      <div className="px-4 py-2 rounded-lg bg-green-500 text-black text-[10px] font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:bg-green-400 transition-all cursor-pointer">
-                        <Rocket size={14} />
-                        EXECUTE_DEPLOY
-                      </div>
-                      <div className="px-4 py-2 rounded-lg border border-white/10 text-[10px] font-bold text-slate-400 hover:text-white transition-colors cursor-pointer">
-                        SYSTEM_STATS
-                      </div>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      <span className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-bold text-green-500 uppercase tracking-widest">
+                        Seeking Internship
+                      </span>
+                      <span className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        Open to Collaborate
+                      </span>
                     </div>
                   </div>
                 </div>
