@@ -44,11 +44,18 @@ const skills = [
 
 const education = [
   {
-    title: "BSc (Hons) Software Engineering",
-    subtitle: "ICBT Kandy Campus | Awarding University: Cardiff Metropolitan University",
-    year: "2024 – Present",
+    title: "BSc (Hons) Computer Science (Software Engineering)",
+    subtitle: "CINEC Campus | Awarding University: University of Wolverhampton, UK",
+    year: "2026",
     description:
-      "Reading software engineering with focus on full-stack web and mobile development, collaborative projects, and industry-focused coursework.",
+      "Pursuing advanced software engineering with focus on full-stack web and mobile development, collaborative projects, and industry-focused coursework.",
+  },
+  {
+    title: "Higher Diploma in Computing & Software Engineering",
+    subtitle: "ICBT Kandy Campus | Awarding University: Cardiff Metropolitan University",
+    year: "2024 – 2025",
+    description:
+      "Studying software engineering with focus on full-stack web and mobile development, collaborative projects, and industry-focused coursework.",
   },
   {
     title: "G.C.E Advanced Level – Physical Science",
