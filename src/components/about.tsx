@@ -172,6 +172,17 @@ export function About() {
                 </div>
               </div>
 
+              <div className="p-5 rounded-2xl glass">
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Languages</span>
+                  <div className="flex items-center gap-4 text-[10px] font-mono">
+                    <span className="text-green-500/70">English</span>
+                    <span className="text-green-500/70">Sinhala</span>
+                    <span className="text-green-500/70">Tamil</span>
+                  </div>
+                </div>
+              </div>
+
               <div className="p-6 rounded-2xl glass">
                 <div className="flex items-center gap-2 mb-8">
                   <div className="size-1.5 bg-green-500 rounded-full" />
@@ -194,4 +205,3 @@ export function About() {
     </section>
   );
 }
-

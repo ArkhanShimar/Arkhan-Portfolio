@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 
 type Section = {
   id: string;
@@ -89,21 +89,32 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav - Refined Cursor Style */}
-        <div className="hidden md:flex items-center gap-1 p-1 rounded-full glass border-white/10 bg-white/[0.02]">
-          {sections.map((section) => (
-            <Link
-              key={section.id}
-              href={`#${section.id}`}
-              onClick={(e) => scrollToSection(e, section.id)}
-              className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all rounded-full ${
-                active === section.id 
-                  ? "bg-green-500 text-black shadow-[0_0_15px_rgba(34,197,94,0.3)]" 
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              {section.label}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-1 p-1 rounded-full glass border-white/10 bg-white/[0.02]">
+            {sections.map((section) => (
+              <Link
+                key={section.id}
+                href={`#${section.id}`}
+                onClick={(e) => scrollToSection(e, section.id)}
+                className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all rounded-full ${
+                  active === section.id 
+                    ? "bg-green-500 text-black shadow-[0_0_15px_rgba(34,197,94,0.3)]" 
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {section.label}
+              </Link>
+            ))}
+          </div>
+
+          <a
+            href="/Arkhan_Shimar.pdf"
+            download
+            className="size-9 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-green-500/30 transition-all"
+            title="Download CV"
+          >
+            <Download size={16} />
+          </a>
         </div>
 
         {/* Mobile Toggle */}
@@ -138,6 +149,17 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="pt-2 border-t border-white/10">
+                <a
+                  href="/Arkhan_Shimar.pdf"
+                  download
+                  className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-green-500 transition-colors"
+                  onClick={() => setOpen(false)}
+                >
+                  <Download size={16} />
+                  Download CV
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

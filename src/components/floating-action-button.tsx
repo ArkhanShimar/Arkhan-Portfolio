@@ -6,13 +6,29 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function FloatingActionButton() {
   const [isVisible, setIsVisible] = useState(false);
+  const [footerInView, setFooterInView] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
+      setIsVisible(window.scrollY > 400 && !footerInView);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [footerInView]);
+
+  useEffect(() => {
+    const footer = document.getElementById("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setFooterInView(entry.isIntersecting);
+      },
+      { root: null, threshold: 0.15 }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
   }, []);
 
   const scrollToTop = () => {
@@ -22,7 +38,7 @@ export function FloatingActionButton() {
   return (
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col gap-4">
       <AnimatePresence>
-        {isVisible && (
+        {isVisible && !footerInView && (
           <>
             <motion.button
               initial={{ opacity: 0, scale: 0.8, y: 20 }}

@@ -68,7 +68,7 @@ export function Contact() {
                     eyebrow="Communications"
                     title="Get in touch."
                   />
-                  <p className="text-[11px] text-slate-500 font-mono leading-relaxed uppercase tracking-wider">
+                  <p className="text-xs text-slate-500 font-mono leading-relaxed uppercase tracking-wider">
                     Establishing secure uplink for project collaboration and technical inquiries.
                   </p>
                 </div>
@@ -85,11 +85,11 @@ export function Contact() {
                       className="group/item flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5"
                     >
                       <div className={`size-8 rounded-lg bg-white/5 flex items-center justify-center ${item.color} border border-white/5 group-hover/item:border-white/10 transition-all`}>
-                        <item.icon size={16} />
+                        <item.icon size={18} />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[8px] font-mono text-slate-600 uppercase tracking-widest">{item.label}</span>
-                        <span className="text-[10px] font-medium text-slate-300 group-hover/item:text-white transition-colors">{item.value}</span>
+                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">{item.label}</span>
+                        <span className="text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors">{item.value}</span>
                       </div>
                     </a>
                   ))}
@@ -129,7 +129,7 @@ export function Contact() {
                 <div className="mb-8 space-y-2">
                   <div className="flex items-center gap-2">
                     <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-[10px] font-mono text-green-500 uppercase tracking-[0.3em] font-semibold">Initialize Transmission</span>
+                    <span className="text-[11px] font-mono text-green-500 uppercase tracking-[0.3em] font-semibold">Initialize Transmission</span>
                   </div>
                   <h3 className="text-xl font-bold text-white">Contact Me</h3>
                 </div>
@@ -137,35 +137,35 @@ export function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Identity_Identifier</p>
+                      <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Identity_Identifier</p>
                       <input
                         name="name"
                         required
                         placeholder="NAME // FIRM"
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
                       />
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Return_Address</p>
+                      <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Return_Address</p>
                       <input
                         name="email"
                         type="email"
                         required
                         placeholder="USER@DOMAIN.COM"
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-[9px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Payload_Content</p>
+                    <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Payload_Content</p>
                     <textarea
                       name="message"
                       required
                       rows={6}
                       placeholder="ENTER MESSAGE DATA..."
-                      className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-[11px] font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800 resize-none"
+                      className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800 resize-none"
                     />
                   </div>
 
@@ -173,13 +173,13 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="flex-1 py-4 bg-white text-black text-[10px] font-bold font-mono tracking-[0.3em] rounded-xl hover:bg-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+                      className="flex-1 py-4 bg-white text-black text-[11px] font-bold font-mono tracking-[0.3em] rounded-xl hover:bg-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
                     >
                       {status === "loading" ? "SENDING..." : "CONTACT_ME"}
                       <Send size={14} />
                     </button>
                     
-                    <div className="hidden md:flex flex-col gap-1 text-[8px] font-mono text-slate-700 uppercase font-bold">
+                    <div className="hidden md:flex flex-col gap-1 text-[9px] font-mono text-slate-700 uppercase font-bold">
                       <span>Protocol: HTTPS/WSS</span>
                       <span>Security: TLS 1.3</span>
                     </div>
@@ -189,7 +189,7 @@ export function Contact() {
                     <motion.div 
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-3 rounded-lg text-center text-[9px] font-mono border ${
+                      className={`p-3 rounded-lg text-center text-[10px] font-mono border ${
                         status === "success" ? "bg-green-500/5 border-green-500/20 text-green-500" : "bg-red-500/5 border-red-500/20 text-red-400"
                       }`}
                     >
