@@ -20,25 +20,25 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-8 lg:pt-20 lg:pb-16">
       <GridBackground />
 
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-[0.2]">
+      <div className="hidden sm:block absolute inset-0 z-[1] pointer-events-none opacity-[0.2]">
         <div className="absolute inset-0">
           <Image
             src="/hero-bg.png"
             alt="Background Portrait"
             fill
             priority
-            className="object-contain object-center grayscale brightness-85 contrast-110 scale-95 -translate-x-16"
+            className="object-contain object-center grayscale brightness-85 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
         </div>
       </div>
       
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         {/* Split Layout: Content Left, Code Right */}
-        <div className="grid lg:grid-cols-2 gap-10 items-center mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center mb-12 lg:mb-16">
           
           {/* Left Content */}
-          <div className="flex flex-col items-start text-left space-y-4">
+          <div className="flex flex-col items-start text-left space-y-4 pr-24 sm:pr-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -53,14 +53,28 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-2 max-w-xl"
+              className="space-y-2 max-w-xl relative"
             >
-              <h1 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-[1.1]">
+              <div className="pointer-events-none absolute -right-36 top-4 h-72 w-72 opacity-[0.35] sm:hidden">
+                <div className="absolute inset-0">
+                  <Image
+                    src="/profile.png"
+                    alt="Profile Portrait"
+                    fill
+                    priority
+                    className="object-cover object-center grayscale brightness-90 contrast-110 rounded-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+                </div>
+              </div>
+
+              <h1 className="relative z-10 text-[30px] leading-[1.05] sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
                 Build software <br />
                 <span className="text-green-500 italic font-medium">faster</span> than ever.
               </h1>
               
-              <div className="text-base md:text-lg text-slate-400 font-mono flex items-center gap-2">
+              <div className="relative z-10 text-base md:text-lg text-slate-400 font-mono flex items-center gap-2">
                 <span className="text-green-500 opacity-50">&gt;</span>
                 <span>{typed}</span>
                 <span className="w-1 h-4 bg-green-500 animate-pulse" />
@@ -106,18 +120,18 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden lg:block scale-100 origin-right"
+            className="relative block w-full mt-10 lg:mt-0 scale-100 origin-right"
           >
             <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-white/10 max-w-xl mx-auto lg:ml-auto">
               {/* Terminal Header */}
-              <div className="bg-white/5 px-4 py-3 border-b border-white/10 flex items-center justify-between">
+              <div className="bg-white/5 px-3 sm:px-4 py-3 border-b border-white/10 flex items-center justify-between gap-3">
                 <div className="flex gap-1.5">
                   <div className="size-3 rounded-full bg-[#ff5f56]" />
                   <div className="size-3 rounded-full bg-[#ffbd2e]" />
                   <div className="size-3 rounded-full bg-[#27c93f]" />
                 </div>
-                <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">Arkhan_Console // v2.1.0</div>
-                <div className="flex gap-3">
+                <div className="text-[9px] sm:text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">Arkhan_Console // v2.1.0</div>
+                <div className="hidden sm:flex gap-3">
                   {[
                     { icon: Github, href: "https://github.com/ArkhanShimar" },
                     { icon: Linkedin, href: "https://linkedin.com/in/arkhanshimar" },
@@ -131,7 +145,7 @@ export function Hero() {
               </div>
 
               {/* Terminal Body */}
-              <div className="p-6 space-y-6 bg-black/40 font-mono">
+              <div className="p-4 sm:p-6 space-y-6 bg-black/40 font-mono max-h-[340px] sm:max-h-[520px] lg:max-h-none overflow-y-auto">
                 {/* User Comment */}
                 <div className="flex gap-4 items-start border-b border-white/5 pb-6">
                   <div className="relative size-12 rounded-xl overflow-hidden border border-white/10">

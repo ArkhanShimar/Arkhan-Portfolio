@@ -81,6 +81,21 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [onNavigate]);
 
+  useEffect(() => {
+    if (!onNavigate) return;
+
+    const el = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+    if (!el) return;
+
+    const handleScroll = () => {
+      setScrolled(el.scrollTop > 20);
+    };
+
+    handleScroll();
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [onNavigate]);
+
   return (
     <header 
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${

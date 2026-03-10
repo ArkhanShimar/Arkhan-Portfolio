@@ -206,7 +206,7 @@ export function SectionSlider() {
   }, [navigateToIndex, active.id]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-[100svh] w-full overflow-hidden">
       <Navbar activeId={active.id} onNavigate={navigateToId} />
 
       <div className="relative h-full w-full" {...swipeHandlers}>

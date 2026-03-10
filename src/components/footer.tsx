@@ -8,7 +8,7 @@ export function Footer() {
     <footer data-footer="true" className="relative bg-[#000000] border-t border-white/5 py-10">
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center text-center gap-3 md:flex-row md:items-center md:text-left">
             <div className="size-9 rounded-xl bg-green-500 flex items-center justify-center text-black shadow-[0_0_18px_rgba(34,197,94,0.25)]">
               <Terminal size={16} />
             </div>

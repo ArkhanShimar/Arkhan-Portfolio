@@ -6,10 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function FloatingActionButton() {
   const [footerInView, setFooterInView] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>(() => {
-    if (typeof window === "undefined") return "home";
-    return window.location.hash.replace("#", "") || "home";
-  });
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
     const readHash = () => {
