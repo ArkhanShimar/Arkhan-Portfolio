@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { InitialLoader } from "@/components/initial-loader";
 import { AnimatedBackground } from "@/components/animated-background";
+import { FloatingActionButton } from "@/components/floating-action-button";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
           <InitialLoader>
             <AnimatedBackground />
             {children}
+            <FloatingActionButton />
           </InitialLoader>
         </ThemeProvider>
       </body>

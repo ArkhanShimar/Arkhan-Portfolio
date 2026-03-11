@@ -36,42 +36,32 @@ export function FloatingActionButton() {
   const shouldShow = (isBlogRoute || activeSection !== "home") && !footerInView;
 
   useEffect(() => {
-    const getRoot = () => document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]') ?? null;
-
-    let observer: IntersectionObserver | null = null;
-
-    const tryAttach = () => {
-      const root = getRoot();
-      const footers = Array.from(document.querySelectorAll<HTMLElement>('[data-footer="true"]'));
-      if (!footers.length) return false;
-
-      if (!observer) {
-        observer = new IntersectionObserver(
-          (entries) => {
-            const anyVisible = entries.some((e) => e.isIntersecting);
-            setFooterInView(anyVisible);
-          },
-          { root, rootMargin: "0px 0px -20% 0px", threshold: [0, 0.01] }
-        );
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollPos = window.scrollY;
+      
+      const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+      if (sliderScroll) {
+        const isNearBottom = sliderScroll.scrollTop + sliderScroll.clientHeight >= sliderScroll.scrollHeight - 100;
+        setFooterInView(isNearBottom);
+      } else {
+        const isNearBottom = scrollPos + clientHeight >= scrollHeight - 100;
+        setFooterInView(isNearBottom);
       }
-
-      footers.forEach((el) => observer?.observe(el));
-      return true;
     };
 
-    if (tryAttach()) {
-      return () => observer?.disconnect();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+    if (sliderScroll) {
+      sliderScroll.addEventListener("scroll", handleScroll, { passive: true });
     }
 
-    const mo = new MutationObserver(() => {
-      if (tryAttach()) mo.disconnect();
-    });
-
-    mo.observe(document.documentElement, { childList: true, subtree: true });
-
     return () => {
-      mo.disconnect();
-      observer?.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+      if (sliderScroll) {
+        sliderScroll.removeEventListener("scroll", handleScroll);
+      }
     };
   }, []);
 
@@ -102,9 +92,9 @@ export function FloatingActionButton() {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ scale: 1.1, y: -5 }}
               onClick={isBlogRoute ? goHome : scrollToTop}
-              className="size-12 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-500/50 transition-all shadow-2xl"
+              className="size-12 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-600/50 transition-all shadow-2xl backdrop-blur-md"
               title={isBlogRoute ? "Home" : "Scroll to Top"}
             >
               {isBlogRoute ? <Home size={20} /> : <ArrowUp size={20} />}
@@ -116,9 +106,9 @@ export function FloatingActionButton() {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ scale: 1.1, y: -5 }}
               transition={{ delay: 0.1 }}
-              className="size-12 rounded-lg bg-green-500 flex items-center justify-center text-black hover:bg-green-400 transition-all shadow-[0_0_20px_rgba(34,197,94,0.2)]"
+              className="size-12 rounded-full bg-green-600/90 backdrop-blur-md  flex items-center justify-center text-black hover:bg-green-500 transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]"
               title="Download CV"
             >
               <Download size={20} />
