@@ -10,13 +10,31 @@ export function Projects() {
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <SectionHeading
-          eyebrow="Development"
-          title="Engineered to perform."
-          description="A selection of high-performance applications built with modern frameworks."
-        />
+        <div className="flex flex-col md:flex-row md:items-center justify-between items-center gap-8 mb-12 lg:mb-16 text-center md:text-left">
+          <SectionHeading
+            eyebrow="Development"
+            title="Engineered to perform."
+            description="A selection of high-performance applications built with modern frameworks."
+          />
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-end md:mb-6"
+          >
+            <a 
+              href="https://github.com/ArkhanShimar" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 md:px-6 md:py-3 glass rounded-full font-mono text-[10px] md:text-[11px] text-white hover:!bg-green-500 hover:!text-black hover:!border-green-500/30 transition-all flex items-center gap-3 uppercase tracking-[0.2em] font-bold"
+            >
+              <Github size={16} />
+              Explore_Repositories
+            </a>
+          </motion.div>
+        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {projects.map((project, idx) => (
             <motion.div
               key={project.title}
@@ -94,18 +112,6 @@ export function Projects() {
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="mt-16 flex justify-center">
-          <a 
-            href="https://github.com/ArkhanShimar" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 glass rounded-full font-mono text-[11px] text-white hover:!bg-green-500 hover:!text-black hover:!border-green-500/30 transition-all flex items-center gap-3 uppercase tracking-[0.2em] font-bold"
-          >
-            <Github size={16} />
-            Explore_Repositories
-          </a>
-        </div>
       </div>
     </section>
   );
