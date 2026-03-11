@@ -116,17 +116,23 @@ export function SectionSlider() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const current = window.location.hash.replace("#", "") || "home";
+    const current = window.location.hash.replace("#", "");
+    if (!current) {
+      window.history.replaceState(null, "", "#home");
+      announceActiveSection("home");
+      return;
+    }
     const idx = idToIndex.get(current);
     if (idx != null) {
-      setActiveIndex(idx);
-      announceActiveSection(current);
+      window.setTimeout(() => {
+        navigateToIndex(idx);
+        announceActiveSection(current);
+      }, 0);
     } else {
       window.history.replaceState(null, "", "#home");
-      setActiveIndex(0);
       announceActiveSection("home");
     }
-  }, [announceActiveSection, idToIndex]);
+  }, [announceActiveSection, idToIndex, navigateToIndex]);
 
   useLayoutEffect(() => {
     const el = scrollContainerRef.current;
