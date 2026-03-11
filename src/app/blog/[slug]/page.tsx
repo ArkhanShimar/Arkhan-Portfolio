@@ -14,28 +14,53 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound();
 
   const renderInline = (text: string) => {
-    const tokens = ["CRUD", "PIN", "UI", "portfolio", "code", "systems"];
-    const parts: Array<{ t: string; match: boolean }> = [{ t: text, match: false }];
+    const codeTokens = [
+      "CRUD",
+      "PIN",
+      "UI",
+      "API",
+      "DB",
+      "JSON",
+      "REST",
+      "AI",
+      "prompt",
+      "code",
+      "debug",
+      "portfolio",
+      "projects",
+      "project",
+      "logic",
+      "build",
+    ];
 
-    for (const token of tokens) {
-      const next: typeof parts = [];
-      for (const part of parts) {
-        if (part.match) {
-          next.push(part);
-          continue;
-        }
-        const split = part.t.split(token);
-        split.forEach((s, i) => {
-          if (s) next.push({ t: s, match: false });
-          if (i < split.length - 1) next.push({ t: token, match: true });
-        });
+    const pattern = new RegExp(`\\b(?:${codeTokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`, "gi");
+
+    const byTicks = text.split("`");
+    const out: Array<{ t: string; code: boolean }> = [];
+
+    byTicks.forEach((chunk, i) => {
+      if (i % 2 === 1) {
+        out.push({ t: chunk, code: true });
+        return;
       }
-      parts.splice(0, parts.length, ...next);
-    }
 
-    return parts.map((p, i) =>
-      p.match ? (
-        <span key={`${p.t}-${i}`} className="rounded-md border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 font-mono text-green-500">
+      let lastIndex = 0;
+      for (const match of chunk.matchAll(pattern)) {
+        const start = match.index ?? 0;
+        const token = match[0];
+        if (start > lastIndex) out.push({ t: chunk.slice(lastIndex, start), code: false });
+        out.push({ t: token, code: true });
+        lastIndex = start + token.length;
+      }
+      if (lastIndex < chunk.length) out.push({ t: chunk.slice(lastIndex), code: false });
+    });
+
+    return out.map((p, i) =>
+      p.code ? (
+        <span
+          key={`${p.t}-${i}`}
+          className="rounded-md border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 font-mono text-green-500"
+        >
           {p.t}
         </span>
       ) : (
@@ -79,7 +104,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 ))}
               </div>
 
-              <h1 className="!text-4xl sm:!text-5xl font-bold tracking-tight leading-tight">
+              <h1 className="!text-xl sm:!text-2xl md:!text-3xl font-bold tracking-tight leading-tight">
                 {post.title}
               </h1>
 
@@ -103,7 +128,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div key={index} className="pt-2">
                       <div className="mb-3 flex items-center gap-3">
                         <span className="size-1.5 rounded-full bg-green-500/80" />
-                        <h2 className="!text-3xl sm:!text-4xl font-bold text-green-500 tracking-tight">
+                      <h2 className="!text-xl sm:!text-2xl font-bold text-green-500 tracking-tight font-mono">
                           {block.text}
                         </h2>
                       </div>
