@@ -1,71 +1,162 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getBlogPost } from "@/data/blog";
+import { getBlogPost, blogPosts } from "@/data/blog";
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
+export function generateStaticParams() {
+  return blogPosts.map((p) => ({ slug: p.slug }));
+}
+
+export const dynamic = "force-static";
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
   if (!post) notFound();
+
+  const renderInline = (text: string) => {
+    const tokens = ["CRUD", "PIN", "UI", "portfolio", "code", "systems"];
+    const parts: Array<{ t: string; match: boolean }> = [{ t: text, match: false }];
+
+    for (const token of tokens) {
+      const next: typeof parts = [];
+      for (const part of parts) {
+        if (part.match) {
+          next.push(part);
+          continue;
+        }
+        const split = part.t.split(token);
+        split.forEach((s, i) => {
+          if (s) next.push({ t: s, match: false });
+          if (i < split.length - 1) next.push({ t: token, match: true });
+        });
+      }
+      parts.splice(0, parts.length, ...next);
+    }
+
+    return parts.map((p, i) =>
+      p.match ? (
+        <span key={`${p.t}-${i}`} className="rounded-md border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 font-mono text-green-500">
+          {p.t}
+        </span>
+      ) : (
+        <span key={`${p.t}-${i}`}>{p.t}</span>
+      )
+    );
+  };
 
   return (
     <main className="min-h-screen bg-[#000000] text-white">
-      <div className="container mx-auto px-6 py-16">
-        <article className="mx-auto max-w-3xl">
-          <div className="space-y-3">
-            <p className="text-[11px] font-mono uppercase tracking-[0.3em] text-green-500 font-semibold">
-              {post.tags.join(" / ")}
-            </p>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{post.title}</h1>
-            <p className="text-slate-400">{post.description}</p>
-            <div className="text-[10px] font-mono uppercase tracking-widest text-slate-600">
-              {post.date} · {post.readTime}
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(34,197,94,0.10),transparent_55%)]" />
+      <div className="pointer-events-none fixed -z-10 left-[-10%] top-[10%] h-56 w-56 rounded-full bg-green-500/10 blur-[38px] sm:h-96 sm:w-96 sm:blur-[80px] blog-blob" />
+      <div className="pointer-events-none fixed -z-10 right-[-10%] bottom-[10%] h-48 w-48 rounded-full bg-green-500/5 blur-[34px] sm:h-80 sm:w-80 sm:blur-[72px] blog-blob-2" />
+      <div className="pointer-events-none fixed inset-0 -z-10 hidden sm:block">
+        <div className="blog-scanline" />
+      </div>
+
+      <div className="container mx-auto px-6 py-14 sm:py-16">
+        <article className="mx-auto max-w-4xl">
+          <div className="mb-8">
+            <Link
+              href="/#blog"
+              className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-slate-500 hover:text-green-500 transition-colors"
+            >
+              <span className="text-green-500 opacity-60">&lt;</span>
+              Back to blog
+            </Link>
+          </div>
+
+          <header className="rounded-3xl border border-white/10 bg-white/[0.02] p-5 sm:p-8 relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(34,197,94,0.10),transparent_45%)]" />
+            <div className="relative space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-slate-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <h1 className="!text-4xl sm:!text-5xl font-bold tracking-tight leading-tight">
+                {post.title}
+              </h1>
+
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                {post.description}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-mono uppercase tracking-widest text-slate-600">
+                <span>{post.date}</span>
+                <span className="text-slate-700">•</span>
+                <span>{post.readTime}</span>
+              </div>
+            </div>
+          </header>
+
+          <div className="mt-7 rounded-3xl border border-white/10 bg-black/20 p-5 sm:p-8">
+            <div className="space-y-6 text-slate-200">
+              {post.content.map((block, index) => {
+                if (block.type === "h2") {
+                  return (
+                    <div key={index} className="pt-2">
+                      <div className="mb-3 flex items-center gap-3">
+                        <span className="size-1.5 rounded-full bg-green-500/80" />
+                        <h2 className="text-base sm:text-lg font-bold text-green-500 tracking-tight">
+                          {block.text}
+                        </h2>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (block.type === "ul") {
+                  return (
+                    <ul
+                      key={index}
+                      className="list-disc pl-5 space-y-2 text-[13px] sm:text-sm text-slate-300 leading-relaxed"
+                    >
+                      {block.items.map((item) => {
+                        const [left, ...rest] = item.split(":");
+                        const right = rest.join(":").trim();
+                        return (
+                          <li key={item}>
+                            {right ? (
+                              <>
+                                <span className="font-mono text-slate-200">{left}</span>
+                                <span className="text-slate-500">:</span>{" "}
+                                <span>{renderInline(right)}</span>
+                              </>
+                            ) : (
+                              <>{renderInline(item)}</>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  );
+                }
+
+                return (
+                  <p key={index} className="text-[13px] sm:text-sm leading-relaxed text-slate-300">
+                    {renderInline(block.text)}
+                  </p>
+                );
+              })}
             </div>
           </div>
-
-          <div className="mt-10 space-y-6 text-slate-200">
-            {post.content.map((block, index) => {
-              if (block.type === "h2") {
-                return (
-                  <h2 key={index} className="pt-4 text-xl font-bold text-white">
-                    {block.text}
-                  </h2>
-                );
-              }
-
-              if (block.type === "ul") {
-                return (
-                  <ul key={index} className="list-disc pl-5 space-y-2 text-slate-300">
-                    {block.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                );
-              }
-
-              return (
-                <p key={index} className="text-base leading-relaxed text-slate-300">
-                  {block.text}
-                </p>
-              );
-            })}
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center gap-4 border-t border-white/10 pt-8">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
             <Link
-              href="/blog"
+              href="/#blog"
               className="rounded-full border border-white/10 bg-white/[0.02] px-5 py-2 text-[11px] font-mono uppercase tracking-widest text-slate-300 hover:border-green-500/30 hover:text-green-500 transition-colors"
             >
               Back to blog
             </Link>
-            <Link
-              href="/#blog"
-              className="text-[11px] font-mono uppercase tracking-widest text-slate-400 hover:text-green-500"
-            >
-              Back to portfolio
-            </Link>
+            <span />
           </div>
         </article>
       </div>
     </main>
   );
 }
-

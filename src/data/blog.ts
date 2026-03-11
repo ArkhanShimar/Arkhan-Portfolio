@@ -14,131 +14,78 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "server-components-notes",
-    title: "Server Components: what finally made it click for me",
+    slug: "why-student-projects-look-the-same",
+    title: "Why Most Student Projects Look the Same (And How I Try to Avoid That)",
     description:
-      "My notes after breaking (and fixing) a Next.js app while trying to “optimize everything”.",
-    date: "Feb 12, 2026",
-    readTime: "7 min",
-    tags: ["Next.js", "React"],
+      "After a while in software engineering, you notice the same portfolios repeating. Here’s why it happens, and the small mindset shift that helped me.",
+    date: "March 2026",
+    readTime: "3 min",
+    tags: ["Student Life", "Development"],
     content: [
+      { type: "h2", text: "Something I noticed in university" },
       {
         type: "p",
-        text: "I kept hearing “Server Components are the future” and I was like… cool, but WHY does my page still feel slow sometimes? I’m a student, so most of my learning is basically: build → break → google → fix → repeat.",
+        text: "After a while in software engineering, you start seeing the same types of projects again and again.",
       },
-      {
-        type: "p",
-        text: "The main thing that made it click: Server Components are not “faster React”. They’re a way to keep heavy work (fetching, formatting, rendering big trees) on the server so the client ships less JS. The client still matters a lot for animations, scroll, and anything interactive.",
-      },
-      { type: "h2", text: "My mental model" },
       {
         type: "ul",
         items: [
-          "If it needs state, effects, handlers → it’s client.",
-          "If it’s mostly data + markup → keep it server as long as possible.",
-          "Don’t turn the whole page into a client component just to animate one button.",
+          "Library management systems",
+          "Student management systems",
+          "Basic CRUD apps with login pages",
         ],
       },
       {
         type: "p",
-        text: "Also: hydration mismatches are so easy to accidentally create when you read window.location or Date at render time. If you ever see “HTML didn’t match”, it’s usually you (or a browser extension).",
+        text: "There’s nothing wrong with them. They help you understand the fundamentals. But after some time, every student portfolio starts looking identical. And if you’re trying to stand out, that becomes a problem.",
       },
-      { type: "h2", text: "What I’m trying to do now" },
+      { type: "h2", text: "Why this happens" },
       {
         type: "p",
-        text: "I’m trying to build pages where the initial load is basically instant, and then only the interactive parts become client. It feels like a good habit for internships too, because nobody wants a 2MB client bundle just to show a profile section.",
+        text: "Most of the time it’s not because students lack ideas. It’s usually a few common reasons.",
       },
-    ],
-  },
-  {
-    slug: "node-api-habits",
-    title: "Little habits that saved my Node.js APIs from chaos",
-    description:
-      "Not “enterprise patterns”… just the boring stuff that keeps small APIs stable.",
-    date: "Jan 28, 2026",
-    readTime: "6 min",
-    tags: ["Node.js", "Backend"],
-    content: [
-      {
-        type: "p",
-        text: "I’ve built a few small APIs for projects and I used to treat them like: routes + controllers + pray. It worked… until I had to change something and everything started to feel fragile.",
-      },
-      { type: "h2", text: "The boring rules I follow now" },
       {
         type: "ul",
         items: [
-          "Validate inputs at the edge (even if it feels repetitive).",
-          "Return consistent error shapes so the frontend doesn’t guess.",
-          "Log one line per request (method, path, status, timing).",
-          "Keep secrets out of logs and out of the repo (obvious, but still).",
+          "Assignments drive the projects: you build what’s required, submit it, and move on.",
+          "Tutorials influence everyone: lots of people learn from the same YouTube videos and blogs.",
+          "Safe ideas feel easier: when many people have done it, there are guides, solutions, and examples.",
         ],
       },
       {
         type: "p",
-        text: "My favorite quick win is adding a simple request-id header and passing it through logs. When something breaks, you can find the story of that request in 10 seconds instead of 10 minutes.",
+        text: "The downside is that it doesn’t show much originality. You might still learn a lot, but it’s harder for someone else to see what makes you different.",
       },
-      { type: "h2", text: "What I still struggle with" },
+      { type: "h2", text: "How I try to approach projects differently" },
       {
         type: "p",
-        text: "Database migrations. Every time I think “I’ll remember what I changed”, I don’t. So I’m trying to be disciplined and write migrations even for small schema changes.",
+        text: "Instead of asking “What project should I build?”, I try asking “What problem do I personally want to solve?”. That small change makes a big difference.",
       },
-    ],
-  },
-  {
-    slug: "mobile-dev-realities",
-    title: "Mobile development realities (from an undergrad’s projects)",
-    description:
-      "My honest checklist after building Android apps that looked fine… until they didn’t.",
-    date: "Dec 08, 2025",
-    readTime: "5 min",
-    tags: ["Android", "UX"],
-    content: [
       {
         type: "p",
-        text: "Mobile is funny because you can build something that looks perfect on your phone and then you run it on another device and suddenly your layout is doing parkour.",
+        text: "For example, instead of building another basic note app just for practice, I tried building one that fits the way I like to organize notes.",
       },
-      { type: "h2", text: "Stuff I test now (even in small apps)" },
       {
         type: "ul",
         items: [
-          "Small screen vs big screen (not just one emulator).",
-          "Slow network (because real life is slow).",
-          "Dark mode, because someone will use it.",
-          "Long text (names, addresses, error messages).",
+          "Pinning important notes",
+          "Collaborator sharing",
+          "Folder protection with a PIN",
+          "Auto-saving drafts",
         ],
       },
       {
         type: "p",
-        text: "The biggest lesson: if the UI depends on “perfect content”, it will break. So I try to design like the content is messy (because it is).",
+        text: "It started as practice, but it turned into something I would actually use.",
       },
-    ],
-  },
-  {
-    slug: "html-css-small-things",
-    title: "HTML/CSS small things that made my UI feel “more real”",
-    description:
-      "Not a tutorial — just the tiny fixes I kept ignoring until they mattered.",
-    date: "Nov 22, 2025",
-    readTime: "4 min",
-    tags: ["HTML", "CSS"],
-    content: [
+      { type: "h2", text: "Another thing I started focusing on" },
       {
         type: "p",
-        text: "When I started, I thought good UI was mostly colors and fonts. Then I spent an entire evening trying to align one button, and suddenly I respected CSS a lot more.",
-      },
-      { type: "h2", text: "My “tiny wins” list" },
-      {
-        type: "ul",
-        items: [
-          "Use consistent spacing (8px / 12px / 16px) instead of random numbers.",
-          "Set line-height properly. Text looks weird when it’s too tight.",
-          "Clamp long text (titles, descriptions) so cards don’t jump in height.",
-          "Prefer flex/grid for alignment over margin hacks.",
-        ],
+        text: "Structure and presentation. Two students might build similar apps, but the difference often comes from how clean the UI is, how well the project is structured, and how clearly the features are explained in a portfolio.",
       },
       {
         type: "p",
-        text: "Also… mobile first is real. If it works on mobile, it’s usually fine on desktop. If it only works on desktop, it will definitely break on mobile.",
+        text: "Sometimes the way you present a project matters almost as much as the project itself.",
       },
     ],
   },
@@ -147,4 +94,3 @@ export const blogPosts: BlogPost[] = [
 export function getBlogPost(slug: string) {
   return blogPosts.find((post) => post.slug === slug);
 }
-

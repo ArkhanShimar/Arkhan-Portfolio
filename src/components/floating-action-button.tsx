@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowUp, Download } from "lucide-react";
+import { ArrowUp, Download, Home } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export function FloatingActionButton() {
   const [footerInView, setFooterInView] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const pathname = usePathname();
+  const isBlogRoute = pathname.startsWith("/blog/");
 
   useEffect(() => {
     const readHash = () => {
@@ -30,7 +33,7 @@ export function FloatingActionButton() {
     };
   }, [footerInView]);
 
-  const shouldShow = activeSection !== "home" && !footerInView;
+  const shouldShow = (isBlogRoute || activeSection !== "home") && !footerInView;
 
   useEffect(() => {
     const getRoot = () => document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]') ?? null;
@@ -86,6 +89,10 @@ export function FloatingActionButton() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const goHome = () => {
+    window.location.assign("/#home");
+  };
+
   return (
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col gap-4">
       <AnimatePresence>
@@ -96,11 +103,11 @@ export function FloatingActionButton() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
               whileHover={{ y: -5 }}
-              onClick={scrollToTop}
+              onClick={isBlogRoute ? goHome : scrollToTop}
               className="size-12 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-500/50 transition-all shadow-2xl"
-              title="Scroll to Top"
+              title={isBlogRoute ? "Home" : "Scroll to Top"}
             >
-              <ArrowUp size={20} />
+              {isBlogRoute ? <Home size={20} /> : <ArrowUp size={20} />}
             </motion.button>
 
             <motion.a

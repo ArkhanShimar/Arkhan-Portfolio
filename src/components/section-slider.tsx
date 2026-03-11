@@ -116,11 +116,17 @@ export function SectionSlider() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.location.hash !== "#home") {
+    const current = window.location.hash.replace("#", "") || "home";
+    const idx = idToIndex.get(current);
+    if (idx != null) {
+      setActiveIndex(idx);
+      announceActiveSection(current);
+    } else {
       window.history.replaceState(null, "", "#home");
+      setActiveIndex(0);
+      announceActiveSection("home");
     }
-    announceActiveSection("home");
-  }, [announceActiveSection]);
+  }, [announceActiveSection, idToIndex]);
 
   useLayoutEffect(() => {
     const el = scrollContainerRef.current;

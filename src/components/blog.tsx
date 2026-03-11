@@ -16,6 +16,14 @@ export function Blog() {
           description="Sharing experiences and thoughts on software engineering."
         />
 
+        {blogPosts.length === 0 ? (
+          <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.02] p-8 text-center text-slate-400">
+            <p className="text-sm">No posts yet. New articles will appear here soon.</p>
+            <Link href="/#blog" className="mt-2 inline-block text-[11px] font-mono uppercase tracking-widest text-green-500">
+              Back to Blog
+            </Link>
+          </div>
+        ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-16">
           {blogPosts.map((article, idx) => (
             <Link key={article.slug} href={`/blog/${article.slug}`} className="block h-full">
@@ -62,6 +70,7 @@ export function Blog() {
             </Link>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
