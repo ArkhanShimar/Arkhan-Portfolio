@@ -69,7 +69,7 @@ const databaseSkills = [
 
 export function Skills() {
   return (
-    <section className="py-24 relative overflow-x-hidden snap-start bg-[#000000]">
+    <section className="py-24 relative overflow-x-hidden snap-start bg-[#000000] min-h-screen flex items-center">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />

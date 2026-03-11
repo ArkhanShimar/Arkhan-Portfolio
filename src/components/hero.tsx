@@ -16,7 +16,7 @@ export function Hero() {
   const typed = useTypewriter({ words: roles });
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-8 lg:pt-20 lg:pb-16">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-8 lg:pt-20 lg:pb-16 snap-start">
       <div className="hidden sm:block absolute inset-0 z-[1] pointer-events-none opacity-[0.2]">
         <div className="absolute inset-0">
           <Image

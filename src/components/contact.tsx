@@ -46,7 +46,7 @@ export function Contact() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#000000]">
+    <section className="py-24 relative overflow-hidden bg-[#000000] snap-start min-h-screen flex items-center">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />

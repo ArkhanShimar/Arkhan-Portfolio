@@ -287,7 +287,7 @@ export function SectionSlider() {
         <div
           ref={scrollContainerRef}
           data-section-slider-scroll="true"
-          className="h-full w-full overflow-y-auto overscroll-contain snap-y snap-mandatory scroll-smooth"
+          className="h-full w-full overflow-y-auto overscroll-contain snap-y snap-mandatory"
         >
           <div className="relative min-h-full">
             <AnimatePresence
@@ -312,6 +312,10 @@ export function SectionSlider() {
                 exit={{ opacity: 0 }}
                 transition={transition}
                 className="relative will-change-transform"
+                onAnimationStart={() => {
+                  const el = scrollContainerRef.current;
+                  if (el) el.scrollTop = 0;
+                }}
               >
                 <div id={active.id} className="relative">
                   <div className="relative">{active.element}</div>
