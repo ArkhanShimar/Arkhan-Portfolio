@@ -69,9 +69,13 @@ const databaseSkills = [
 
 export function Skills() {
   return (
-    <section className="py-24 relative overflow-hidden snap-start">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-12">
+    <section className="py-24 relative overflow-hidden snap-start bg-[#000000]">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-16">
           
           {/* Left: Technical Stack */}
           <div className="space-y-12">
@@ -88,10 +92,12 @@ export function Skills() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="p-4 rounded-xl glass hover:border-green-500/20 transition-all group flex items-center gap-3"
+                  whileHover={{ y: -3 }}
+                  className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-green-500/30 hover:bg-white/[0.06] transition-all group flex items-center gap-3 relative overflow-hidden"
                 >
-                  <skill.icon className={`${skill.color} text-xl transition-transform group-hover:scale-110`} />
-                  <span className="text-[11px] font-mono text-white font-medium">{skill.name}</span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <skill.icon className={`${skill.color} text-xl relative z-10 transition-transform group-hover:scale-110`} />
+                  <span className="text-[11px] font-mono text-white/80 group-hover:text-white relative z-10 font-semibold uppercase tracking-wider">{skill.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -99,48 +105,54 @@ export function Skills() {
 
           {/* Right: Professional Skills */}
           <div className="space-y-12 lg:max-w-xl lg:ml-auto">
-            <div className="p-10 rounded-3xl glass relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
-                <SiReact size={240} className="text-green-500" />
+            <div className="p-10 rounded-3xl bg-white/[0.03] border border-white/5 relative overflow-hidden group">
+              {/* Background Icon Decor */}
+              <div className="absolute -top-20 -right-20 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity duration-700">
+                <SiReact size={300} className="text-green-500 rotate-12" />
               </div>
               
-              <h3 className="text-xl font-bold text-white mb-10 flex items-center gap-3">
-                <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
-                Soft Skills
-              </h3>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-white mb-10 flex items-center gap-4">
+                  <div className="size-1.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
+                  Professional Skills
+                </h3>
 
-              <div className="flex flex-wrap gap-2">
-                {professionalSkills.map((skill, i) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-mono text-slate-400 uppercase tracking-wider hover:border-green-500/30 hover:text-green-500 transition-all cursor-default"
-                  >
-                    {skill}
-                  </motion.div>
-                ))}
-              </div>
+                <div className="flex flex-wrap gap-2">
+                  {professionalSkills.map((skill, i) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                      whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.1)" }}
+                      className="px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-[10px] font-mono text-slate-400 uppercase tracking-widest hover:border-green-500/40 hover:text-green-500 transition-all cursor-default shadow-sm"
+                    >
+                      {skill}
+                    </motion.div>
+                  ))}
+                </div>
 
-              <div className="mt-12 p-5 rounded-2xl bg-green-500/5 border border-green-500/10">
-                <p className="text-[11px] text-slate-400 font-sans leading-relaxed">
-                  <span className="text-green-500 font-mono mr-2 font-bold uppercase">Summary:</span>
-                  Seeking an internship to apply my technical stack in real-world environments while contributing to scalable system architecture.
-                </p>
+                <div className="mt-12 p-5 rounded-2xl bg-gradient-to-br from-green-500/[0.08] to-transparent border border-green-500/20 backdrop-blur-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 px-2 py-0.5 rounded bg-green-500 text-[8px] font-mono font-black text-black uppercase">Goal</div>
+                    <p className="text-[12px] text-slate-300 font-sans leading-relaxed italic">
+                      "Dedicated to building high-performance applications through clean code, agile methodologies, and effective team leadership."
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom: Databases & Tools side-by-side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8 border-t border-white/5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-12 border-t border-white/5 relative z-10">
           {/* Databases list */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="size-1.5 bg-green-500 rounded-full" />
-              <p className="text-[11px] font-mono text-white uppercase tracking-[0.2em] font-bold">Databases & Storage</p>
+          <div className="space-y-8">
+            <div className="flex items-center gap-4 group cursor-default">
+              <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
+              <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Databases & Storage</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {databaseSkills.map((db, i) => (
@@ -149,20 +161,22 @@ export function Skills() {
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="p-4 rounded-xl glass hover:border-green-500/20 transition-all group flex flex-col items-center justify-center gap-3 text-center"
+                  whileHover={{ y: -3, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
+                  className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group flex flex-col items-center justify-center gap-3 text-center relative overflow-hidden"
                 >
-                  <db.icon className="text-xl text-slate-400 group-hover:text-green-500 transition-colors" />
-                  <span className="text-[10px] font-mono text-slate-400 group-hover:text-white transition-colors">{db.name}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <db.icon className="text-xl text-slate-400 group-hover:text-green-500 transition-colors relative z-10" />
+                  <span className="text-[10px] font-mono text-slate-500 group-hover:text-white transition-colors relative z-10 uppercase tracking-wider font-bold">{db.name}</span>
                 </motion.div>
               ))}
             </div>
           </div>
 
           {/* Tools list */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="size-1.5 bg-green-500 rounded-full" />
-              <p className="text-[11px] font-mono text-white uppercase tracking-[0.2em] font-bold">Workflow Tools</p>
+          <div className="space-y-8">
+            <div className="flex items-center gap-4 group cursor-default">
+              <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
+              <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Workflow Tools</p>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {tools.map((tool, i) => (
@@ -171,10 +185,11 @@ export function Skills() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.05 }}
-                  className="p-3 rounded-xl glass hover:border-green-500/20 transition-all group flex flex-col items-center justify-center gap-2 text-center"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
+                  className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden"
                 >
-                  <tool.icon className="text-lg text-slate-500 group-hover:text-green-500 transition-colors" />
-                  <span className="text-[9px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors">{tool.name}</span>
+                  <tool.icon className="text-lg text-slate-500 group-hover:text-green-500 transition-colors relative z-10" />
+                  <span className="text-[9px] font-mono text-slate-600 group-hover:text-slate-300 transition-colors relative z-10 font-bold">{tool.name}</span>
                 </motion.div>
               ))}
             </div>
