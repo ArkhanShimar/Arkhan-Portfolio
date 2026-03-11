@@ -44,10 +44,11 @@ export function FloatingActionButton() {
 
       if (!observer) {
         observer = new IntersectionObserver(
-          ([entry]) => {
-            setFooterInView(entry.isIntersecting);
+          (entries) => {
+            const anyVisible = entries.some((e) => e.isIntersecting);
+            setFooterInView(anyVisible);
           },
-          { root, threshold: 0.1 }
+          { root, rootMargin: "0px 0px -20% 0px", threshold: [0, 0.01] }
         );
       }
 

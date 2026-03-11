@@ -11,6 +11,7 @@ import { Projects } from "@/components/projects";
 import { Blog } from "@/components/blog";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
+import { ArrowDown } from "lucide-react";
 
 type SectionDef = {
   id: string;
@@ -111,6 +112,7 @@ export function SectionSlider() {
   );
 
   const active = sections[activeIndex];
+  const isLast = activeIndex === sections.length - 1;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -312,6 +314,20 @@ export function SectionSlider() {
               >
                 <div id={active.id} className="relative">
                   <div className="relative">{active.element}</div>
+                  {!isLast && (
+                    <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex justify-center">
+                      <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-slate-400 backdrop-blur-[2px]">
+                        <span>Scroll for next</span>
+                        <motion.span
+                          animate={{ y: [0, 4, 0] }}
+                          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                          className="text-green-500"
+                        >
+                          <ArrowDown size={12} />
+                        </motion.span>
+                      </div>
+                    </div>
+                  )}
 
                   {blendId === active.id && (
                     <div className="pointer-events-none absolute inset-0 hidden sm:block">
