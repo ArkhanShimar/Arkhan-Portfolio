@@ -95,11 +95,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-wrap gap-3"
+              className="flex gap-3"
             >
               <a 
                 href="#projects"
-                className="group px-5 py-2 glass text-green-500 border border-green-500/20 text-[11px] font-bold rounded-full hover:border-white/50 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-lg"
+                className="group flex-1 min-w-0 px-4 sm:px-5 py-2 glass text-green-500 border border-green-500/20 text-[10px] sm:text-[11px] font-bold rounded-full hover:border-white/50 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg whitespace-nowrap"
               >
                 Explore Work
                 <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -107,7 +107,7 @@ export function Hero() {
               <a 
                 href="/Arkhan_Shimar.pdf"
                 download
-                className="group px-5 py-2 glass text-white border border-white/20 text-[11px] font-bold rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg"
+                className="group flex-1 min-w-0 px-4 sm:px-5 py-2 glass text-white border border-white/20 text-[10px] sm:text-[11px] font-bold rounded-full transition-all duration-300 flex items-center justify-center gap-2 shadow-lg whitespace-nowrap"
               >
                 Download CV
                 <Download size={12} className="group-hover:translate-x-1 transition-transform" />
