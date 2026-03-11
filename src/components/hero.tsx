@@ -27,9 +27,16 @@ export function Hero() {
             alt="Background Portrait"
             fill
             priority
-            className="object-contain object-center grayscale brightness-65 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16"
+            className="hero-bg--dark object-contain object-center grayscale brightness-65 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16 transition-opacity duration-300"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+          <Image
+            src="/hero-bg-light.png"
+            alt="Background Portrait"
+            fill
+            priority
+            className="hero-bg--light object-contain object-center grayscale brightness-65 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16 transition-opacity duration-300"
+          />
+          <div className="hero-bg-overlay absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
         </div>
       </div>
       

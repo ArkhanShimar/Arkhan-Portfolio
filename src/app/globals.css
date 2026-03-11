@@ -236,6 +236,49 @@ h3 { font-size: 1.75rem; }
   color: rgba(2, 6, 23, 0.35);
 }
 
+.hero-bg--light {
+  opacity: 0;
+}
+
+.light .hero-bg--light {
+  opacity: 1;
+}
+
+.light .hero-bg--dark {
+  opacity: 0;
+}
+
+.light .hero-bg--light {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.light .hero-bg-overlay {
+  background: radial-gradient(
+      circle at 50% 30%,
+      rgba(248, 250, 252, 0) 0%,
+      rgba(248, 250, 252, 0.35) 55%,
+      rgba(248, 250, 252, 0.92) 100%
+    ),
+    linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.95));
+}
+
 @media (min-width: 640px) {
   .glass {
     -webkit-backdrop-filter: blur(20px);
