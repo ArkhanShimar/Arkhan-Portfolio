@@ -50,21 +50,10 @@ export function SectionSlider() {
   const transitionTimeoutRef = useRef<number | null>(null);
   const transitioningRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
-  const [blendId, setBlendId] = useState<string | null>(null);
-  const [enableBlend, setEnableBlend] = useState(false);
 
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
-    const apply = () => setEnableBlend(mq.matches);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
-  }, []);
 
   const setHash = useCallback((id: string) => {
     if (typeof window === "undefined") return;
@@ -90,16 +79,14 @@ export function SectionSlider() {
       const nextId = sections[clamped].id;
       setHash(nextId);
       announceActiveSection(nextId);
-      setBlendId(enableBlend ? nextId : null);
 
       if (transitionTimeoutRef.current) window.clearTimeout(transitionTimeoutRef.current);
       transitionTimeoutRef.current = window.setTimeout(() => {
         transitioningRef.current = false;
-        setBlendId(null);
         transitionTimeoutRef.current = null;
-      }, 1250);
+      }, 1000);
     },
-    [announceActiveSection, enableBlend, sections, setHash]
+    [announceActiveSection, sections, setHash]
   );
 
   const navigateToId = useCallback(
@@ -310,7 +297,6 @@ export function SectionSlider() {
                   transitionTimeoutRef.current = null;
                 }
                 transitioningRef.current = false;
-                setBlendId(null);
                 const el = scrollContainerRef.current;
                 if (el) el.scrollTop = 0;
               }}
@@ -318,9 +304,9 @@ export function SectionSlider() {
               <motion.div
                 key={active.id}
                 custom={direction}
-                initial={{ opacity: 0.0, scale: 0.995, y: 14 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0.0, scale: 1.005, y: -12 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={transition}
                 className="relative will-change-transform"
               >
@@ -339,44 +325,6 @@ export function SectionSlider() {
                         </motion.span>
                       </div>
                     </div>
-                  )}
-
-                  {blendId === active.id && (
-                    <div className="pointer-events-none absolute inset-0 hidden sm:block">
-                    <motion.div
-                      initial={{ x: -160, opacity: 0.0 }}
-                      animate={{ x: [-160, 0, 0], opacity: [0.0, 0.85, 0.0] }}
-                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ clipPath: "inset(0 50% 0 0)" }}
-                      className="absolute inset-0"
-                    >
-                      {active.element}
-                    </motion.div>
-
-                    <motion.div
-                      initial={{ x: 160, opacity: 0.0 }}
-                      animate={{ x: [160, 0, 0], opacity: [0.0, 0.85, 0.0] }}
-                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ clipPath: "inset(0 0 0 50%)" }}
-                      className="absolute inset-0"
-                    >
-                      {active.element}
-                    </motion.div>
-
-                    <motion.div
-                      initial={{ opacity: 0.0 }}
-                      animate={{ opacity: [0.0, 0.75, 0.0] }}
-                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-gradient-to-b from-transparent via-green-500/35 to-transparent blur-[1px]"
-                    />
-
-                    <motion.div
-                      initial={{ opacity: 0.0 }}
-                      animate={{ opacity: [0.0, 0.35, 0.0] }}
-                      transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.08),transparent_55%)]"
-                    />
-                  </div>
                   )}
                 </div>
               </motion.div>

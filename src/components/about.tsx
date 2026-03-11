@@ -167,7 +167,7 @@ export function About() {
                   </div>
                   <div className="space-y-1 text-right">
                     <p className="text-[10px] font-mono text-slate-500 uppercase">Experience_Lvl</p>
-                    <p className="text-2xl font-bold text-green-500 tracking-tight">Engineer</p>
+                    <p className="text-2xl font-bold text-green-500 tracking-tight">Fresher</p>
                   </div>
                 </div>
               </div>

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { useTypewriter } from "@/hooks/use-typewriter";
-import { GridBackground } from "./GridBackground";
 import { ArrowRight, Github, Linkedin, Mail, Download, Terminal } from "lucide-react";
 import Image from "next/image";
 
@@ -18,8 +17,6 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-8 lg:pt-20 lg:pb-16">
-      <GridBackground />
-
       <div className="hidden sm:block absolute inset-0 z-[1] pointer-events-none opacity-[0.2]">
         <div className="absolute inset-0">
           <Image
