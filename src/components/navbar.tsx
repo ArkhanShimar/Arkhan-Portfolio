@@ -153,13 +153,15 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           <ThemeToggle size="sm" />
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-white p-2"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle size="sm" />
+          <button 
+            className="text-white p-2"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Nav */}
