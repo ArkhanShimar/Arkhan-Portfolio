@@ -46,73 +46,82 @@ export function Contact() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-stretch">
+    <section className="py-24 relative overflow-hidden bg-[#000000]">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-16 items-stretch">
             
             {/* Left Column: Command Center */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col gap-6 items-center text-center lg:items-stretch lg:text-left"
+              className="flex flex-col gap-8"
             >
-              <div className="p-8 rounded-3xl glass flex flex-col justify-between h-full relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity">
-                  <Globe size={180} className="text-green-500" />
+              <div className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/5 flex flex-col justify-between h-full relative overflow-hidden group">
+                <div className="absolute -top-10 -right-10 p-8 opacity-[0.02] group-hover:opacity-[0.05] transition-all duration-700 rotate-12">
+                  <Globe size={300} className="text-green-500" />
                 </div>
 
-                <div className="space-y-6 relative z-10">
+                <div className="space-y-8 relative z-10">
                   <SectionHeading
                     eyebrow="Communications"
                     title="Get in touch."
                   />
-                  <p className="text-xs text-slate-500 font-mono leading-relaxed uppercase tracking-wider text-center lg:text-left">
-                    Establishing secure uplink for project collaboration and technical inquiries.
+                  <p className="text-[13px] text-slate-400 font-sans leading-relaxed italic border-l-2 border-green-500/30 pl-4">
+                    Establishing secure uplink for project collaboration, technical inquiries, and potential partnerships.
                   </p>
                 </div>
 
-                <div className="space-y-4 relative z-10 mt-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 relative z-10 mt-12">
                   {[
-                    { icon: Mail, label: "Encrypted Mail", value: siteConfig.email, href: `mailto:${siteConfig.email}`, color: "text-green-500" },
-                    { icon: MessageCircle, label: "WhatsApp", value: siteConfig.phone, href: siteConfig.whatsapp, color: "text-green-500" },
-                    { icon: Globe, label: "HQ Location", value: "Mawanella, Sri Lanka", color: "text-green-500" },
+                    { icon: Mail, label: "Encrypted Mail", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+                    { icon: MessageCircle, label: "Direct Message", value: "WhatsApp / Telegram", href: siteConfig.whatsapp },
+                    { icon: Globe, label: "HQ Location", value: "Mawanella, Sri Lanka" },
                   ].map((item, i) => (
-                    <a 
+                    <motion.a 
                       key={i} 
                       href={item.href || "#"} 
-                      className="group/item flex items-center justify-center lg:justify-start gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5"
+                      whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                      className="group/item flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all shadow-sm"
                     >
-                      <div className={`size-8 rounded-lg bg-white/5 flex items-center justify-center ${item.color} border border-white/5 group-hover/item:border-white/10 transition-all`}>
-                        <item.icon size={18} />
+                      <div className="size-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 border border-green-500/20 group-hover/item:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all">
+                        <item.icon size={20} />
                       </div>
-                      <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">{item.label}</span>
-                        <span className="text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors break-words">{item.value}</span>
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">{item.label}</span>
+                        <span className="text-[13px] font-medium text-slate-300 group-hover/item:text-white transition-colors">{item.value}</span>
                       </div>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
 
-                <div className="pt-8 border-t border-white/5 mt-8 relative z-10">
-                  <div className="flex gap-3 justify-center lg:justify-start">
-                    {[
-                      { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
-                      { icon: SiLinkedin, link: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
-                      { icon: SiFacebook, link: "https://www.facebook.com/arkhan.smr.9/" },
-                      { icon: SiInstagram, link: "https://www.instagram.com/arkhvn__/" },
-                    ].map((social, i) => (
-                      <a 
-                        key={i} 
-                        href={social.link} 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="size-9 rounded-xl glass flex items-center justify-center text-slate-500 hover:text-green-500 transition-all hover:-translate-y-1 hover:border-green-500/30 shadow-sm"
-                      >
-                        <social.icon size={18} />
-                      </a>
-                    ))}
+                <div className="pt-8 border-t border-white/5 mt-10 relative z-10">
+                  <div className="flex items-center gap-6">
+                    <span className="text-[10px] font-mono text-slate-600 uppercase tracking-widest font-bold">Social_Uplinks</span>
+                    <div className="flex gap-4">
+                      {[
+                        { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
+                        { icon: SiLinkedin, link: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
+                        { icon: SiFacebook, link: "https://www.facebook.com/arkhan.smr.9/" },
+                        { icon: SiInstagram, link: "https://www.instagram.com/arkhvn__/" },
+                      ].map((social, i) => (
+                        <motion.a 
+                          key={i} 
+                          href={social.link} 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ y: -3, color: "#22c55e" }}
+                          className="text-slate-500 transition-all"
+                        >
+                          <social.icon size={20} />
+                        </motion.a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -123,67 +132,77 @@ export function Contact() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative flex"
+              className="relative flex h-full"
             >
-              <div className="glass p-10 rounded-3xl relative z-10 w-full flex flex-col justify-center">
-                <div className="mb-8 space-y-2 text-center lg:text-left">
-                  <div className="flex items-center gap-2 justify-center lg:justify-start">
-                    <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-[11px] font-mono text-green-500 uppercase tracking-[0.3em] font-semibold">Initialize Transmission</span>
+              <div className="bg-white/[0.02] border border-white/5 p-10 rounded-[2.5rem] relative z-10 w-full flex flex-col justify-center backdrop-blur-sm group">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2.5rem]" />
+                
+                <div className="mb-10 space-y-3 relative z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="size-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
+                    <span className="text-[12px] font-mono text-green-500 uppercase tracking-[0.4em] font-black">Initialize Transmission</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Contact Me</h3>
+                  <h3 className="text-2xl font-bold text-white tracking-tight">Send a Message</h3>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Identity_Identifier</p>
+                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-bold ml-1">Identity_Identifier</p>
                       <input
                         name="name"
                         required
                         placeholder="NAME // FIRM"
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-xs font-mono text-white focus:border-green-500/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-slate-700"
                       />
                     </div>
                     
-                    <div className="space-y-2">
-                      <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Return_Address</p>
+                    <div className="space-y-3">
+                      <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-bold ml-1">Return_Address</p>
                       <input
                         name="email"
                         type="email"
                         required
                         placeholder="USER@DOMAIN.COM"
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-xs font-mono text-white focus:border-green-500/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-slate-700"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-1 font-medium">Payload_Content</p>
+                  <div className="space-y-3">
+                    <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-bold ml-1">Payload_Content</p>
                     <textarea
                       name="message"
                       required
-                      rows={6}
+                      rows={5}
                       placeholder="ENTER MESSAGE DATA..."
-                      className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-5 py-4 text-xs font-mono text-white focus:border-green-500/30 focus:bg-white/[0.04] focus:outline-none transition-all placeholder:text-slate-800 resize-none"
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-xs font-mono text-white focus:border-green-500/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-slate-700 resize-none"
                     />
                   </div>
 
-                  <div className="pt-4 flex items-center justify-center lg:justify-start gap-6">
-                    <button
+                  <div className="pt-4 flex flex-col sm:flex-row items-center gap-8">
+                    <motion.button
                       type="submit"
                       disabled={status === "loading"}
-                      className="group relative px-4 py-2 bg-green-600 text-black text-[11px] font-bold font-mono tracking-[0.2em] rounded-full hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] active:scale-95 overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-fit sm:w-auto px-10 py-3.5 bg-green-600 text-black text-[12px] font-black font-mono tracking-[0.2em] rounded-full hover:bg-white hover:text-black transition-all flex items-center justify-center gap-4 disabled:opacity-50 shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:shadow-[0_0_40px_rgba(34,197,94,0.4)] relative overflow-hidden group/btn"
                     >
-                      <span className="relative z-10 flex items-center gap-3">
+                      <span className="relative z-10 flex items-center gap-4">
                         {status === "loading" ? "SENDING..." : "CONTACT_ME"}
-                        <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <Send size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                       </span>
-                    </button>
+                    </motion.button>
                     
-                    <div className="hidden md:flex flex-col gap-1 text-[9px] font-mono text-slate-700 uppercase font-bold">
-                      <span>Protocol: HTTPS/WSS</span>
-                      <span>Security: TLS 1.3</span>
+                    <div className="flex flex-col gap-1.5 text-[10px] font-mono text-slate-600 uppercase font-black">
+                      <div className="flex items-center gap-2">
+                        <div className="size-1 bg-green-500/50 rounded-full" />
+                        <span>Protocol: HTTPS/TLS 1.3</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="size-1 bg-green-500/50 rounded-full" />
+                        <span>Endpoint: SECURE_WSS</span>
+                      </div>
                     </div>
                   </div>
 
@@ -191,7 +210,7 @@ export function Contact() {
                     <motion.div 
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-3 rounded-lg text-center text-[10px] font-mono border ${
+                      className={`p-4 rounded-2xl text-center text-[11px] font-mono font-bold border ${
                         status === "success" ? "bg-green-500/5 border-green-500/20 text-green-500" : "bg-red-500/5 border-red-500/20 text-red-400"
                       }`}
                     >
