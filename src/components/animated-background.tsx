@@ -46,11 +46,11 @@ export function AnimatedBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-[20] overflow-hidden pointer-events-none">
       {elements.map((el) => (
         <motion.div
           key={el.id}
-          className="absolute text-green-500/10" // Reduced default opacity for better perf
+          className="absolute text-green-500/10" 
           initial={{ 
             left: `${el.x}%`, 
             top: `${el.y}%`, 
@@ -58,9 +58,9 @@ export function AnimatedBackground() {
             rotate: 0 
           }}
           animate={{ 
-            y: [0, -30, 0], // Reduced range
-            opacity: [0, 0.1, 0],
-            rotate: [0, 90, 0] // Reduced rotation
+            y: [0, -50, 0],
+            opacity: [0, 1, 0],
+            rotate: [0, 180, 0]
           }}
           transition={{
             duration: el.duration,
