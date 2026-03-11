@@ -37,15 +37,14 @@ export function FloatingActionButton() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      const scrollPos = window.scrollY;
-      
       const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
       if (sliderScroll) {
         const isNearBottom = sliderScroll.scrollTop + sliderScroll.clientHeight >= sliderScroll.scrollHeight - 100;
         setFooterInView(isNearBottom);
       } else {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollPos = window.scrollY;
         const isNearBottom = scrollPos + clientHeight >= scrollHeight - 100;
         setFooterInView(isNearBottom);
       }
@@ -56,6 +55,9 @@ export function FloatingActionButton() {
     if (sliderScroll) {
       sliderScroll.addEventListener("scroll", handleScroll, { passive: true });
     }
+
+    // Call initially to set correct state
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

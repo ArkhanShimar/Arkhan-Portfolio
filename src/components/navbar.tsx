@@ -45,12 +45,22 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
     if (element) {
       const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition = elementPosition + (onNavigate ? 0 : window.pageYOffset) - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      if (onNavigate) {
+        const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+        if (sliderScroll) {
+          sliderScroll.scrollTo({
+            top: sliderScroll.scrollTop + elementPosition - headerOffset,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
