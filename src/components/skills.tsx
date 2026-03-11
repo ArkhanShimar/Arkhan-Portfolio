@@ -25,24 +25,30 @@ import { VscVscode } from "react-icons/vsc";
 import { FaJava } from "react-icons/fa";
 
 const technicalSkills = [
-  { name: "Next.js", level: 90, icon: SiNextdotjs, color: "text-green-500" },
-  { name: "React / Native", level: 95, icon: SiReact, color: "text-green-500" },
-  { name: "TypeScript", level: 85, icon: SiTypescript, color: "text-green-500" },
-  { name: "Node.js / Express", level: 80, icon: SiNodedotjs, color: "text-green-500" },
-  { name: "Java (Android)", level: 85, icon: FaJava, color: "text-green-500" },
-  { name: "PHP / .NET", level: 75, icon: SiPhp, color: "text-green-500" },
-  { name: "C#", level: 70, icon: TbBrandCSharp, color: "text-green-500" },
-  { name: "C++", level: 65, icon: SiCplusplus, color: "text-green-500" },
-  { name: "HTML / CSS", level: 90, icon: SiHtml5, color: "text-green-500" },
+  { name: "Next.js", icon: SiNextdotjs, color: "text-green-500" },
+  { name: "React / Native", icon: SiReact, color: "text-green-500" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-green-500" },
+  { name: "Node.js / Express", icon: SiNodedotjs, color: "text-green-500" },
+  { name: "Java (Android)", icon: FaJava, color: "text-green-500" },
+  { name: "PHP / .NET", icon: SiPhp, color: "text-green-500" },
+  { name: "C#", icon: TbBrandCSharp, color: "text-green-500" },
+  { name: "C++", icon: SiCplusplus, color: "text-green-500" },
+  { name: "HTML / CSS", icon: SiHtml5, color: "text-green-500" },
 ];
 
 const professionalSkills = [
-  { name: "Problem-Solving", value: 95 },
-  { name: "Team Collaboration", value: 90 },
-  { name: "Communication", value: 85 },
-  { name: "Leadership", value: 80 },
-  { name: "Time Management", value: 85 },
-  { name: "Adaptability", value: 88 },
+  "Problem-Solving",
+  "Team Collaboration",
+  "Communication",
+  "Leadership",
+  "Time Management",
+  "Adaptability",
+  "Critical Thinking",
+  "Public Speaking",
+  "Agile Methodology",
+  "Project Management",
+  "Creativity",
+  "Emotional Intelligence",
 ];
 
 const tools = [
@@ -65,7 +71,7 @@ export function Skills() {
   return (
     <section className="py-24 relative overflow-hidden snap-start">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-12">
           
           {/* Left: Technical Stack */}
           <div className="space-y-12">
@@ -82,49 +88,12 @@ export function Skills() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="p-4 rounded-xl glass hover:border-green-500/20 transition-all group"
+                  className="p-4 rounded-xl glass hover:border-green-500/20 transition-all group flex items-center gap-3"
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <skill.icon className={`${skill.color} text-xl transition-transform group-hover:scale-110`} />
-                    <span className="text-[11px] font-mono text-white font-medium">{skill.name}</span>
-                  </div>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      className="h-full bg-green-500"
-                    />
-                  </div>
+                  <skill.icon className={`${skill.color} text-xl transition-transform group-hover:scale-110`} />
+                  <span className="text-[11px] font-mono text-white font-medium">{skill.name}</span>
                 </motion.div>
               ))}
-            </div>
-
-            {/* Databases list */}
-            <div className="pt-2 text-center lg:text-left">
-              <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4 font-semibold">Databases & Storage</p>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                {databaseSkills.map((db, i) => (
-                  <div key={i} className="flex items-center gap-2 text-slate-400 hover:text-green-500 transition-colors cursor-default">
-                    <db.icon size={16} />
-                    <span className="text-[10px] font-mono">{db.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tools list */}
-            <div className="pt-2 text-center lg:text-left">
-              <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4 font-semibold">Workflow Tools</p>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                {tools.map((tool, i) => (
-                  <div key={i} className="flex items-center gap-2 text-slate-400 hover:text-green-500 transition-colors cursor-default">
-                    <tool.icon size={16} />
-                    <span className="text-[10px] font-mono">{tool.name}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -140,23 +109,18 @@ export function Skills() {
                 Soft Skills
               </h3>
 
-              <div className="space-y-8">
+              <div className="flex flex-wrap gap-2">
                 {professionalSkills.map((skill, i) => (
-                  <div key={skill.name} className="space-y-3">
-                    <div className="flex justify-between text-[11px] font-mono">
-                      <span className="text-slate-400 uppercase tracking-widest">{skill.name}</span>
-                      <span className="text-green-500">{skill.value}%</span>
-                    </div>
-                    <div className="relative h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.value}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: i * 0.1 }}
-                        className="absolute inset-y-0 left-0 bg-green-500"
-                      />
-                    </div>
-                  </div>
+                  <motion.div
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-mono text-slate-400 uppercase tracking-wider hover:border-green-500/30 hover:text-green-500 transition-all cursor-default"
+                  >
+                    {skill}
+                  </motion.div>
                 ))}
               </div>
 
@@ -168,7 +132,53 @@ export function Skills() {
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Bottom: Databases & Tools side-by-side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8 border-t border-white/5">
+          {/* Databases list */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="size-1.5 bg-green-500 rounded-full" />
+              <p className="text-[11px] font-mono text-white uppercase tracking-[0.2em] font-bold">Databases & Storage</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {databaseSkills.map((db, i) => (
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="p-4 rounded-xl glass hover:border-green-500/20 transition-all group flex flex-col items-center justify-center gap-3 text-center"
+                >
+                  <db.icon className="text-xl text-slate-400 group-hover:text-green-500 transition-colors" />
+                  <span className="text-[10px] font-mono text-slate-400 group-hover:text-white transition-colors">{db.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tools list */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="size-1.5 bg-green-500 rounded-full" />
+              <p className="text-[11px] font-mono text-white uppercase tracking-[0.2em] font-bold">Workflow Tools</p>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+              {tools.map((tool, i) => (
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="p-3 rounded-xl glass hover:border-green-500/20 transition-all group flex flex-col items-center justify-center gap-2 text-center"
+                >
+                  <tool.icon className="text-lg text-slate-500 group-hover:text-green-500 transition-colors" />
+                  <span className="text-[9px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors">{tool.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
