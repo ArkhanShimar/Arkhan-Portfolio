@@ -100,8 +100,8 @@ export function Contact() {
                     {[
                       { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
                       { icon: SiLinkedin, link: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
-                      { icon: SiFacebook, link: "#" },
-                      { icon: SiInstagram, link: "#" },
+                      { icon: SiFacebook, link: "https://www.facebook.com/arkhan.smr.9/" },
+                      { icon: SiInstagram, link: "https://www.instagram.com/arkhvn__/" },
                     ].map((social, i) => (
                       <a 
                         key={i} 

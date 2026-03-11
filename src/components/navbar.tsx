@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type Section = {
   id: string;
@@ -131,7 +132,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-3">
           <a
             href="/Arkhan_Shimar.pdf"
             download
@@ -140,6 +141,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           >
             <Download size={16} />
           </a>
+          <ThemeToggle size="sm" />
         </div>
 
         {/* Mobile Toggle */}
