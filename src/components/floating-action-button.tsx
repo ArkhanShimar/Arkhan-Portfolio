@@ -33,39 +33,30 @@ export function FloatingActionButton() {
     };
   }, [footerInView]);
 
-  const shouldShow = (isBlogRoute || activeSection !== "home") && !footerInView;
-
   useEffect(() => {
-    const handleScroll = () => {
-      const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
-      if (sliderScroll) {
-        const isNearBottom = sliderScroll.scrollTop + sliderScroll.clientHeight >= sliderScroll.scrollHeight - 100;
-        setFooterInView(isNearBottom);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setFooterInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    const checkFooter = () => {
+      const footer = document.querySelector('[data-footer="true"]');
+      if (footer) {
+        observer.observe(footer);
       } else {
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-        const scrollPos = window.scrollY;
-        const isNearBottom = scrollPos + clientHeight >= scrollHeight - 100;
-        setFooterInView(isNearBottom);
+        // If footer not found yet, retry after a bit
+        setTimeout(checkFooter, 500);
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
-    if (sliderScroll) {
-      sliderScroll.addEventListener("scroll", handleScroll, { passive: true });
-    }
+    checkFooter();
 
-    // Call initially to set correct state
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (sliderScroll) {
-        sliderScroll.removeEventListener("scroll", handleScroll);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
+
+  const shouldShow = (isBlogRoute || activeSection !== "home") && !footerInView;
 
   const scrollToTop = () => {
     const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
@@ -97,9 +88,9 @@ export function FloatingActionButton() {
               whileHover={{ scale: 1.1, y: -5 }}
               onClick={isBlogRoute ? goHome : scrollToTop}
               className="size-10 sm:size-12 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-600/50 transition-all shadow-2xl backdrop-blur-md"
-              title={isBlogRoute ? "Home" : "Scroll to Top"}
+              title="Home"
             >
-              {isBlogRoute ? <Home size={18} className="sm:size-5" /> : <ArrowUp size={18} className="sm:size-5" />}
+              <Home size={18} className="sm:size-5" />
             </motion.button>
 
             <motion.a

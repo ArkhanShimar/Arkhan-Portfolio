@@ -47,7 +47,7 @@ export function Projects() {
   };
 
   return (
-    <section className="pt-24 pb-24 relative snap-start scroll-mt-24 min-h-screen flex flex-col justify-center overflow-hidden">
+    <section className="pt-24 pb-24 relative scroll-mt-24 min-h-screen flex flex-col justify-center overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between items-center gap-8 mb-12 lg:mb-16 text-center md:text-left">
           <SectionHeading

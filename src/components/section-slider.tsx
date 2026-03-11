@@ -104,14 +104,22 @@ export function SectionSlider() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     
-    // Always start at home on refresh/initial load
-    window.history.replaceState(null, "", "#home");
-    announceActiveSection("home");
-    setActiveIndex(0);
+    const hash = window.location.hash.replace("#", "");
+    const initialIndex = idToIndex.get(hash);
+    
+    if (initialIndex != null) {
+      setActiveIndex(initialIndex);
+      announceActiveSection(hash);
+    } else {
+      // Always start at home on refresh/initial load if no hash
+      window.history.replaceState(null, "", "#home");
+      announceActiveSection("home");
+      setActiveIndex(0);
+    }
     
     const el = scrollContainerRef.current;
     if (el) el.scrollTop = 0;
-  }, [announceActiveSection]);
+  }, [announceActiveSection, idToIndex]);
 
   useLayoutEffect(() => {
     const el = scrollContainerRef.current;
@@ -287,7 +295,7 @@ export function SectionSlider() {
         <div
           ref={scrollContainerRef}
           data-section-slider-scroll="true"
-          className="h-full w-full overflow-y-auto overscroll-contain snap-y snap-mandatory"
+          className="h-full w-full overflow-y-auto overscroll-contain"
         >
           <div className="relative min-h-full">
             <AnimatePresence

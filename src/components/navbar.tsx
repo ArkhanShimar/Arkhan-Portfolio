@@ -65,15 +65,8 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
   };
 
   useEffect(() => {
-    if (onNavigate) return;
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      const scrollPos = window.scrollY;
-      setHidden(scrollPos + clientHeight >= scrollHeight - 100);
 
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
       let currentSection = "home";
@@ -99,6 +92,27 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
   }, [onNavigate]);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHidden(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    const checkFooter = () => {
+      const footer = document.querySelector('[data-footer="true"]');
+      if (footer) {
+        observer.observe(footer);
+      } else {
+        setTimeout(checkFooter, 500);
+      }
+    };
+
+    checkFooter();
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!onNavigate) return;
 
     const el = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
@@ -106,7 +120,6 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
 
     const handleScroll = () => {
       setScrolled(el.scrollTop > 20);
-      setHidden(el.scrollTop + el.clientHeight >= el.scrollHeight - 100);
     };
 
     handleScroll();

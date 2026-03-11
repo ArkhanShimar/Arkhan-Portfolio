@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPost, blogPosts } from "@/data/blog";
+import { ArrowLeft, Home } from "lucide-react";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -80,13 +81,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <div className="container mx-auto px-6 py-14 sm:py-16">
         <article className="mx-auto max-w-4xl">
-          <div className="mb-8">
+          <div className="mb-8 flex items-center gap-6">
+            <Link
+              href="/#home"
+              className="group flex items-center gap-2 text-slate-500 hover:text-white transition-colors"
+            >
+              <div className="size-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-green-500/10 group-hover:text-green-500 transition-all border border-white/5 group-hover:border-green-500/20">
+                <Home size={16} />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-widest font-bold">Home</span>
+            </Link>
             <Link
               href="/#blog"
-              className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-slate-500 hover:text-green-500 transition-colors"
+              className="group flex items-center gap-2 text-slate-500 hover:text-white transition-colors"
             >
-              <span className="text-green-500 opacity-60">&lt;</span>
-              Back to blog
+              <div className="size-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-green-500/10 group-hover:text-green-500 transition-all border border-white/5 group-hover:border-green-500/20">
+                <ArrowLeft size={16} />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-widest font-bold">Back to blog</span>
             </Link>
           </div>
 
@@ -173,12 +185,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
             <Link
-              href="/#blog"
-              className="rounded-full border border-white/10 bg-white/[0.02] px-5 py-2 text-[11px] font-mono uppercase tracking-widest text-slate-300 hover:border-green-500/30 hover:text-green-500 transition-colors"
+              href="/#home"
+              className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2 text-[11px] font-mono uppercase tracking-widest text-slate-300 hover:border-green-500/30 hover:text-green-500 transition-colors group"
             >
+              <Home size={14} className="group-hover:text-green-500 transition-colors" />
+              Go Home
+            </Link>
+            <Link
+              href="/#blog"
+              className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2 text-[11px] font-mono uppercase tracking-widest text-slate-300 hover:border-green-500/30 hover:text-green-500 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:text-green-500 transition-colors" />
               Back to blog
             </Link>
-            <span />
           </div>
         </article>
       </div>
