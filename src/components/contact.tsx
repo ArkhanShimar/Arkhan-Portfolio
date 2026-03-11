@@ -99,7 +99,7 @@ export function Contact() {
                   <div className="flex gap-3 justify-center lg:justify-start">
                     {[
                       { icon: SiGithub, link: "https://github.com/ArkhanShimar" },
-                      { icon: SiLinkedin, link: "https://linkedin.com/in/arkhanshimar" },
+                      { icon: SiLinkedin, link: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
                       { icon: SiFacebook, link: "#" },
                       { icon: SiInstagram, link: "#" },
                     ].map((social, i) => (

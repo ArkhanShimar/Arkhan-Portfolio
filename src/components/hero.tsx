@@ -134,7 +134,7 @@ export function Hero() {
                 <div className="hidden sm:flex gap-3">
                   {[
                     { icon: Github, href: "https://github.com/ArkhanShimar" },
-                    { icon: Linkedin, href: "https://linkedin.com/in/arkhanshimar" },
+                    { icon: Linkedin, href: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
                     { icon: Mail, href: `mailto:${siteConfig.email}` }
                   ].map((social, i) => (
                     <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-green-500 transition-colors">
