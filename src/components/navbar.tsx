@@ -102,7 +102,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
         scrolled ? "bg-black/60 backdrop-blur-md sm:backdrop-blur-2xl py-2 shadow-lg sm:shadow-2xl" : "bg-transparent py-4"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between px-6">
+      <nav className="container mx-auto relative flex items-center justify-between px-6">
         <Link
           href="#home"
           onClick={(e) => scrollToSection(e, "home")}
@@ -116,25 +116,22 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           </span>
         </Link>
 
-        {/* Desktop Nav - Refined Cursor Style */}
-        <div className="hidden md:flex items-center gap-3">
-          <div className="flex items-center gap-1 p-1 rounded-full glass border-white/10 bg-white/[0.02]">
-            {sections.map((section) => (
-              <Link
-                key={section.id}
-                href={`#${section.id}`}
-                onClick={(e) => scrollToSection(e, section.id)}
-                className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all rounded-full ${
-                  active === section.id 
-                    ? "bg-green-500 text-black shadow-[0_0_15px_rgba(34,197,94,0.3)]" 
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                {section.label}
-              </Link>
-            ))}
-          </div>
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6">
+          {sections.map((section) => (
+            <Link
+              key={section.id}
+              href={`#${section.id}`}
+              onClick={(e) => scrollToSection(e, section.id)}
+              className={`text-[11px] font-mono uppercase tracking-widest transition-colors ${
+                active === section.id ? "text-green-500" : "text-slate-400 hover:text-green-500"
+              }`}
+            >
+              {section.label}
+            </Link>
+          ))}
+        </div>
 
+        <div className="hidden md:flex items-center">
           <a
             href="/Arkhan_Shimar.pdf"
             download

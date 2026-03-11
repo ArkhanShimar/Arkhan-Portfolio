@@ -27,7 +27,7 @@ export function Hero() {
             alt="Background Portrait"
             fill
             priority
-            className="object-contain object-center grayscale brightness-85 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16"
+            className="object-contain object-center grayscale brightness-65 contrast-110 sm:scale-90 lg:scale-95 lg:-translate-x-16"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
         </div>
@@ -99,7 +99,7 @@ export function Hero() {
             >
               <a 
                 href="#projects"
-                className="group px-5 py-2 bg-white text-black text-[11px] font-bold rounded-full hover:bg-green-500 transition-all duration-300 flex items-center gap-2 shadow-lg"
+                className="group px-5 py-2 glass text-green-500 border border-green-500/20 text-[11px] font-bold rounded-full hover:border-white/50 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-lg"
               >
                 Explore Work
                 <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -107,10 +107,10 @@ export function Hero() {
               <a 
                 href="/Arkhan_Shimar.pdf"
                 download
-                className="px-5 py-2 glass text-white text-[11px] font-bold rounded-full hover:bg-white/5 transition-all duration-300 flex items-center gap-2"
+                className="group px-5 py-2 glass text-white border border-white/20 text-[11px] font-bold rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg"
               >
                 Download CV
-                <Download size={12} />
+                <Download size={12} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </motion.div>
           </div>
