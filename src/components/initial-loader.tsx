@@ -13,6 +13,18 @@ export function InitialLoader({
   const [loadingText, setLoadingText] = useState("Initializing system...");
 
   useEffect(() => {
+    // Force scroll to top on refresh
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+      if (sliderScroll) {
+        sliderScroll.scrollTo(0, 0);
+      }
+      if (window.location.hash !== "" && window.location.hash !== "#home") {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }
+
     const texts = [
       "Initializing system...",
       "Loading kernel modules...",

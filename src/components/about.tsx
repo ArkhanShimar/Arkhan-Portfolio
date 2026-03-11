@@ -46,12 +46,14 @@ const certifications = [
 
 export function About() {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#000000]">
+    <section className="py-24 relative overflow-x-hidden bg-[#000000]">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2" />
+      </div>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
             <motion.div
@@ -175,32 +177,31 @@ export function About() {
               transition={{ delay: 0.2 }}
               className="space-y-10"
             >
-              <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="grid grid-cols-2 gap-8 relative z-10">
-                  <div className="space-y-0.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+                  <div className="space-y-0.5 p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Projects_Shipped</p>
                     <p className="text-3xl font-bold text-white tracking-tighter">12<span className="text-green-500">+</span></p>
                   </div>
-                  <div className="space-y-2 text-right">
+                  <div className="space-y-2 p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group sm:text-right">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Expertise_Lvl</p>
-                    <div className="inline-flex items-center gap-2 text-green-500">
+                    <div className="inline-flex items-center gap-2 text-green-500 sm:justify-end w-full">
                       <p className="text-2xl font-bold tracking-tighter">Undergrad</p>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden">
-                <div className="flex items-center justify-between gap-6 relative z-10">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.3em] font-black">Language Proficiency</span>
-                  <div className="flex items-center gap-4 text-[10px] font-mono font-bold uppercase tracking-wider">
-                    <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">English</span>
-                    <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Sinhala</span>
-                    <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Tamil</span>
+                <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest sm:tracking-[0.3em] font-black">Language Proficiency</span>
+                    <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono font-bold uppercase tracking-wider">
+                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">English</span>
+                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Sinhala</span>
+                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Tamil</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
               <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden">
                 <div className="flex items-center gap-4 mb-10 group cursor-default">
