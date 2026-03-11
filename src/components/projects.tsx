@@ -76,14 +76,18 @@ export function Projects() {
                       <div key={t} className="size-1 rounded-full bg-green-500/20" title={t}></div>
                     ))}
                   </div>
-                  <a 
-                    href={project.github} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] font-mono text-green-500 uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all font-semibold"
-                  >
-                    Source_Code <Code size={12} />
-                  </a>
+                  {project.github ? (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-mono text-green-500 uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all font-semibold"
+                    >
+                      Source_Code <Code size={12} />
+                    </a>
+                  ) : (
+                    <span />
+                  )}
                 </div>
               </div>
             </motion.div>

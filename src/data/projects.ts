@@ -9,6 +9,24 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Notely Web App",
+    description:
+      "A modern note-taking platform with rich text formatting, folder organization, pinning, real-time collaboration, and search features, designed for seamless productivity.",
+    tech: ["React", "Node.js", "MongoDB", "Express"],
+    github: "https://github.com/ArkhanShimar/Note-Taking-Website",
+    demo: "",
+    image: "/images/notely.png",
+  },
+  {
+    title: "ToolHub Web App",
+    description:
+      "An e-commerce platform for buying and exploring hardware tools, featuring product categories, search, secure checkout, and a smooth user-friendly interface.",
+    tech: ["Next.js", "TailwindCSS", "Framer Motion"],
+    github: "https://github.com/ArkhanShimar/ToolHub",
+    demo: "",
+    image: "/images/toolhub.png",
+  },
+  {
     title: "LuxeVista Resort App",
     description:
       "Android app for hotel booking and service management built with Java and Firebase.",
@@ -22,7 +40,7 @@ export const projects: Project[] = [
     description:
       "Platform enabling donations of reusable goods built with a modern React and Node stack.",
     tech: ["React", "Node.js", "Tailwind CSS"],
-    github: "https://github.com/ArkhanShimar",
+    github: "",
     demo: "",
     image: "/images/sharelanka.png",
   },
