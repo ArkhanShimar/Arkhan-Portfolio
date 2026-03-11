@@ -284,7 +284,7 @@ export function SectionSlider() {
         <div
           ref={scrollContainerRef}
           data-section-slider-scroll="true"
-          className="h-full w-full overflow-y-auto overscroll-contain"
+          className="h-full w-full overflow-y-auto overscroll-contain snap-y snap-mandatory scroll-smooth"
         >
           <div className="relative min-h-full">
             <AnimatePresence
@@ -313,7 +313,7 @@ export function SectionSlider() {
                 <div id={active.id} className="relative">
                   <div className="relative">{active.element}</div>
                   {!isLast && (
-                    <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex justify-center">
+                    <div className="pointer-events-none absolute inset-x-0 bottom-10 z-20 flex justify-center">
                       <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-slate-400 backdrop-blur-[2px]">
                         <span>Scroll for next</span>
                         <motion.span
