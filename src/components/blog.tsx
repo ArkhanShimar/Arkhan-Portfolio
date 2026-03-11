@@ -8,11 +8,14 @@ import { blogPosts } from "@/data/blog";
 
 export function Blog() {
   return (
-    <section id="blog" className="py-24 relative overflow-hidden bg-[#000000]">
+    <section id="blog" className="py-24 relative overflow-x-hidden bg-[#000000]">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2" />
+      </div>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <SectionHeading
           eyebrow="Insights"
           title="Sharing knowledge."

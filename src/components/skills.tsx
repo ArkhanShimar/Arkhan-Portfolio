@@ -69,12 +69,14 @@ const databaseSkills = [
 
 export function Skills() {
   return (
-    <section className="py-24 relative overflow-hidden snap-start bg-[#000000]">
+    <section className="py-24 relative overflow-x-hidden snap-start bg-[#000000]">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2" />
+      </div>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-16">
           
           {/* Left: Technical Stack */}
@@ -88,10 +90,10 @@ export function Skills() {
               {technicalSkills.map((skill, i) => (
                 <motion.div
                   key={skill.name}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
                   whileHover={{ y: -3 }}
                   className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-green-500/30 hover:bg-white/[0.06] transition-all group flex items-center gap-3 relative overflow-hidden"
                 >
@@ -105,9 +107,9 @@ export function Skills() {
 
           {/* Right: Professional Skills */}
           <div className="space-y-12 lg:max-w-xl lg:ml-auto">
-            <div className="p-10 rounded-3xl bg-white/[0.03] border border-white/5 relative overflow-hidden group">
+            <div className="p-8 sm:p-10 rounded-3xl bg-white/[0.03] border border-white/5 relative overflow-hidden group">
               {/* Background Icon Decor */}
-              <div className="absolute -top-20 -right-20 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity duration-700">
+              <div className="absolute -top-20 -right-20 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-700 pointer-events-none">
                 <SiReact size={300} className="text-green-500 rotate-12" />
               </div>
               
@@ -117,16 +119,16 @@ export function Skills() {
                   Professional Skills
                 </h3>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {professionalSkills.map((skill, i) => (
                     <motion.div
                       key={skill}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true, margin: "-20px" }}
+                      transition={{ delay: i * 0.03, duration: 0.3 }}
                       whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.1)" }}
-                      className="px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-[10px] font-mono text-slate-400 uppercase tracking-widest hover:border-green-500/40 hover:text-green-500 transition-all cursor-default shadow-sm"
+                      className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/[0.05] border border-white/10 text-[9px] sm:text-[10px] font-mono text-slate-400 uppercase tracking-widest hover:border-green-500/40 hover:text-green-500 transition-all cursor-default shadow-sm"
                     >
                       {skill}
                     </motion.div>
@@ -135,7 +137,7 @@ export function Skills() {
 
                 <div className="mt-12 p-5 rounded-2xl bg-gradient-to-br from-green-500/[0.08] to-transparent border border-green-500/20 backdrop-blur-sm">
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 px-2 py-0.5 rounded bg-green-500 text-[8px] font-mono font-black text-black uppercase">Goal</div>
+                    <div className="mt-1 px-2 py-0.5 rounded bg-green-500 text-[8px] font-mono font-black text-black uppercase shrink-0">Goal</div>
                     <p className="text-[12px] text-slate-300 font-sans leading-relaxed italic">
                       "Dedicated to building high-performance applications through clean code, agile methodologies, and effective team leadership."
                     </p>
@@ -158,9 +160,10 @@ export function Skills() {
               {databaseSkills.map((db, i) => (
                 <motion.div 
                   key={i} 
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
                   whileHover={{ y: -3, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
                   className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group flex flex-col items-center justify-center gap-3 text-center relative overflow-hidden"
                 >
@@ -182,9 +185,10 @@ export function Skills() {
               {tools.map((tool, i) => (
                 <motion.div 
                   key={i} 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ delay: i * 0.03, duration: 0.3 }}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
                   className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden"
                 >
