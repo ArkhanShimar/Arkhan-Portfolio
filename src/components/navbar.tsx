@@ -29,6 +29,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
   const [activeInternal, setActiveInternal] = useState<string>("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const active = activeId ?? activeInternal;
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -59,6 +60,11 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
       
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollPos = window.scrollY;
+      setHidden(scrollPos + clientHeight >= scrollHeight - 100);
+
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
       let currentSection = "home";
 
@@ -90,6 +96,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
 
     const handleScroll = () => {
       setScrolled(el.scrollTop > 20);
+      setHidden(el.scrollTop + el.clientHeight >= el.scrollHeight - 100);
     };
 
     handleScroll();
@@ -100,6 +107,8 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
   return (
     <header 
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+      } ${
         scrolled ? "bg-black/60 backdrop-blur-md sm:backdrop-blur-2xl py-2 shadow-lg sm:shadow-2xl" : "bg-transparent py-4"
       }`}
     >

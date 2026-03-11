@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
 import Image from "next/image";
@@ -23,6 +23,19 @@ const ITEMS_PER_PAGE = 6;
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [headerHidden, setHeaderHidden] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollPos = window.scrollY;
+      setHeaderHidden(scrollPos + clientHeight >= scrollHeight - 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const filteredProjects = useMemo(() => {
     return projects.filter(project => 
@@ -44,12 +57,14 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white selection:bg-green-500 selection:text-black font-sans">
+    <div className="min-h-screen text-white selection:bg-green-500 selection:text-black font-sans">
       {/* Background Gradient */}
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(34,197,94,0.05),transparent_50%)]" />
 
       {/* Navigation Bar */}
-      <header className="sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/5 py-4">
+      <header className={`sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-500 ${
+        headerHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+      }`}>
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link 

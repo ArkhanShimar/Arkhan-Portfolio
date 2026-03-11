@@ -3,7 +3,7 @@ import { Fira_Code, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { InitialLoader } from "@/components/initial-loader";
-import { FloatingActionButton } from "@/components/floating-action-button";
+import { AnimatedBackground } from "@/components/animated-background";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,8 +61,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <ThemeProvider>
           <InitialLoader>
+            <AnimatedBackground />
             {children}
-            <FloatingActionButton />
           </InitialLoader>
         </ThemeProvider>
       </body>
