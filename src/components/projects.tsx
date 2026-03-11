@@ -130,7 +130,7 @@ export function Projects() {
                       scale: isActive ? 1 : 0.8,
                       z: isActive ? 0 : -150,
                       rotateY: offset * -20,
-                      opacity: isActive ? 1 : 0.3,
+                      opacity: isActive ? 1 : 0.5,
                       zIndex: 10 - Math.abs(offset),
                     }}
                     transition={{
@@ -157,7 +157,7 @@ export function Projects() {
                           src={proj.image}
                           alt={proj.title}
                           fill
-                          className={`object-cover transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-40"}`}
+                          className={`object-cover transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-50"}`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                         
@@ -172,7 +172,7 @@ export function Projects() {
                       </div>
 
                       {/* Details */}
-                      <div className={`p-5 sm:p-8 flex flex-col flex-grow justify-between transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}>
+                      <div className={`p-5 sm:p-8 flex flex-col flex-grow justify-between transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-50"}`}>
                         <div className="space-y-3">
                           <div className="flex justify-between items-start">
                             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight line-clamp-1">{proj.title}</h3>
