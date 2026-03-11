@@ -19,22 +19,22 @@ export function InitialLoader({
         window.history.scrollRestoration = 'manual';
       }
       
+      // Force home on refresh
+      window.history.replaceState(null, "", "#home");
       window.scrollTo(0, 0);
+      
       const resetScroll = () => {
+        window.scrollTo(0, 0);
         const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
         if (sliderScroll) {
           sliderScroll.scrollTo(0, 0);
+          sliderScroll.scrollTop = 0;
         }
       };
       
       resetScroll();
-      // Also try after a short delay to ensure slider is rendered
-      setTimeout(resetScroll, 100);
-      setTimeout(resetScroll, 500);
-
-      if (window.location.hash !== "" && window.location.hash !== "#home") {
-        window.history.replaceState(null, "", window.location.pathname);
-      }
+      // Multiple attempts to ensure it's at the top
+      [10, 50, 100, 500, 1000].forEach(ms => setTimeout(resetScroll, ms));
     }
 
     const texts = [

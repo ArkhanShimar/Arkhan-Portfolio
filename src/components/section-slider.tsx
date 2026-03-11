@@ -103,33 +103,31 @@ export function SectionSlider() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const current = window.location.hash.replace("#", "");
-    if (!current) {
-      window.history.replaceState(null, "", "#home");
-      announceActiveSection("home");
-      return;
-    }
-    const idx = idToIndex.get(current);
-    if (idx != null) {
-      window.setTimeout(() => {
-        navigateToIndex(idx);
-        announceActiveSection(current);
-      }, 0);
-    } else {
-      window.history.replaceState(null, "", "#home");
-      announceActiveSection("home");
-    }
-  }, [announceActiveSection, idToIndex, navigateToIndex]);
+    
+    // Always start at home on refresh/initial load
+    window.history.replaceState(null, "", "#home");
+    announceActiveSection("home");
+    setActiveIndex(0);
+    
+    const el = scrollContainerRef.current;
+    if (el) el.scrollTop = 0;
+  }, [announceActiveSection]);
 
   useLayoutEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
+    
+    // Immediate reset
     el.scrollTop = 0;
-    // Force a secondary reset to be sure
-    const timer = setTimeout(() => {
-      el.scrollTop = 0;
-    }, 10);
-    return () => clearTimeout(timer);
+    window.scrollTo(0, 0);
+    
+    // Multiple delayed resets for different browser behaviors
+    const timers = [10, 50, 100].map(ms => setTimeout(() => {
+      if (el) el.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }, ms));
+
+    return () => timers.forEach(clearTimeout);
   }, [active.id]);
 
   useEffect(() => {
