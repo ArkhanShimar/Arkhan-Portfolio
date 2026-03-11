@@ -19,10 +19,6 @@ export function InitialLoader({
         window.history.scrollRestoration = 'manual';
       }
       
-      // Force home on refresh
-      window.history.replaceState(null, "", "#home");
-      window.scrollTo(0, 0);
-      
       const resetScroll = () => {
         window.scrollTo(0, 0);
         const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');

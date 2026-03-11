@@ -104,14 +104,25 @@ export function SectionSlider() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     
-    const hash = window.location.hash.replace("#", "");
+    const navEntries = performance.getEntriesByType("navigation");
+    const isReload = (navEntries.length > 0 && (navEntries[0] as PerformanceNavigationTiming).type === "reload") ||
+                    (window.performance.navigation && window.performance.navigation.type === 1);
+    
+    let hash = window.location.hash.replace("#", "");
+    
+    // If it's a reload, always force home regardless of current hash
+    if (isReload) {
+      hash = "home";
+      window.history.replaceState(null, "", "#home");
+    }
+    
     const initialIndex = idToIndex.get(hash);
     
     if (initialIndex != null) {
       setActiveIndex(initialIndex);
       announceActiveSection(hash);
     } else {
-      // Always start at home on refresh/initial load if no hash
+      // Always start at home on initial load if no hash
       window.history.replaceState(null, "", "#home");
       announceActiveSection("home");
       setActiveIndex(0);
