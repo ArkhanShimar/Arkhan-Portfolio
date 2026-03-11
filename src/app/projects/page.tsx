@@ -57,7 +57,11 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="min-h-screen text-white selection:bg-green-500 selection:text-black font-sans">
+    <div className="min-h-screen text-white selection:bg-green-500 selection:text-black font-sans bg-[#000000]">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none fixed" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full pointer-events-none fixed" />
+      
       {/* Background Gradient */}
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(34,197,94,0.05),transparent_50%)]" />
 
@@ -71,15 +75,19 @@ export default function ProjectsPage() {
               href="/#home" 
               className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
             >
-              <Home size={18} />
-              <span className="hidden sm:inline text-xs font-mono uppercase tracking-widest">Home</span>
+              <div className="size-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-green-500/10 group-hover:text-green-500 transition-all border border-white/5 group-hover:border-green-500/20">
+                <Home size={16} />
+              </div>
+              <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-widest font-bold">Home</span>
             </Link>
             <Link 
               href="/#projects" 
               className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
             >
-              <ArrowLeft size={18} />
-              <span className="hidden sm:inline text-xs font-mono uppercase tracking-widest">Back</span>
+              <div className="size-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-green-500/10 group-hover:text-green-500 transition-all border border-white/5 group-hover:border-green-500/20">
+                <ArrowLeft size={16} />
+              </div>
+              <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-widest font-bold">Back</span>
             </Link>
           </div>
 
@@ -88,61 +96,65 @@ export default function ProjectsPage() {
               href="https://github.com/ArkhanShimar" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="p-2 rounded-full glass text-slate-400 hover:text-green-500 transition-all border-white/5 hover:border-green-500/30"
+              className="size-9 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 transition-all border border-white/5 hover:border-green-500/30 shadow-sm"
             >
-              <Github size={20} />
+              <Github size={18} />
             </a>
             <ThemeToggle size="sm" />
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-1">
+      <main className="container mx-auto px-6 py-12 relative z-10">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] font-mono font-medium tracking-wide text-green-500 border-green-500/20 uppercase">
-              <LayoutGrid size={12} />
-              All Projects
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-green-500/10 text-[11px] font-mono font-black tracking-[0.2em] text-green-500 border border-green-500/20 uppercase">
+              <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
+              Full Archive
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-              Full Portfolio<span className="text-green-500">.</span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
+              Project Gallery<span className="text-green-500">.</span>
             </h1>
-            <p className="text-slate-400 text-lg max-w-xl leading-relaxed">
-              Explore the complete collection of my development work, ranging from web applications to AI-driven tools.
+            <p className="text-slate-400 text-lg max-w-2xl leading-relaxed italic border-l-2 border-green-500/30 pl-6">
+              A comprehensive collection of my digital experiences, engineered with performance and scalability in mind.
             </p>
           </div>
 
           {/* Search Bar */}
-          <div className="relative w-full md:w-80 group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-green-500 transition-colors" size={18} />
+          <div className="relative w-full md:w-96 group">
+            <div className="absolute inset-0 bg-green-500/20 blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-green-500 transition-colors z-10" size={20} />
             <input 
               type="text" 
-              placeholder="Search projects or tech..." 
+              placeholder="SEARCH PROJECT REPOSITORY..." 
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-white/[0.03] border border-white/10 rounded-full py-3.5 pl-12 pr-6 text-sm font-sans focus:outline-none focus:border-green-500/50 focus:bg-white/[0.05] transition-all placeholder:text-slate-600"
+              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4.5 pl-14 pr-6 text-xs font-mono text-white focus:outline-none focus:border-green-500/40 focus:bg-white/[0.06] transition-all placeholder:text-slate-700 relative z-10 uppercase tracking-widest"
             />
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           <AnimatePresence mode="popLayout">
             {currentProjects.length > 0 ? (
               currentProjects.map((project, idx) => (
                 <motion.div
                   key={project.title}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="group relative glass rounded-2xl overflow-hidden flex flex-col hover:border-green-500/20 transition-all duration-500 h-[420px]"
+                  whileHover={{ y: -8 }}
+                  className="group relative bg-white/[0.03] border border-white/5 rounded-[2rem] overflow-hidden flex flex-col hover:border-green-500/30 hover:bg-white/[0.06] transition-all duration-500 h-[460px]"
                 >
-                  <div className="relative h-44 shrink-0 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="relative h-48 shrink-0 overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -150,42 +162,54 @@ export default function ProjectsPage() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                     />
                     <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-colors" />
-                    <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
+                    <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                       {project.tech.slice(0, 2).map((t) => (
-                        <span key={t} className="px-2 py-0.5 glass text-[9px] font-mono text-green-500 rounded uppercase tracking-widest font-semibold">
+                        <span key={t} className="px-3 py-1 bg-black/50 backdrop-blur-md border border-white/10 text-[9px] font-mono text-green-500 rounded-full uppercase tracking-widest font-black">
                           {t}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="p-6 flex flex-col flex-grow min-h-0">
-                    <div className="flex justify-between items-start mb-4 shrink-0">
-                      <h3 className="text-lg font-bold text-white group-hover:text-green-500 transition-colors leading-tight">
+                  <div className="p-8 flex flex-col flex-grow relative z-10">
+                    <div className="flex justify-between items-start mb-5">
+                      <h3 className="text-xl font-bold text-white group-hover:text-green-500 transition-colors leading-tight tracking-tight">
                         {project.title}
                       </h3>
-                      <div className="flex gap-3">
+                      <div className="flex gap-4">
                         {project.github && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors">
-                            <Github size={18} />
-                          </a>
+                          <motion.a 
+                            whileHover={{ scale: 1.1, color: "#22c55e" }}
+                            href={project.github} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-slate-500 transition-colors"
+                          >
+                            <Github size={20} />
+                          </motion.a>
                         )}
                         {project.demo && (
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors">
-                            <ExternalLink size={18} />
-                          </a>
+                          <motion.a 
+                            whileHover={{ scale: 1.1, color: "#22c55e" }}
+                            href={project.demo} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-slate-500 transition-colors"
+                          >
+                            <ExternalLink size={20} />
+                          </motion.a>
                         )}
                       </div>
                     </div>
 
-                    <p className="text-[13px] text-slate-400 font-sans line-clamp-3 leading-relaxed mb-6">
+                    <p className="text-[13px] text-slate-400 font-sans line-clamp-3 leading-relaxed mb-8 italic border-l-2 border-green-500/20 pl-4">
                       {project.description}
                     </p>
 
-                    <div className="pt-4 mt-auto flex items-center justify-between border-t border-white/5 shrink-0">
-                      <div className="flex gap-2">
+                    <div className="pt-6 mt-auto flex items-center justify-between border-t border-white/5">
+                      <div className="flex gap-2.5">
                         {project.tech.map((t) => (
-                          <div key={t} className="size-1.5 rounded-full bg-green-500/20" title={t}></div>
+                          <div key={t} className="size-2 rounded-full bg-green-500/20 group-hover:bg-green-500/40 transition-colors" title={t}></div>
                         ))}
                       </div>
                       {project.github ? (
@@ -193,12 +217,12 @@ export default function ProjectsPage() {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] font-mono text-green-500 uppercase tracking-widest flex items-center gap-1.5 hover:gap-2.5 transition-all font-semibold"
+                          className="text-[11px] font-mono text-green-500 uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all font-black group-hover:text-white"
                         >
-                          Source_Code <Code size={14} />
+                          REPO <Code size={16} />
                         </a>
                       ) : (
-                        <span />
+                        <div className="text-[10px] font-mono text-slate-600 uppercase tracking-widest">Confidential</div>
                       )}
                     </div>
                   </div>
@@ -208,13 +232,13 @@ export default function ProjectsPage() {
               <motion.div 
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
-                className="col-span-full py-20 text-center"
+                className="col-span-full py-24 text-center"
               >
-                <div className="inline-flex items-center justify-center size-16 rounded-full glass text-slate-600 mb-6">
-                  <Search size={32} />
+                <div className="inline-flex items-center justify-center size-20 rounded-3xl bg-white/[0.02] border border-white/5 text-slate-700 mb-8">
+                  <Search size={40} />
                 </div>
-                <h2 className="text-xl font-bold text-white mb-2">No projects found</h2>
-                <p className="text-slate-500">Try searching with a different keyword or technology.</p>
+                <h2 className="text-2xl font-bold text-white mb-3">No matching results</h2>
+                <p className="text-slate-500 font-sans italic">Try searching with a different technology or keyword.</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -222,27 +246,27 @@ export default function ProjectsPage() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-12">
+          <div className="flex justify-center items-center gap-4 mt-16">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="p-2.5 glass rounded-xl text-slate-400 hover:text-green-500 disabled:opacity-30 disabled:pointer-events-none transition-all border-white/5"
+              className="size-12 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 disabled:opacity-30 disabled:pointer-events-none transition-all hover:border-green-500/30"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={24} />
             </button>
             
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
                   onClick={() => handlePageChange(i + 1)}
-                  className={`size-11 flex items-center justify-center rounded-xl font-mono text-sm transition-all border ${
+                  className={`size-12 flex items-center justify-center rounded-2xl font-mono text-xs transition-all border ${
                     currentPage === i + 1 
-                      ? "bg-green-500 text-black border-green-500 shadow-lg shadow-green-500/20 font-bold" 
-                      : "glass text-slate-400 hover:text-white border-white/5"
+                      ? "bg-green-500 text-black border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)] font-black" 
+                      : "bg-white/[0.02] text-slate-500 border-white/5 hover:border-white/20 hover:text-white"
                   }`}
                 >
-                  {i + 1}
+                  {String(i + 1).padStart(2, '0')}
                 </button>
               ))}
             </div>
@@ -250,19 +274,23 @@ export default function ProjectsPage() {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="p-2.5 glass rounded-xl text-slate-400 hover:text-green-500 disabled:opacity-30 disabled:pointer-events-none transition-all border-white/5"
+              className="size-12 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 disabled:opacity-30 disabled:pointer-events-none transition-all hover:border-green-500/30"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={24} />
             </button>
           </div>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-white/5">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-slate-500 text-[10px] font-mono uppercase tracking-[0.3em]">
-            © {new Date().getFullYear()} Arkhan Shimar. Built with Precision.
+      <footer className="py-16 border-t border-white/5 relative z-10">
+        <div className="container mx-auto px-6 flex flex-col items-center gap-6">
+          <div className="flex items-center gap-3">
+            <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-[11px] font-mono text-slate-500 uppercase tracking-[0.4em] font-black">Archive Integrity Verified</span>
+          </div>
+          <p className="text-slate-600 text-[10px] font-mono uppercase tracking-[0.2em] text-center">
+            © {new Date().getFullYear()} ARKHAN.SHIMAR // ENGINEERED FOR EXCELLENCE
           </p>
         </div>
       </footer>
