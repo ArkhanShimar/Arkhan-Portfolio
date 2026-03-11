@@ -169,14 +169,16 @@ export function Contact() {
                     />
                   </div>
 
-                  <div className="pt-4 flex items-center gap-6">
+                  <div className="pt-4 flex items-center justify-center lg:justify-start gap-6">
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="flex-1 py-4 bg-white/10 border border-white/10 text-white text-[11px] font-bold font-mono tracking-[0.3em] rounded-xl hover:border-green-500/30 hover:bg-green-500/10 hover:text-green-500 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+                      className="group relative px-4 py-2 bg-green-600 text-black text-[11px] font-bold font-mono tracking-[0.2em] rounded-full hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] active:scale-95 overflow-hidden"
                     >
-                      {status === "loading" ? "SENDING..." : "CONTACT_ME"}
-                      <Send size={14} />
+                      <span className="relative z-10 flex items-center gap-3">
+                        {status === "loading" ? "SENDING..." : "CONTACT_ME"}
+                        <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </span>
                     </button>
                     
                     <div className="hidden md:flex flex-col gap-1 text-[9px] font-mono text-slate-700 uppercase font-bold">
