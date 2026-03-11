@@ -89,6 +89,78 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "studying-software-engineering-feels-like",
+    title: "What Studying Software Engineering Actually Feels Like (No One Talks About This)",
+    description:
+      "Expectation vs reality, the “nothing works” phase, and the moment things start clicking — from my undergrad perspective.",
+    date: "March 2026",
+    readTime: "4 min",
+    tags: ["Student Life", "Software Engineering"],
+    content: [
+      { type: "h2", text: "The expectation vs reality" },
+      {
+        type: "p",
+        text: "Before starting software engineering, I imagined building cool apps every week and learning advanced tech non-stop.",
+      },
+      {
+        type: "p",
+        text: "Reality: you do build things, but most days are about figuring things out slowly, breaking stuff, and fixing it.",
+      },
+      {
+        type: "p",
+        text: "That’s where a surprising amount of real learning happens.",
+      },
+      { type: "h2", text: "The “nothing works” phase" },
+      {
+        type: "ul",
+        items: [
+          "You write code → run it → it doesn’t work",
+          "You change one thing → something else breaks",
+          "You stare at an error for an hour… then finally spot a missing bracket",
+        ],
+      },
+      {
+        type: "p",
+        text: "It’s frustrating, but debugging becomes part of your routine — and a small success after a long struggle feels great.",
+      },
+      { type: "h2", text: "Tutorials help… but only to a point" },
+      {
+        type: "p",
+        text: "Tutorials are perfect for understanding concepts. But when you try to build without a step-by-step guide, the real challenge starts.",
+      },
+      {
+        type: "ul",
+        items: [
+          "How should I structure this project?",
+          "Where should this logic live?",
+          "How do I keep things clean as it grows?",
+        ],
+      },
+      { type: "h2", text: "The moment things start clicking" },
+      {
+        type: "ul",
+        items: [
+          "You see how parts of a system connect",
+          "You debug faster",
+          "You read other people’s code with less fear",
+        ],
+      },
+      {
+        type: "p",
+        text: "You’re still learning, but you’re no longer completely lost — and that changes everything.",
+      },
+      { type: "h2", text: "Why I still enjoy it" },
+      {
+        type: "p",
+        text: "Even with the rough days, software lets you build something from nothing. An idea becomes a tool someone can actually use.",
+      },
+      {
+        type: "p",
+        text: "That feeling is what keeps me interested in this field.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPost(slug: string) {

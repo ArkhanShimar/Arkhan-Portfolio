@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div key={index} className="pt-2">
                       <div className="mb-3 flex items-center gap-3">
                         <span className="size-1.5 rounded-full bg-green-500/80" />
-                        <h2 className="text-base sm:text-lg font-bold text-green-500 tracking-tight">
+                        <h2 className="!text-3xl sm:!text-4xl font-bold text-green-500 tracking-tight">
                           {block.text}
                         </h2>
                       </div>
