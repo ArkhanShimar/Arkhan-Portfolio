@@ -125,6 +125,11 @@ export function SectionSlider() {
     const el = scrollContainerRef.current;
     if (!el) return;
     el.scrollTop = 0;
+    // Force a secondary reset to be sure
+    const timer = setTimeout(() => {
+      el.scrollTop = 0;
+    }, 10);
+    return () => clearTimeout(timer);
   }, [active.id]);
 
   useEffect(() => {
@@ -304,9 +309,9 @@ export function SectionSlider() {
               <motion.div
                 key={active.id}
                 custom={direction}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={transition}
                 className="relative will-change-transform"
               >

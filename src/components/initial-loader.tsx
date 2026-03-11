@@ -15,11 +15,23 @@ export function InitialLoader({
   useEffect(() => {
     // Force scroll to top on refresh
     if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-      const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
-      if (sliderScroll) {
-        sliderScroll.scrollTo(0, 0);
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
       }
+      
+      window.scrollTo(0, 0);
+      const resetScroll = () => {
+        const sliderScroll = document.querySelector<HTMLElement>('[data-section-slider-scroll="true"]');
+        if (sliderScroll) {
+          sliderScroll.scrollTo(0, 0);
+        }
+      };
+      
+      resetScroll();
+      // Also try after a short delay to ensure slider is rendered
+      setTimeout(resetScroll, 100);
+      setTimeout(resetScroll, 500);
+
       if (window.location.hash !== "" && window.location.hash !== "#home") {
         window.history.replaceState(null, "", window.location.pathname);
       }
