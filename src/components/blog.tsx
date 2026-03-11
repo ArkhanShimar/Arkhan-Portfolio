@@ -8,8 +8,11 @@ import { blogPosts } from "@/data/blog";
 
 export function Blog() {
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section id="blog" className="py-24 relative overflow-hidden bg-[#000000]">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10">
         <SectionHeading
           eyebrow="Insights"
           title="Sharing knowledge."
@@ -17,54 +20,60 @@ export function Blog() {
         />
 
         {blogPosts.length === 0 ? (
-          <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.02] p-8 text-center text-slate-400">
-            <p className="text-sm">No posts yet. New articles will appear here soon.</p>
-            <Link href="/#blog" className="mt-2 inline-block text-[11px] font-mono uppercase tracking-widest text-green-500">
-              Back to Blog
+          <div className="mt-16 rounded-3xl border border-white/5 bg-white/[0.02] p-12 text-center backdrop-blur-sm">
+            <div className="size-16 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 mx-auto mb-6 border border-green-500/20">
+              <Calendar size={32} />
+            </div>
+            <p className="text-slate-400 font-sans mb-6">No posts yet. New articles will appear here soon.</p>
+            <Link href="/" className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-green-600 text-black text-[11px] font-bold font-mono tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+              Refresh Feed
             </Link>
           </div>
         ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
           {blogPosts.map((article, idx) => (
-            <Link key={article.slug} href={`/blog/${article.slug}`} className="block h-full">
+            <Link key={article.slug} href={`/blog/${article.slug}`} className="block h-full group">
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group h-full p-4 sm:p-5 glass rounded-2xl hover:border-green-500/20 transition-all"
+                whileHover={{ y: -8 }}
+                className="relative h-full p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 group-hover:border-green-500/30 group-hover:bg-white/[0.06] transition-all overflow-hidden"
               >
-                <div className="flex gap-2 mb-4">
-                  {article.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[9px] font-mono text-slate-500 px-2 py-0.5 border border-white/5 rounded-full uppercase tracking-widest font-semibold"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className="text-sm sm:text-base font-bold text-white mb-3 group-hover:text-green-500 transition-colors">
-                  {article.title}
-                </h3>
-
-                <p className="text-[12px] text-slate-400 mb-5 line-clamp-2 font-sans leading-relaxed">
-                  {article.description}
-                </p>
-
-                <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
-                  <div className="flex items-center gap-4 text-[10px] text-slate-600 font-mono uppercase tracking-widest font-medium">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar size={12} /> {article.date}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock size={12} /> {article.readTime}
-                    </span>
+                {/* Card Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="relative z-10 h-full flex flex-col">
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {article.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[9px] font-mono text-slate-400 px-3 py-1 bg-white/[0.05] border border-white/5 rounded-full uppercase tracking-widest font-black group-hover:text-green-500 group-hover:border-green-500/20 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <span className="text-green-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                    <ArrowUpRight size={18} />
-                  </span>
+
+                  <h3 className="text-lg font-bold text-white mb-4 leading-tight group-hover:text-green-500 transition-colors line-clamp-2">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-[13px] text-slate-400 mb-8 line-clamp-3 font-sans leading-relaxed italic border-l-2 border-green-500/20 pl-4">
+                    {article.description}
+                  </p>
+
+                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-[10px] text-slate-500 font-mono uppercase tracking-[0.2em] font-black">
+                      <span className="flex items-center gap-2">
+                        <Calendar size={14} className="text-green-500/50" /> {article.date}
+                      </span>
+                    </div>
+                    <div className="size-10 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-green-500 group-hover:text-black group-hover:shadow-[0_0_15px_rgba(34,197,94,0.4)] transition-all">
+                      <ArrowUpRight size={20} />
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </Link>
