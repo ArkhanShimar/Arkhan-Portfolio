@@ -31,14 +31,17 @@ export function FloatingActionButton() {
       window.removeEventListener("hashchange", onHashChange);
       window.removeEventListener("section-slider:navigate", onSectionChange as EventListener);
     };
-  }, [footerInView]);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setFooterInView(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0,
+        rootMargin: "0px"
+      }
     );
 
     const checkFooter = () => {
@@ -77,38 +80,34 @@ export function FloatingActionButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[100] flex flex-col gap-3 sm:gap-4">
-      <AnimatePresence>
-        {shouldShow && (
-          <>
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileHover={{ scale: 1.1, y: -5 }}
-              onClick={isBlogRoute ? goHome : scrollToTop}
-              className="size-10 sm:size-12 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-600/50 transition-all shadow-2xl backdrop-blur-md"
-              title="Home"
-            >
-              <Home size={18} className="sm:size-5" />
-            </motion.button>
+    <motion.div 
+      initial={false}
+      animate={{ 
+        opacity: shouldShow ? 1 : 0,
+        y: shouldShow ? 0 : 20,
+        pointerEvents: shouldShow ? "auto" : "none"
+      }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[100] flex flex-col gap-3 sm:gap-4"
+    >
+      <motion.button
+        whileHover={{ scale: 1.1, y: -5 }}
+        onClick={isBlogRoute ? goHome : scrollToTop}
+        className="size-10 sm:size-12 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-600/50 transition-all shadow-2xl backdrop-blur-md"
+        title="Home"
+      >
+        <Home size={18} className="sm:size-5" />
+      </motion.button>
 
-            <motion.a
-              href="/Arkhan_Shimar.pdf"
-              download
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileHover={{ scale: 1.1, y: -5 }}
-              transition={{ delay: 0.1 }}
-              className="size-10 sm:size-12 rounded-full bg-green-600/90 backdrop-blur-md  flex items-center justify-center text-black hover:bg-green-500 transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]"
-              title="Download CV"
-            >
-              <Download size={18} className="sm:size-5" />
-            </motion.a>
-          </>
-        )}
-      </AnimatePresence>
-    </div>
+      <motion.a
+        href="/Arkhan_Shimar.pdf"
+        download
+        whileHover={{ scale: 1.1, y: -5 }}
+        className="size-10 sm:size-12 rounded-full bg-green-600/90 backdrop-blur-md  flex items-center justify-center text-black hover:bg-green-500 transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]"
+        title="Download CV"
+      >
+        <Download size={18} className="sm:size-5" />
+      </motion.a>
+    </motion.div>
   );
 }
