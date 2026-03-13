@@ -142,12 +142,13 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           onClick={(e) => scrollToSection(e, "home")}
           className="flex items-center gap-2 group"
         >
-          <div className="relative size-6 transition-transform group-hover:scale-110 rounded-md overflow-hidden shadow-[0_0_10px_rgba(34,197,94,0.1)]">
+          <div className="relative size-7 transition-transform group-hover:scale-110">
             <Image
               src="/logo.png"
               alt="Logo"
               fill
-              className="object-contain scale-110"
+              className="object-contain"
+              priority
             />
           </div>
           <span className="text-base font-bold tracking-tighter text-white">

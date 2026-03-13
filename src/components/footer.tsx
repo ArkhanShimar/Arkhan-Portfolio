@@ -10,12 +10,13 @@ export function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col items-center text-center gap-3 md:flex-row md:items-center md:text-left">
-            <div className="relative size-10 rounded-md overflow-hidden shadow-[0_0_18px_rgba(34,197,94,0.15)] transition-transform group-hover:scale-105">
+            <div className="relative size-12 transition-transform group-hover:scale-105">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 fill
-                className="object-contain scale-110"
+                className="object-contain"
+                priority
               />
             </div>
             <div className="flex flex-col leading-tight">
