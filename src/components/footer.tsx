@@ -1,4 +1,5 @@
 import { Download, Heart, Terminal, Home } from "lucide-react";
+import Image from "next/image";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 
 export function Footer() {
@@ -9,8 +10,13 @@ export function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col items-center text-center gap-3 md:flex-row md:items-center md:text-left">
-            <div className="size-9 rounded-xl bg-green-500 flex items-center justify-center text-black shadow-[0_0_18px_rgba(34,197,94,0.25)]">
-              <Terminal size={16} />
+            <div className="relative size-10 rounded-md overflow-hidden shadow-[0_0_18px_rgba(34,197,94,0.15)] transition-transform group-hover:scale-105">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                fill
+                className="object-contain scale-110"
+              />
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-base font-mono font-bold tracking-tighter text-white">

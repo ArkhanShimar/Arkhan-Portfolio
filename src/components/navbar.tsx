@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -141,8 +142,13 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
           onClick={(e) => scrollToSection(e, "home")}
           className="flex items-center gap-2 group"
         >
-          <div className="size-5 rounded bg-green-500 flex items-center justify-center transition-transform group-hover:scale-110">
-            <div className="size-1.5 bg-black rounded-sm rotate-45" />
+          <div className="relative size-6 transition-transform group-hover:scale-110 rounded-md overflow-hidden shadow-[0_0_10px_rgba(34,197,94,0.1)]">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              fill
+              className="object-contain scale-110"
+            />
           </div>
           <span className="text-base font-bold tracking-tighter text-white">
             ARKHAN<span className="text-green-500"> . </span>SHIMAR
