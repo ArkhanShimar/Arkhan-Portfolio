@@ -41,11 +41,20 @@ export const metadata: Metadata = {
     siteName: "Arkhan Shimar Portfolio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Arkhan Shimar Portfolio Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: ["/logo.png"],
   },
   alternates: {
     canonical: url,
