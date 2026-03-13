@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Terminal } from "lucide-react";
+import Image from "next/image";
 
 export function InitialLoader({
   children,
@@ -73,8 +74,14 @@ export function InitialLoader({
               animate={{ scale: 1, opacity: 1 }}
               className="relative"
             >
-              <div className="size-16 rounded-lg bg-green-500 flex items-center justify-center text-black shadow-[0_0_30px_rgba(34,197,94,0.3)]">
-                <Terminal size={32} />
+              <div className="relative size-16 shadow-[0_0_30px_rgba(34,197,94,0.15)]">
+                <Image
+                  src="/logo.png"
+                  alt="Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
               <motion.div 
                 animate={{ rotate: 360 }}
