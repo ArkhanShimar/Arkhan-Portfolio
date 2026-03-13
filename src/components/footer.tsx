@@ -1,9 +1,17 @@
 import { Download, Heart, Terminal, Home } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si";
 
 export function Footer() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const year = new Date().getFullYear();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <footer data-footer="true" className="relative bg-[#000000] border-t border-white/5 py-6">
@@ -12,7 +20,7 @@ export function Footer() {
           <div className="flex flex-col items-center text-center gap-3 md:flex-row md:items-center md:text-left">
             <div className="relative size-12 transition-transform group-hover:scale-105">
               <Image
-                src="/logo.png"
+                src={mounted && resolvedTheme === "light" ? "/logo-light.png" : "/logo.png"}
                 alt="Logo"
                 fill
                 className="object-contain"

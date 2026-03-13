@@ -4,16 +4,20 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Terminal } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export function InitialLoader({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [loadingText, setLoadingText] = useState("Initializing system...");
 
   useEffect(() => {
+    setMounted(true);
     // Force scroll to top on refresh
     if (typeof window !== "undefined") {
       if ('scrollRestoration' in window.history) {
@@ -76,7 +80,7 @@ export function InitialLoader({
             >
               <div className="relative size-16 shadow-[0_0_30px_rgba(34,197,94,0.15)]">
                 <Image
-                  src="/logo.png"
+                  src={mounted && resolvedTheme === "light" ? "/logo-light.png" : "/logo.png"}
                   alt="Logo"
                   fill
                   className="object-contain"

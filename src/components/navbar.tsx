@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -27,11 +28,17 @@ type NavbarProps = {
 };
 
 export function Navbar({ activeId, onNavigate }: NavbarProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeInternal, setActiveInternal] = useState<string>("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const active = activeId ?? activeInternal;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -144,7 +151,7 @@ export function Navbar({ activeId, onNavigate }: NavbarProps) {
         >
           <div className="relative size-7 transition-transform group-hover:scale-110">
             <Image
-              src="/logo.png"
+              src={mounted && resolvedTheme === "light" ? "/logo-light.png" : "/logo.png"}
               alt="Logo"
               fill
               className="object-contain"
