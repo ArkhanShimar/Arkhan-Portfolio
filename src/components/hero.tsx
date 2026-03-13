@@ -135,7 +135,7 @@ export function Hero() {
                   <div className="size-3 rounded-full bg-[#27c93f]" />
                 </div>
                 <div className="text-[9px] sm:text-[10px] font-mono text-slate-500 uppercase tracking-widest font-bold">Arkhan_Console // v2.1.0</div>
-                <div className="hidden sm:flex gap-3">
+                <div className="flex gap-3">
                   {[
                     { icon: Github, href: "https://github.com/ArkhanShimar" },
                     { icon: Linkedin, href: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
