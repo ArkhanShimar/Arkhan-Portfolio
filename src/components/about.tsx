@@ -6,7 +6,9 @@ import { siteConfig } from "@/config/site";
 import { EducationTimeline } from "@/components/education-timeline";
 import { Experience } from "@/components/experience";
 import { SectionHeading } from "@/components/section-heading";
-import { Award, Code2, Github, Linkedin, Mail, Rocket, Terminal, User } from "lucide-react";
+import { Award, Code2, Github, Linkedin, Mail, Rocket, Terminal, User, ExternalLink, Eye } from "lucide-react";
+import { CertificateModal } from "@/components/certificate-modal";
+import { useState } from "react";
 
 const education = [
   {
@@ -36,192 +38,294 @@ const education = [
 ];
 
 const certifications = [
-  { title: "Introduction To AI", issuer: "GOOGLE", desc: "Foundational AI & ML concepts" },
-  { title: "Data Science", issuer: "Cisco", desc: "Data analysis & visualization" },
-  { title: "Postman Expert", issuer: "Postman", desc: "API testing & documentation" },
-  { title: "JS Essentials 2", issuer: "Cisco", desc: "Advanced logic & patterns" },
-  { title: "Modern AI", issuer: "Cisco", desc: "Neural networks & deep learning" },
-  { title: "GenZis.AI Cert", issuer: "ICBT Campus", desc: "AI-driven dev certification" },
+  {
+    title: "AWS Educate Machine Learning Foundations",
+    issuer: "AWS",
+    desc: "Core ML concepts and services",
+    link: "https://www.credly.com/badges/045e744e-5f2e-4fc5-ae09-a8eba0b90047/linked_in_profile",
+    image: "/images/certifications/AWS Educate Machine Learning Foundations.jpg",
+  },
+  {
+    title: "Postman API Fundamentals Student Expert",
+    issuer: "Postman",
+    desc: "API testing & documentation proficiency",
+    link: "https://badges.parchment.com/public/assertions/gvXkOdi8SvaIyPAdn_Q9Ag?identity__email=arkhansimar1%40gmail.com",
+    image: "/images/certifications/Postman API Fundamentals Student Expert.jpg",
+  },
+  {
+    title: "Python Essentials 2",
+    issuer: "Cisco",
+    desc: "Advanced Python programming skills",
+    link: "https://www.credly.com/badges/061c62f2-b2a6-4d18-b134-9c4ff39aece2/linked_in_profile",
+    image: "/images/certifications/Python Essentials 2.jpg",
+  },
+  {
+    title: "Python Essentials 1",
+    issuer: "Cisco",
+    desc: "Fundamental Python programming skills",
+    link: "https://www.credly.com/badges/1555eace-df56-4478-9fde-04ea0c4fe544/linked_in_profile",
+    image: "/images/certifications/Python Essentials 1.jpg",
+  },
+  {
+    title: "JavaScript Essentials 2",
+    issuer: "Cisco",
+    desc: "Advanced logic & patterns in JS",
+    link: "https://www.credly.com/badges/813500e3-8f3f-4a0a-847a-691a33c8a226/linked_in_profile",
+    image: "/images/certifications/JavaScript Essentials 2.jpg",
+  },
+  {
+    title: "Introduction to Modern AI",
+    issuer: "Cisco",
+    desc: "Neural networks & deep learning",
+    link: "https://www.credly.com/badges/1c60f051-cdb0-4459-ace5-fa4c677e3d8a/linked_in_profile",
+    image: "/images/certifications/Introduction to Modern AI.jpg",
+  },
+  {
+    title: "Introduction to Data Science",
+    issuer: "Cisco",
+    desc: "Data analysis & visualization techniques",
+    link: "https://www.credly.com/badges/f53702da-2801-43b6-9fc7-18a3b22f6cb2/linked_in_profile",
+    image: "/images/certifications/Introduction to Data Science.jpg",
+  },
+  {
+    title: "Introduction to AI",
+    issuer: "Coursera (Google)",
+    desc: "Foundational AI & ML concepts",
+    link: "https://www.coursera.org/account/accomplishments/verify/EN0JQXBC1453",
+    image: "/images/certifications/Introduction to AI.jpg",
+  },
+  {
+    title: "Discovering Entrepreneurship",
+    issuer: "Cisco",
+    desc: "Business and startup fundamentals",
+    link: "https://www.credly.com/badges/a7eac44f-76c2-40ae-905c-1cd307a64120/linked_in_profile",
+    image: "/images/certifications/Discovering Entrepreneurship.jpg",
+  },
+  {
+    title: "GenZis.AI",
+    issuer: "ICBT Campus",
+    desc: "AI-Driven Developemnt",
+    link: "",
+    image: "/images/certifications/GenZis.AI.jpg",
+  },
 ];
 
 export function About() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCert, setSelectedCert] = useState<{ title: string; image: string } | null>(null);
+
+  const openModal = (title: string, image: string) => {
+    setSelectedCert({ title, image });
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedCert(null);
+  };
+
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-black min-h-screen flex items-center">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />
-        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2" />
-      </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-12"
-            >
-              <div className="space-y-10">
-                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
-                  <div className="relative size-24 md:size-28 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] group shrink-0">
-                    <Image
-                      src="/profile.png"
-                      alt="Arkhan Shimar"
-                      fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    />
+    <>
+      <CertificateModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        imageUrl={selectedCert?.image || null}
+        title={selectedCert?.title || null}
+      />
+      <section id="about" className="py-24 relative overflow-hidden bg-black min-h-screen flex items-center">
+        {/* Background Decor */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+          <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full -translate-x-1/2" />
+          <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="space-y-12"
+              >
+                <div className="space-y-10">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
+                    <div className="relative size-24 md:size-28 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] group shrink-0">
+                      <Image
+                        src="/profile.png"
+                        alt="Arkhan Shimar"
+                        fill
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      />
+                    </div>
+                    <div className="text-center sm:text-left space-y-0.5 py-1">
+                      <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter leading-tight">Arkhan Shimar</h2>
+                      <p className="text-sm md:text-base font-mono text-green-500 tracking-tight">~/undergraduate-software-engineer</p>
+                      
+                      <div className="flex gap-3 justify-center sm:justify-start pt-2">
+                        {[
+                          { icon: Github, href: "https://github.com/ArkhanShimar" },
+                          { icon: Linkedin, href: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
+                          { icon: Mail, href: `mailto:${siteConfig.email}` },
+                        ].map((social, i) => (
+                          <motion.a
+                            key={i}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ y: -2, color: "#22c55e" }}
+                            className="text-slate-500 transition-all"
+                          >
+                            <social.icon size={18} />
+                          </motion.a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-center sm:text-left space-y-0.5 py-1">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter leading-tight">Arkhan Shimar</h2>
-                    <p className="text-sm md:text-base font-mono text-green-500 tracking-tight">~/undergraduate-software-engineer</p>
-                    
-                    <div className="flex gap-3 justify-center sm:justify-start pt-2">
-                      {[
-                        { icon: Github, href: "https://github.com/ArkhanShimar" },
-                        { icon: Linkedin, href: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/" },
-                        { icon: Mail, href: `mailto:${siteConfig.email}` },
-                      ].map((social, i) => (
-                        <motion.a
-                          key={i}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ y: -2, color: "#22c55e" }}
-                          className="text-slate-500 transition-all"
-                        >
-                          <social.icon size={18} />
-                        </motion.a>
-                      ))}
+
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-green-500 font-bold">Introduction</p>
+                      <h3 className="text-6xl md:text-7xl font-bold text-white tracking-tighter leading-[0.9]">Mission-driven Engineering.</h3>
+                    </div>
+                    <div className="mt-8 space-y-6 text-slate-400 font-sans text-base leading-relaxed max-w-2xl italic border-l-2 border-green-500/20 pl-6">
+                      <p>
+                        As a Software Engineering undergraduate, I blend technical rigor with a deep passion for modern digital experiences. My approach focuses on building high-performance systems that are as aesthetically pleasing as they are functionally sound.
+                      </p>
+                      <p>
+                        I specialize in full-stack web architectures and Android development, always prioritizing clean code and scalable design patterns. Currently, I am seeking an internship where I can contribute my skills to real-world challenges while evolving as a professional engineer.
+                      </p>
                     </div>
                   </div>
                 </div>
+              </motion.div>
 
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-green-500 font-bold">Introduction</p>
-                    <h3 className="text-6xl md:text-7xl font-bold text-white tracking-tighter leading-[0.9]">Mission-driven Engineering.</h3>
-                  </div>
-                  <div className="mt-8 space-y-6 text-slate-400 font-sans text-base leading-relaxed max-w-2xl italic border-l-2 border-green-500/20 pl-6">
-                    <p>
-                      As a Software Engineering undergraduate, I blend technical rigor with a deep passion for modern digital experiences. My approach focuses on building high-performance systems that are as aesthetically pleasing as they are functionally sound.
-                    </p>
-                    <p>
-                      I specialize in full-stack web architectures and Android development, always prioritizing clean code and scalable design patterns. Currently, I am seeking an internship where I can contribute my skills to real-world challenges while evolving as a professional engineer.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 max-w-lg">
-                {[
-                  { icon: Terminal, label: "Full-Stack Dev" },
-                  { icon: Code2, label: "UI/UX Design" },
-                  { icon: User, label: "Leadership" },
-                  { icon: Rocket, label: "Scalable Apps" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ x: 5, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group"
-                  >
-                    <div className="size-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 border border-green-500/20 group-hover:shadow-[0_0_15px_rgba(34, 197, 94, 0.2)] transition-all">
-                      <item.icon size={16} />
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="space-y-10"
+              >
+                  <div className="grid grid-cols-2 gap-3 sm:gap-6 relative z-10">
+                    <div className="space-y-0.5 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Projects_Shipped</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white tracking-tighter">12<span className="text-green-500">+</span></p>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-black group-hover:text-white">{item.label}</span>
-                  </motion.div>
-                ))}
-              </div>
+                    <div className="space-y-2 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group text-right">
+                      <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Expertise_Lvl</p>
+                      <div className="inline-flex items-center gap-2 text-green-500 justify-end w-full">
+                        <p className="text-xl sm:text-2xl font-bold tracking-tighter">Undergrad</p>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="pt-12 space-y-8">
-                <div className="flex items-center gap-4 group cursor-default">
-                  <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
-                  <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Professional Certifications</p>
-                </div>
-                <div className="grid gap-3">
-                  {certifications.map((cert, i) => (
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest sm:tracking-[0.3em] font-black">Language Proficiency</span>
+                      <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono font-bold uppercase tracking-wider">
+                        <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">English</span>
+                        <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Sinhala</span>
+                        <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Tamil</span>
+                      </div>
+                    </div>
+                  </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon: Terminal, label: "Full-Stack Dev" },
+                    { icon: Code2, label: "UI/UX Design" },
+                    { icon: User, label: "Leadership" },
+                    { icon: Rocket, label: "Scalable Apps" },
+                  ].map((item, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
-                      whileHover={{ scale: 1.01, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
-                      className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all"
+                      whileHover={{ x: 5, backgroundColor: "rgba(34, 197, 94, 0.05)" }}
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group"
                     >
-                      <div className="flex flex-col gap-1 min-w-[160px]">
-                        <span className="text-[11px] font-black text-white group-hover:text-green-500 transition-colors uppercase tracking-tight">
-                          {cert.title}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <div className="size-1 bg-green-500/40 rounded-full" />
-                          <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest font-bold">{cert.issuer}</span>
-                        </div>
+                      <div className="size-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 border border-green-500/20 group-hover:shadow-[0_0_15px_rgba(34, 197, 94, 0.2)] transition-all">
+                        <item.icon size={16} />
                       </div>
-                      <div className="hidden md:block flex-1 px-8">
-                        <span className="text-[10px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors italic leading-tight block text-right">
-                          {cert.desc}
-                        </span>
-                      </div>
-                      <div className="size-1.5 rounded-full bg-green-500/20 group-hover:bg-green-500 group-hover:shadow-[0_0_8px_#22c55e] transition-all" />
+                      <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-black group-hover:text-white">{item.label}</span>
                     </motion.div>
                   ))}
                 </div>
-              </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="space-y-10"
-            >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
-                  <div className="space-y-0.5 p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Projects_Shipped</p>
-                    <p className="text-3xl font-bold text-white tracking-tighter">12<span className="text-green-500">+</span></p>
+                <div className="pt-4 space-y-8">
+                  <div className="flex items-center gap-4 group cursor-default">
+                    <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
+                    <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Professional Certifications</p>
                   </div>
-                  <div className="space-y-2 p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden group sm:text-right">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">Expertise_Lvl</p>
-                    <div className="inline-flex items-center gap-2 text-green-500 sm:justify-end w-full">
-                      <p className="text-2xl font-bold tracking-tighter">Undergrad</p>
-                    </div>
+                  <div className="grid gap-3">
+                    {certifications.map((cert, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                        className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all"
+                      >
+                        <div className="flex flex-col gap-1 min-w-[160px]">
+                          <span className="text-[11px] font-bold text-white group-hover:text-green-500 transition-colors uppercase tracking-tight">
+                            {cert.title}
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <div className="size-1 bg-green-500/40 rounded-full" />
+                            <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest font-bold">{cert.issuer}</span>
+                          </div>
+                        </div>
+                        <div className="hidden md:block flex-1 px-8">
+                          <span className="text-[10px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors italic leading-tight block text-right">
+                            {cert.desc}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <a 
+                            href={cert.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="size-8 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:!text-green-500 [.light_&]:hover:!text-green-600 hover:bg-green-500/10 [.light_&]:hover:bg-green-500/20 transition-all" 
+                            title="View Credential"
+                          >
+                            <ExternalLink size={14} />
+                          </a>
+                          <button 
+                            onClick={() => openModal(cert.title, cert.image)} 
+                            className="size-8 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:!text-green-500 [.light_&]:hover:!text-green-600 hover:bg-green-500/10 [.light_&]:hover:bg-green-500/20 transition-all" 
+                            title="Preview Certificate"
+                          >
+                            <Eye size={14} />
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest sm:tracking-[0.3em] font-black">Language Proficiency</span>
-                    <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono font-bold uppercase tracking-wider">
-                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">English</span>
-                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Sinhala</span>
-                      <span className="text-green-500 px-2 py-0.5 bg-green-500/10 rounded">Tamil</span>
-                    </div>
+                <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden">
+                  <div className="flex items-center gap-4 mb-10 group cursor-default">
+                    <div className="size-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
+                    <h3 className="text-[12px] font-mono text-white uppercase tracking-[0.4em] font-black">Work Experience</h3>
                   </div>
+                  <Experience />
                 </div>
 
-              <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden">
-                <div className="flex items-center gap-4 mb-10 group cursor-default">
-                  <div className="size-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
-                  <h3 className="text-[12px] font-mono text-white uppercase tracking-[0.4em] font-black">Work Experience</h3>
+                <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden">
+                  <div className="flex items-center gap-4 mb-10 group cursor-default">
+                    <div className="size-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
+                    <h3 className="text-[12px] font-mono text-white uppercase tracking-[0.4em] font-black">Education Archive</h3>
+                  </div>
+                  <EducationTimeline education={education} />
                 </div>
-                <Experience />
-              </div>
-
-              <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 relative overflow-hidden">
-                <div className="flex items-center gap-4 mb-10 group cursor-default">
-                  <div className="size-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse" />
-                  <h3 className="text-[12px] font-mono text-white uppercase tracking-[0.4em] font-black">Education Archive</h3>
-                </div>
-                <EducationTimeline education={education} />
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
