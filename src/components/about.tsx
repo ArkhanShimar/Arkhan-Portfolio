@@ -14,7 +14,7 @@ const education = [
   {
     title: "BSc (Hons) Computer Science (Software Engineering) (R)",
     subtitle: "CINEC Campus // Affiliated with University of Wolverhampton - UK",
-    year: "2024 - Present",
+    year: "2026 - Present",
     description: "Specializing in software architecture and modern web engineering.",
   },
   {
