@@ -198,6 +198,59 @@ export function About() {
                     </div>
                   </div>
                 </div>
+
+                <div className="hidden lg:block pt-4 space-y-8">
+                  <div className="flex items-center gap-4 group cursor-default">
+                    <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
+                    <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Professional Certifications</p>
+                  </div>
+                  <div className="grid gap-3">
+                    {certifications.map((cert, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                        className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all"
+                      >
+                        <div className="flex flex-col gap-1 min-w-[160px]">
+                          <span className="text-[11px] font-bold text-white group-hover:text-green-500 transition-colors uppercase tracking-tight">
+                            {cert.title}
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <div className="size-1 bg-green-500/40 rounded-full" />
+                            <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest font-bold">{cert.issuer}</span>
+                          </div>
+                        </div>
+                        <div className="hidden md:block flex-1 px-8">
+                          <span className="text-[10px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors italic leading-tight block text-right">
+                            {cert.desc}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <a 
+                            href={cert.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="size-8 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:!text-green-500 [.light_&]:hover:!text-green-600 hover:bg-green-500/10 [.light_&]:hover:bg-green-500/20 transition-all" 
+                            title="View Credential"
+                          >
+                            <ExternalLink size={14} />
+                          </a>
+                          <button 
+                            onClick={() => openModal(cert.title, cert.image)} 
+                            className="size-8 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:!text-green-500 [.light_&]:hover:!text-green-600 hover:bg-green-500/10 [.light_&]:hover:bg-green-500/20 transition-all" 
+                            title="Preview Certificate"
+                          >
+                            <Eye size={14} />
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
 
               <motion.div
@@ -253,7 +306,7 @@ export function About() {
                   ))}
                 </div>
 
-                <div className="pt-4 space-y-8">
+                <div className="lg:hidden pt-4 space-y-8">
                   <div className="flex items-center gap-4 group cursor-default">
                     <div className="h-px w-8 bg-green-500/30 group-hover:w-12 transition-all" />
                     <p className="text-[11px] font-mono text-white/90 uppercase tracking-[0.3em] font-black">Professional Certifications</p>
