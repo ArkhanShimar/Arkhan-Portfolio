@@ -63,6 +63,15 @@ export const projects: Project[] = [
     image: "/images/gadgethub.png",
   },
   {
+    title: "Fitness Center Web App",
+    description:
+      "A gym website built for Fitness Sports Center. The site covers everything from services and membership plans to trainer profiles and a contact form.",
+    tech: ["React.js", "TailwindCSS", "PostCSS"],
+    github: "https://github.com/ArkhanShimar/Fitness-Sports-Center",
+    demo: "",
+    image: "/images/fitnesssports.png",
+  },
+  {
   title: "Orchi Flora - Temperature Analyzing System",
   description:
     "C++ console application to record and analyze day/night temperatures, calculate fluctuations, and evaluate suitability for optimal orchid growth.",
@@ -70,6 +79,15 @@ export const projects: Project[] = [
   github: "https://github.com/ArkhanShimar/Orchi-Flora",
   demo: "",
   image: "/images/orchiflora.png",
+  },
+  {
+  title: "Student Management System - Python",
+  description:
+    "A comprehensive student management application built with Python that helps educational institutions manage student records, track academic performance, and calculate GPAs.",
+  tech: ["Python", "SQL"],
+  github: "https://github.com/ArkhanShimar/Student-management-python",
+  demo: "",
+  image: "/images/studentmanagement.png",
   },
   {
   title: "The Paws Shop - Pet Supply Management System",
