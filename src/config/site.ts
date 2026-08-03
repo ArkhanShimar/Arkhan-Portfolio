@@ -12,6 +12,6 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/arkhan-shimar-77b3072ab/",
     email: "mailto:arkhansimar1@gmail.com",
     instagram: "https://www.instagram.com/arkhvn__/",
-    facebook: "https://www.facebook.com/arkhan.smr.9/"
+    facebook: "https://www.facebook.com/ArkhanShimar/"
   },
 };
