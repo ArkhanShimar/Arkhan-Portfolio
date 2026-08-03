@@ -50,6 +50,9 @@ export function SectionSlider() {
   const transitionTimeoutRef = useRef<number | null>(null);
   const transitioningRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
+  const wheelDeltaRef = useRef(0);
+  const wheelNavigatedRef = useRef(false);
+  const wheelIdleTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     activeIndexRef.current = activeIndex;
@@ -135,18 +138,10 @@ export function SectionSlider() {
   useLayoutEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    
-    // Immediate reset
-    el.scrollTop = 0;
-    window.scrollTo(0, 0);
-    
-    // Multiple delayed resets for different browser behaviors
-    const timers = [10, 50, 100].map(ms => setTimeout(() => {
-      if (el) el.scrollTop = 0;
-      window.scrollTo(0, 0);
-    }, ms));
 
-    return () => timers.forEach(clearTimeout);
+    // Each panel owns its scroll position. Reset it once when the panel changes;
+    // delayed window resets fight native scrolling and cause visible jumps.
+    el.scrollTop = 0;
   }, [active.id]);
 
   useEffect(() => {
@@ -159,7 +154,11 @@ export function SectionSlider() {
     };
 
     window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onHashChange);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onHashChange);
+    };
   }, [idToIndex, navigateToIndex]);
 
   useEffect(() => {
@@ -178,13 +177,6 @@ export function SectionSlider() {
   }, [navigateToIndex]);
 
   const swipeEdgeRef = useRef<{ atTop: boolean; atBottom: boolean } | null>(null);
-  const edgeArmRef = useRef<{
-    downArmed: boolean;
-    upArmed: boolean;
-  }>({ downArmed: false, upArmed: false });
-  const wheelIdleRef = useRef(true);
-  const wheelIdleTimerRef = useRef<number | null>(null);
-
   const swipeHandlers = useSwipeable({
     onSwipeStart: () => {
       const el = scrollContainerRef.current;
@@ -224,24 +216,51 @@ export function SectionSlider() {
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const edgeArm = edgeArmRef.current;
+
+    const nestedScrollerCanConsume = (target: EventTarget | null, delta: number) => {
+      let node = target instanceof HTMLElement ? target : null;
+
+      while (node && node !== el) {
+        const style = window.getComputedStyle(node);
+        const scrollable = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 1;
+        if (scrollable) {
+          const max = node.scrollHeight - node.clientHeight;
+          if ((delta > 0 && node.scrollTop < max - 1) || (delta < 0 && node.scrollTop > 1)) return true;
+        }
+        node = node.parentElement;
+      }
+
+      return false;
+    };
 
     const onWheel = (event: WheelEvent) => {
+      if (nestedScrollerCanConsume(event.target, event.deltaY)) {
+        wheelDeltaRef.current = 0;
+        return;
+      }
+
+      // Treat all momentum events as one gesture so a trackpad flick can never
+      // skip several panels after an animation finishes.
+      if (wheelIdleTimerRef.current) window.clearTimeout(wheelIdleTimerRef.current);
+      wheelIdleTimerRef.current = window.setTimeout(() => {
+        wheelDeltaRef.current = 0;
+        wheelNavigatedRef.current = false;
+        wheelIdleTimerRef.current = null;
+      }, 180);
+
       if (transitioningRef.current) {
+        wheelNavigatedRef.current = true;
+        event.preventDefault();
+        return;
+      }
+
+      if (wheelNavigatedRef.current) {
         event.preventDefault();
         return;
       }
 
       const delta = event.deltaY;
-      if (Math.abs(delta) < 6) return;
-
-      const wasIdle = wheelIdleRef.current;
-      wheelIdleRef.current = false;
-      if (wheelIdleTimerRef.current) window.clearTimeout(wheelIdleTimerRef.current);
-      wheelIdleTimerRef.current = window.setTimeout(() => {
-        wheelIdleRef.current = true;
-        wheelIdleTimerRef.current = null;
-      }, 220);
+      if (Math.abs(delta) < 1) return;
 
       const edge = 2;
       const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight);
@@ -249,40 +268,23 @@ export function SectionSlider() {
       const atTop = el.scrollTop <= edge;
       const atBottom = !canScroll || el.scrollTop >= maxScrollTop - edge;
       const currentIndex = activeIndexRef.current;
-      const navDelta = 18;
+      const movingToNext = delta > 0 && atBottom && currentIndex < sections.length - 1;
+      const movingToPrevious = delta < 0 && atTop && currentIndex > 0;
 
-      if (!atBottom) edgeArmRef.current.downArmed = false;
-      if (!atTop) edgeArmRef.current.upArmed = false;
-      if (delta < 0) edgeArmRef.current.downArmed = false;
-      if (delta > 0) edgeArmRef.current.upArmed = false;
-
-      if (delta > navDelta && atBottom) {
-        if (!edgeArmRef.current.downArmed) {
-          edgeArmRef.current.downArmed = true;
-          return;
-        }
-
-        if (!wasIdle) return;
-
-        edgeArmRef.current.downArmed = false;
-        event.preventDefault();
-        navigateToIndex(currentIndex + 1);
+      if (!movingToNext && !movingToPrevious) {
+        wheelDeltaRef.current = 0;
         return;
       }
 
-      if (delta < -navDelta && atTop) {
-        if (!edgeArmRef.current.upArmed) {
-          edgeArmRef.current.upArmed = true;
-          return;
-        }
+      event.preventDefault();
+      if (Math.sign(wheelDeltaRef.current) !== Math.sign(delta)) wheelDeltaRef.current = 0;
+      wheelDeltaRef.current += delta;
 
-        if (!wasIdle) return;
+      if (Math.abs(wheelDeltaRef.current) < 60) return;
 
-        edgeArmRef.current.upArmed = false;
-        event.preventDefault();
-        navigateToIndex(currentIndex - 1);
-        return;
-      }
+      wheelNavigatedRef.current = true;
+      wheelDeltaRef.current = 0;
+      navigateToIndex(currentIndex + (delta > 0 ? 1 : -1));
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
@@ -292,11 +294,10 @@ export function SectionSlider() {
         window.clearTimeout(wheelIdleTimerRef.current);
         wheelIdleTimerRef.current = null;
       }
-      wheelIdleRef.current = true;
-      edgeArm.downArmed = false;
-      edgeArm.upArmed = false;
+      wheelDeltaRef.current = 0;
+      wheelNavigatedRef.current = false;
     };
-  }, [navigateToIndex, active.id]);
+  }, [navigateToIndex, active.id, sections.length]);
 
   return (
     <div className="relative h-[100svh] w-full overflow-hidden">
@@ -306,7 +307,7 @@ export function SectionSlider() {
         <div
           ref={scrollContainerRef}
           data-section-slider-scroll="true"
-          className="h-full w-full overflow-y-auto overscroll-contain"
+          className="h-full w-full overflow-y-auto overscroll-y-contain"
         >
           <div className="relative min-h-full">
             <AnimatePresence
