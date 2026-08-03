@@ -9,12 +9,30 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Veloura - Restaurant Management System",
+    description:
+      "A full-stack MERN restaurant platform with a cinematic storefront, ordering, reservations, promotions, a menu-aware rules-based concierge, POS, kitchen display, billing records, and role-based operations.",
+    tech: ["React", "Node.js", "MongoDB", "Express", "MongoDB"],
+    github: "https://github.com/ArkhanShimar/Restaurant-Website",
+    demo: "https://veloura-restaurant-lk.vercel.app/",
+    image: "/images/Restaurant.png",
+  },
+  {
+    title: "DayMark - Task Management System",
+    description:
+      "A comprehensive task management system with features like user authentication, task creation, progress tracking, and notifications.",
+    tech: ["React", "Node.js", "MongoDB", "Express"],
+    github: "https://github.com/ArkhanShimar/Task-Management-System",
+    demo: "https://task-management-system-frontend-seven.vercel.app/",
+    image: "/images/DayMark - Task Management.png",
+  },
+  {
     title: "Notely Web App",
     description:
       "A modern note-taking platform with rich text formatting, folder organization, pinning, real-time collaboration, and search features, designed for seamless productivity.",
     tech: ["React", "Node.js", "MongoDB", "Express"],
     github: "https://github.com/ArkhanShimar/Note-Taking-Website",
-    demo: "",
+    demo: "https://drive.google.com/file/d/11EcHYbdbXhwrvVdeVqCpsEPgQLGD32qa/view?usp=drive_link",
     image: "/images/notely.png",
   },
   {
@@ -72,30 +90,39 @@ export const projects: Project[] = [
     image: "/images/fitnesssports.png",
   },
   {
-  title: "Orchi Flora - Temperature Analyzing System",
-  description:
-    "C++ console application to record and analyze day/night temperatures, calculate fluctuations, and evaluate suitability for optimal orchid growth.",
-  tech: ["C++"],
-  github: "https://github.com/ArkhanShimar/Orchi-Flora",
-  demo: "",
-  image: "/images/orchiflora.png",
+    title: "Textile ERP - Textile Management System",
+    description:
+      "A modern ERP system for textile businesses, managing everything from raw materials to finished goods.",
+    tech: ["React.js", "Node.js", "Express.js", "PostgreSQL (Supabase)"],
+    github: "https://github.com/ArkhanShimar/Textile_ERP",
+    demo: "",
+    image: "/images/textileerp.png",
   },
   {
-  title: "Student Management System - Python",
-  description:
-    "A comprehensive student management application built with Python that helps educational institutions manage student records, track academic performance, and calculate GPAs.",
-  tech: ["Python", "SQL"],
-  github: "https://github.com/ArkhanShimar/Student-management-python",
-  demo: "",
-  image: "/images/studentmanagement.png",
+    title: "Orchi Flora - Temperature Analyzing System",
+    description:
+      "C++ console application to record and analyze day/night temperatures, calculate fluctuations, and evaluate suitability for optimal orchid growth.",
+    tech: ["C++"],
+    github: "https://github.com/ArkhanShimar/Orchi-Flora",
+    demo: "",
+    image: "/images/orchiflora.png",
   },
   {
-  title: "The Paws Shop - Pet Supply Management System",
-  description:
-    "Java console application implementing OOP concepts to automate pet supply transactions with separate user levels for Cashier and Manager. Supports adding, viewing, and searching supplies, and managing cashier accounts.",
-  tech: ["Java", "OOP", "Text File Storage"],
-  github: "https://github.com/ArkhanShimar/The-PawShop",
-  demo: "",
-  image: "/images/thepawshop.png",
+    title: "Student Management System - Python",
+    description:
+      "A comprehensive student management application built with Python that helps educational institutions manage student records, track academic performance, and calculate GPAs.",
+    tech: ["Python", "SQL"],
+    github: "https://github.com/ArkhanShimar/Student-management-python",
+    demo: "",
+    image: "/images/studentmanagement.png",
+  },
+  {
+    title: "The Paws Shop - Pet Supply Management System",
+    description:
+      "Java console application implementing OOP concepts to automate pet supply transactions with separate user levels for Cashier and Manager. Supports adding, viewing, and searching supplies, and managing cashier accounts.",
+    tech: ["Java", "OOP", "Text File Storage"],
+    github: "https://github.com/ArkhanShimar/The-PawShop",
+    demo: "",
+    image: "/images/thepawshop.png",
   },
 ];
