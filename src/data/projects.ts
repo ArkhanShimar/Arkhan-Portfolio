@@ -96,7 +96,16 @@ export const projects: Project[] = [
     tech: ["React.js", "Node.js", "Express.js", "PostgreSQL (Supabase)"],
     github: "https://github.com/ArkhanShimar/Textile_ERP",
     demo: "",
-    image: "/images/textileerp.png",
+    image: "/images/textileerp.svg",
+  },
+  {
+    title: "AgroCare - Plant Intelligence Platform",
+    description:
+      "A machine learning-powered web application for plant disease detection, growth prediction, and plant management, combining a CNN model with regression-based forecasting.",
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "FastAPI", "Machine Learning"],
+    github: "",
+    demo: "",
+    image: "/images/agrocare.svg",
   },
   {
     title: "Orchi Flora - Temperature Analyzing System",

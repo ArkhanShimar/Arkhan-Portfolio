@@ -186,7 +186,7 @@ export function Hero() {
                         </div>
                         <div className="bg-green-500/5 px-3 py-1.5 flex gap-4 text-[10px]">
                           <span className="text-green-500/50">02 +</span>
-                          <span className="text-green-400 font-bold">{"\"availability\": \"seeking_internship\""}</span>
+                          <span className="text-green-400 font-bold">{"\"availability\": \"open_to_opportunities\""}</span>
                         </div>
                       </div>
                     </div>
@@ -208,7 +208,7 @@ export function Hero() {
 
                     <div className="flex flex-wrap gap-2 pt-2">
                       <span className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-bold text-green-500 uppercase tracking-widest">
-                        Seeking Internship
+                        Open to Opportunities
                       </span>
                       <span className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                         Open to Collaborate

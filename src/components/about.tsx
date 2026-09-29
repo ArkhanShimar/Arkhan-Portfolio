@@ -160,7 +160,7 @@ export function About() {
                     </div>
                     <div className="text-center sm:text-left space-y-0.5 py-1">
                       <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter leading-tight">Arkhan Shimar</h2>
-                      <p className="text-sm md:text-base font-mono text-green-500 tracking-tight">~/undergraduate-software-engineer</p>
+                      <p className="text-sm md:text-base font-mono text-green-500 tracking-tight">~/software-engineer</p>
                       
                       <div className="flex gap-3 justify-center sm:justify-start pt-2">
                         {[
@@ -190,10 +190,10 @@ export function About() {
                     </div>
                     <div className="mt-8 space-y-6 text-slate-400 font-sans text-base leading-relaxed max-w-2xl italic border-l-2 border-green-500/20 pl-6">
                       <p>
-                        As a Software Engineering undergraduate, I blend technical rigor with a deep passion for modern digital experiences. My approach focuses on building high-performance systems that are as aesthetically pleasing as they are functionally sound.
+                        As a software engineer and Computer Science undergraduate, I blend technical rigor with a deep passion for modern digital experiences. My approach focuses on building high-performance systems that are as aesthetically pleasing as they are functionally sound.
                       </p>
                       <p>
-                        I specialize in full-stack web architectures and Android development, always prioritizing clean code and scalable design patterns. Currently, I am seeking an internship where I can contribute my skills to real-world challenges while evolving as a professional engineer.
+                        I specialize in full-stack web architectures and Android development, always prioritizing clean code and scalable design patterns. I am currently gaining industry experience as a Full Stack Developer Intern at SLT-MOBITEL and remain open to new opportunities and collaborations.
                       </p>
                     </div>
                   </div>

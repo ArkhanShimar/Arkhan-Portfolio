@@ -19,7 +19,12 @@ import {
   SiMysql,
   SiCloudinary,
   SiGit,
+  SiJavascript,
+  SiPython,
+  SiRstudioide,
+  SiFastapi,
 } from "react-icons/si";
+import { DiVisualstudio } from "react-icons/di";
 import { TbBrandCSharp } from "react-icons/tb";
 import { VscVscode } from "react-icons/vsc";
 import { FaJava } from "react-icons/fa";
@@ -27,8 +32,12 @@ import { FaJava } from "react-icons/fa";
 const technicalSkills = [
   { name: "Next.js", icon: SiNextdotjs, color: "text-green-500" },
   { name: "React / Native", icon: SiReact, color: "text-green-500" },
+  { name: "JavaScript", icon: SiJavascript, color: "text-green-500" },
   { name: "TypeScript", icon: SiTypescript, color: "text-green-500" },
+  { name: "Python", icon: SiPython, color: "text-green-500" },
+  { name: "R", icon: SiRstudioide, color: "text-green-500" },
   { name: "Node.js / Express", icon: SiNodedotjs, color: "text-green-500" },
+  { name: "REST APIs", icon: SiFastapi, color: "text-green-500" },
   { name: "Java (Android)", icon: FaJava, color: "text-green-500" },
   { name: "PHP / .NET", icon: SiPhp, color: "text-green-500" },
   { name: "C#", icon: TbBrandCSharp, color: "text-green-500" },
@@ -55,6 +64,7 @@ const tools = [
   { icon: SiAndroidstudio, name: "Android Studio" },
   { icon: SiGit, name: "Git" },
   { icon: VscVscode, name: "VS Code" },
+  { icon: DiVisualstudio, name: "Visual Studio" },
   { icon: SiDocker, name: "Docker" },
   { icon: SiFigma, name: "Figma" },
   { icon: SiPostman, name: "Postman" },

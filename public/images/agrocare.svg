@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">AgroCare project cover</title>
+  <desc id="desc">Plant leaf and machine learning interface.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="1" x2="1"><stop stop-color="#020604"/><stop offset="1" stop-color="#0b2012"/></linearGradient></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="280" cy="338" r="260" fill="#22c55e" fill-opacity=".08"/>
+  <path d="M166 448c18-188 144-300 346-292-4 196-104 326-346 292Z" fill="#22c55e" fill-opacity=".16" stroke="#22c55e" stroke-width="5"/>
+  <path d="M188 426c90-48 168-111 252-211M292 351l-13-92M359 297l92 12" fill="none" stroke="#4ade80" stroke-opacity=".75" stroke-width="8" stroke-linecap="round"/>
+  <rect x="575" y="110" width="500" height="455" rx="32" fill="#07110b" stroke="#22c55e" stroke-opacity=".35" stroke-width="3"/>
+  <text x="625" y="178" fill="#22c55e" font-family="Arial" font-size="22" font-weight="700" letter-spacing="4">AGROCARE AI</text>
+  <text x="625" y="237" fill="#fff" font-family="Arial" font-size="42" font-weight="800">Plant Intelligence</text>
+  <rect x="625" y="285" width="400" height="76" rx="18" fill="#0d1d13"/><circle cx="668" cy="323" r="16" fill="#22c55e"/>
+  <text x="704" y="331" fill="#d1fae5" font-family="Arial" font-size="20">Disease Detection</text>
+  <rect x="625" y="383" width="400" height="76" rx="18" fill="#0d1d13"/>
+  <path d="M650 425l14-14 13 10 19-25" fill="none" stroke="#22c55e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="720" y="429" fill="#d1fae5" font-family="Arial" font-size="20">Growth Prediction</text>
+  <text x="625" y="515" fill="#64748b" font-family="Arial" font-size="17" letter-spacing="2">CNN + REGRESSION MODELS</text>
+</svg>

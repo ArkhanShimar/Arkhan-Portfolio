@@ -18,9 +18,9 @@ const firaCode = Fira_Code({
   display: "swap",
 });
 
-const title = "Arkhan Shimar | Software Engineering Undergraduate";
+const title = "Arkhan Shimar | Software Engineer";
 const description =
-  "Portfolio of Arkhan Shimar, a software engineering undergraduate skilled in full-stack web and Android development.";
+  "Portfolio of Arkhan Shimar, a software engineer and Computer Science undergraduate experienced in full-stack web, mobile, and software development.";
 const url = "https://arkhan-portfolio.vercel.app";
 
 export const metadata: Metadata = {
